@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>jaynish.shah22 &#8211; Jaynish Shah</title>
+	<atom:link href="/author/jaynish-shah22/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Product Designer, Design Systems</description>
+	<lastBuildDate>Mon, 23 Jun 2025 23:43:38 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9</generator>
+
+<image>
+	<url>/wp-content/uploads/2024/05/cropped-Command-Space-Logo-32x32.png</url>
+	<title>jaynish.shah22 &#8211; Jaynish Shah</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Component API : For Designers</title>
+		<link>/blog/component-api-for-designers/</link>
+		
+		<dc:creator><![CDATA[jaynish.shah22]]></dc:creator>
+		<pubDate>Sun, 22 Jun 2025 23:42:24 +0000</pubDate>
+				<category><![CDATA[Blog]]></category>
+		<category><![CDATA[design system]]></category>
+		<guid isPermaLink="false">/?p=726</guid>
+
+					<description><![CDATA[Building components for the design system is often seen as a visual task—creating variants in Figma and calling it a day. However, it is not just that. What we, as design system practitioners, are really doing is architecting the way our colleagues will use the components to build consistent, scalable UI across products. This is [&#8230;]]]></description>
+										<content:encoded><![CDATA[
+<p></p>
+
+
+
+<p>Building components for the design system is often seen as a visual task—creating variants in Figma and calling it a day. However, it is not just that. What we, as design system practitioners, are really doing is architecting the way our colleagues will use the components to build consistent, scalable UI across products.</p>
+
+
+
+<p>This is where <strong>component APIs</strong> come in: a shared group of controls between designers and developers that allow to fine tune a component’s behaviour, usage, and flexibility.</p>
+
+
+
+<p>Figma exposes a subset of this (via properties and variants). However, many important decisions live beyond Figma. This article maps out the major <strong>API property buckets</strong> that influence component behaviour, and clarifies how designers can contribute meaningfully to them.</p>
+
+
+
+<h2 class="wp-block-heading">API Property Buckets</h2>
+
+
+
+<p>Each of the following categories help define how a component is structured, how it behaves, and how it can be adapted across use cases.</p>
+
+
+
+<h3 class="wp-block-heading">Event Handlers</h3>
+
+
+
+<p>These are properties that define how a component reacts to user-triggered events such as clicks or form submissions.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e64d5&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e64d5" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img fetchpriority="high" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/1-Event-Handlers.jpeg" alt="" class="has-border-color wp-image-779" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/1-Event-Handlers.jpeg 3840w, /wp-content/uploads/2025/06/1-Event-Handlers-300x169.jpeg 300w, /wp-content/uploads/2025/06/1-Event-Handlers-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/1-Event-Handlers-768x432.jpeg 768w, /wp-content/uploads/2025/06/1-Event-Handlers-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/1-Event-Handlers-2048x1152.jpeg 2048w" sizes="(max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer’s Role:</strong> Identify key trigger points. What elements perform actions? Where do they take the user next? Annotate interactions clearly in design handoff and flows.</p>
+
+
+
+<h3 class="wp-block-heading">State Management</h3>
+
+
+
+<p>Defines the current condition of a component—whether it’s loading, open, disabled, etc.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e6a0d&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e6a0d" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/2-State-Management.jpeg" alt="" class="has-border-color wp-image-778" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/2-State-Management.jpeg 3840w, /wp-content/uploads/2025/06/2-State-Management-300x169.jpeg 300w, /wp-content/uploads/2025/06/2-State-Management-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/2-State-Management-768x432.jpeg 768w, /wp-content/uploads/2025/06/2-State-Management-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/2-State-Management-2048x1152.jpeg 2048w" sizes="(max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer&#8217;s Role:</strong> Identify and design different states of a component. Collaborate with developers to understand edge cases, if any, that need to be accommodated. Best to use similar terminology for the states in the design tool.</p>
+
+
+
+<h3 class="wp-block-heading">Interaction Controls</h3>
+
+
+
+<p>Configures how a component responds to user behavior or system-level triggers. These influence—but are not states themselves.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e6f9d&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e6f9d" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/3-Interaction-Controls.jpeg" alt="" class="has-border-color wp-image-777" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/3-Interaction-Controls.jpeg 3840w, /wp-content/uploads/2025/06/3-Interaction-Controls-300x169.jpeg 300w, /wp-content/uploads/2025/06/3-Interaction-Controls-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/3-Interaction-Controls-768x432.jpeg 768w, /wp-content/uploads/2025/06/3-Interaction-Controls-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/3-Interaction-Controls-2048x1152.jpeg 2048w" sizes="(max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer’s Role:</strong> These properties may or may not exist in Figma’s component properties panel. But make sure you account for all the ways in which users can interact with the component.</p>
+
+
+
+<h3 class="wp-block-heading">Accessibility</h3>
+
+
+
+<p>These properties improve a component’s usability for assistive technologies.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e747f&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e747f" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/4-Accessibility.jpeg" alt="" class="has-border-color wp-image-776" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/4-Accessibility.jpeg 3840w, /wp-content/uploads/2025/06/4-Accessibility-300x169.jpeg 300w, /wp-content/uploads/2025/06/4-Accessibility-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/4-Accessibility-768x432.jpeg 768w, /wp-content/uploads/2025/06/4-Accessibility-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/4-Accessibility-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer&#8217;s Role:</strong> Use semantic structure and ensure contrast, focus indicators, and keyboard accessibility are covered. Document recommended ARIA attributes and mention them explicitly in component specs.</p>
+
+
+
+<h3 class="wp-block-heading">Styling</h3>
+
+
+
+<p>Defines visual appearance and layout control.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e793f&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e793f" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/5-Styling.jpeg" alt="" class="has-border-color wp-image-775" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/5-Styling.jpeg 3840w, /wp-content/uploads/2025/06/5-Styling-300x169.jpeg 300w, /wp-content/uploads/2025/06/5-Styling-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/5-Styling-768x432.jpeg 768w, /wp-content/uploads/2025/06/5-Styling-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/5-Styling-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designers Role:</strong> Define and standardise values for style-related props using tokens. Ensure consistency across variants. These typically align well with Figma’s properties and token-based systems.</p>
+
+
+
+<h3 class="wp-block-heading">Modifiers</h3>
+
+
+
+<p>Affects visibility, structure, or composition—typically toggling the presence or layout of parts of a component.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e7db1&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e7db1" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/6-Modifiers.jpeg" alt="" class="has-border-color wp-image-774" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/6-Modifiers.jpeg 3840w, /wp-content/uploads/2025/06/6-Modifiers-300x169.jpeg 300w, /wp-content/uploads/2025/06/6-Modifiers-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/6-Modifiers-768x432.jpeg 768w, /wp-content/uploads/2025/06/6-Modifiers-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/6-Modifiers-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designers Role:</strong> Call out which elements are optional and which are required. Use variants or Boolean properties in Figma when applicable.</p>
+
+
+
+<h3 class="wp-block-heading">Slot</h3>
+
+
+
+<p>Custom content regions within a component where users can inject additional elements.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e8227&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e8227" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/7-Slot.jpeg" alt="" class="has-border-color wp-image-773" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/7-Slot.jpeg 3840w, /wp-content/uploads/2025/06/7-Slot-300x169.jpeg 300w, /wp-content/uploads/2025/06/7-Slot-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/7-Slot-768x432.jpeg 768w, /wp-content/uploads/2025/06/7-Slot-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/7-Slot-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer’s Role:</strong> Define these as flexible zones. Annotate what kind of content each slot can accept—text, buttons, icons, nested components, etc. Provide usage guidance in docs or examples.</p>
+
+
+
+<h3 class="wp-block-heading">Content</h3>
+
+
+
+<p>Static, mostly text-based, content inputs that fill component fields.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e86b6&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e86b6" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/8-Content.jpeg" alt="" class="has-border-color wp-image-772" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/8-Content.jpeg 3840w, /wp-content/uploads/2025/06/8-Content-300x169.jpeg 300w, /wp-content/uploads/2025/06/8-Content-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/8-Content-768x432.jpeg 768w, /wp-content/uploads/2025/06/8-Content-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/8-Content-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer’s Role:</strong> Populate these in mocks with realistic values. Document default content vs. what’s supplied by product designers. Define tone, length, and localisation needs if applicable.</p>
+
+
+
+<h3 class="wp-block-heading">Value Props</h3>
+
+
+
+<p>Carries data or input values—dynamic or user-generated.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e8b28&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e8b28" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/9-Value-Props.jpeg" alt="" class="has-border-color wp-image-771" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/9-Value-Props.jpeg 3840w, /wp-content/uploads/2025/06/9-Value-Props-300x169.jpeg 300w, /wp-content/uploads/2025/06/9-Value-Props-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/9-Value-Props-768x432.jpeg 768w, /wp-content/uploads/2025/06/9-Value-Props-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/9-Value-Props-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer’s Role:</strong> Define expected data formats or limits. For interactive components, show examples of selected and unselected states. Collaborate with devs on how changes are surfaced in the UI.</p>
+
+
+
+<h3 class="wp-block-heading">Component-Specific</h3>
+
+
+
+<p>Unique properties relevant only to specific components due to their functionality or domain logic.</p>
+
+
+
+<figure data-wp-context="{&quot;imageId&quot;:&quot;6942db17e9059&quot;}" data-wp-interactive="core/image" data-wp-key="6942db17e9059" class="wp-block-image alignwide size-full has-custom-border wp-lightbox-container"><img loading="lazy" decoding="async" width="3840" height="2160" data-wp-class--hide="state.isContentHidden" data-wp-class--show="state.isContentVisible" data-wp-init="callbacks.setButtonStyles" data-wp-on--click="actions.showLightbox" data-wp-on--load="callbacks.setButtonStyles" data-wp-on-window--resize="callbacks.setButtonStyles" src="/wp-content/uploads/2025/06/10-Component-specific-1.jpeg" alt="" class="has-border-color wp-image-782" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2025/06/10-Component-specific-1.jpeg 3840w, /wp-content/uploads/2025/06/10-Component-specific-1-300x169.jpeg 300w, /wp-content/uploads/2025/06/10-Component-specific-1-1024x576.jpeg 1024w, /wp-content/uploads/2025/06/10-Component-specific-1-768x432.jpeg 768w, /wp-content/uploads/2025/06/10-Component-specific-1-1536x864.jpeg 1536w, /wp-content/uploads/2025/06/10-Component-specific-1-2048x1152.jpeg 2048w" sizes="auto, (max-width: 3840px) 100vw, 3840px" /><button
+			class="lightbox-trigger"
+			type="button"
+			aria-haspopup="dialog"
+			aria-label="Enlarge"
+			data-wp-init="callbacks.initTriggerButton"
+			data-wp-on--click="actions.showLightbox"
+			data-wp-style--right="state.imageButtonRight"
+			data-wp-style--top="state.imageButtonTop"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
+			</svg>
+		</button></figure>
+
+
+
+<p><strong>Designer’s Role:</strong> Collaborate early with devs to uncover hidden complexity. These often reflect product logic or edge use cases. Make sure these props are documented alongside usage scenarios or design intent.</p>
+
+
+
+<h2 class="wp-block-heading">Conclusion</h2>
+
+
+
+<p>A clear component API isn’t just for devs. It:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Sets expectations for how components should behave</li>
+
+
+
+<li>Improves cross-functional collaboration</li>
+
+
+
+<li>Reduces ambiguity in handoff</li>
+
+
+
+<li>Enables better governance and contribution consistency</li>
+</ol>
+
+
+
+<p>The more fluently we, as designers, speak the language of component APIs, the more scalable and resilient our systems become.</p>
+
+
+
+<p>Use these buckets to guide your component documentation and specs.</p>
+
+
+
+<p>Treat this as a shared language, not just a checklist.</p>
+
+
+
+<p></p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>SWATCH</title>
+		<link>/case-study/swatch/</link>
+		
+		<dc:creator><![CDATA[jaynish.shah22]]></dc:creator>
+		<pubDate>Wed, 17 Jul 2024 18:21:54 +0000</pubDate>
+				<category><![CDATA[Case Study]]></category>
+		<category><![CDATA[design system]]></category>
+		<guid isPermaLink="false">/?p=625</guid>
+
+					<description><![CDATA[Building Nykaa's design system]]></description>
+										<content:encoded><![CDATA[
+<p style="padding-bottom:var(--wp--preset--spacing--40)">SWATCH is <a href="https://www.nykaa.com" data-type="link" data-id="https://www.nykaa.com">Nykaa’s</a> multi-brand design system. It’s built from ground up to bring consistency and efficiency at scale in front-end development across business verticals. Earlier existing as a style guide, I led the initiative of building it into a thriving design system.</p>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-bottom:var(--wp--preset--spacing--40)">
+<h2 class="wp-block-heading is-style-asterisk">How it started</h2>
+
+
+
+<p>Previously, there wasn’t a dedicated team working on a design system. Usage guidelines for foundations were in place to help designers. The guidelines also stated UI components, their variants and their suggested usage.</p>
+
+
+
+<figure class="wp-block-image size-full has-custom-border is-style-default"><img loading="lazy" decoding="async" width="2400" height="1098" src="/wp-content/uploads/2024/07/001-guidelines.png" alt="" class="has-border-color wp-image-633" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2024/07/001-guidelines.png 2400w, /wp-content/uploads/2024/07/001-guidelines-300x137.png 300w, /wp-content/uploads/2024/07/001-guidelines-1024x468.png 1024w, /wp-content/uploads/2024/07/001-guidelines-768x351.png 768w, /wp-content/uploads/2024/07/001-guidelines-1536x703.png 1536w, /wp-content/uploads/2024/07/001-guidelines-2048x937.png 2048w" sizes="auto, (max-width: 2400px) 100vw, 2400px" /><figcaption class="wp-element-caption">Life before SWATCH</figcaption></figure>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-64699dc1 wp-block-group-is-layout-constrained" style="padding-bottom:var(--wp--preset--spacing--40)">
+<h2 class="wp-block-heading is-style-asterisk">What we wanted to solve with SWATCH</h2>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-346627ba wp-block-group-is-layout-constrained">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-d0b3c9c8 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="--col-width:10%;flex-basis:10%">
+<figure class="wp-block-image size-full is-resized has-custom-border"><img loading="lazy" decoding="async" width="240" height="240" src="/wp-content/uploads/2024/07/002-flexibility.jpg" alt="" class="has-border-color wp-image-637" style="border-color:#adb5bd;border-width:1px;border-radius:12px;object-fit:cover;width:72px;height:72px" srcset="/wp-content/uploads/2024/07/002-flexibility.jpg 240w, /wp-content/uploads/2024/07/002-flexibility-150x150.jpg 150w" sizes="auto, (max-width: 240px) 100vw, 240px" /></figure>
+</div>
+
+
+
+<div style="--col-width:;" class="wp-block-column is-layout-flow wp-container-core-column-is-layout-8a368f38 wp-block-column-is-layout-flow">
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Flexibility</h4>
+
+
+
+<p>Make SWATCH a breathing system that gives designers and developers flexibility to experiment but not at the cost of usability.</p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-d0b3c9c8 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="--col-width:10%;flex-basis:10%">
+<figure class="wp-block-image size-full is-resized has-custom-border"><img loading="lazy" decoding="async" width="240" height="240" src="/wp-content/uploads/2024/07/002-scalability.jpg" alt="" class="has-border-color wp-image-638" style="border-color:#adb5bd;border-width:1px;border-radius:12px;object-fit:cover;width:72px;height:72px" srcset="/wp-content/uploads/2024/07/002-scalability.jpg 240w, /wp-content/uploads/2024/07/002-scalability-150x150.jpg 150w" sizes="auto, (max-width: 240px) 100vw, 240px" /></figure>
+</div>
+
+
+
+<div style="--col-width:;" class="wp-block-column is-layout-flow wp-container-core-column-is-layout-8a368f38 wp-block-column-is-layout-flow">
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Scalability</h4>
+
+
+
+<p>Enable teams to build for newer business verticals easily and ensure consistency across the portfolio.</p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-d0b3c9c8 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="--col-width:10%;flex-basis:10%">
+<figure class="wp-block-image size-full is-resized has-custom-border"><img loading="lazy" decoding="async" width="240" height="240" src="/wp-content/uploads/2024/07/002-promote-contribution.jpg" alt="" class="has-border-color wp-image-643" style="border-color:#adb5bd;border-width:1px;border-radius:12px;object-fit:cover;width:72px;height:72px" srcset="/wp-content/uploads/2024/07/002-promote-contribution.jpg 240w, /wp-content/uploads/2024/07/002-promote-contribution-150x150.jpg 150w" sizes="auto, (max-width: 240px) 100vw, 240px" /></figure>
+</div>
+
+
+
+<div style="--col-width:;" class="wp-block-column is-layout-flow wp-container-core-column-is-layout-8a368f38 wp-block-column-is-layout-flow">
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Promote contribution</h4>
+
+
+
+<p>By putting the right protocols in place, encourage others to contribute towards the design system.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-92b9201d wp-block-group-is-layout-constrained">
+<h2 class="wp-block-heading is-style-asterisk">Building the foundations</h2>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-92b9201d wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+<figure class="wp-block-image size-full is-resized has-custom-border"><img loading="lazy" decoding="async" width="366" height="382" src="/wp-content/uploads/2024/07/003-token-architecture.png" alt="" class="wp-image-645" style="border-style:none;border-width:0px;object-fit:contain;width:110px;height:110px" srcset="/wp-content/uploads/2024/07/003-token-architecture.png 366w, /wp-content/uploads/2024/07/003-token-architecture-287x300.png 287w" sizes="auto, (max-width: 366px) 100vw, 366px" /></figure>
+
+
+
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Token architecture</h4>
+
+
+
+<p>We followed global industry standards in defining our token architecture, and created a structure that can be consumed easily by designers as well as developers. This meant coming up with correct naming conventions, and defining guidelines towards usage of tokens.<br><br>Why was this important? Glad you asked.<br><br>Theming. </p>
+
+
+
+<p>Having abstraction layers allowed for theming that was relevant for any given business.</p>
+
+
+
+<figure class="wp-block-image alignwide size-full has-custom-border"><img loading="lazy" decoding="async" width="2560" height="1440" src="/wp-content/uploads/2024/07/005-theming-tokens-scaled.jpg" alt="" class="has-border-color wp-image-653" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2024/07/005-theming-tokens-scaled.jpg 2560w, /wp-content/uploads/2024/07/005-theming-tokens-300x169.jpg 300w, /wp-content/uploads/2024/07/005-theming-tokens-1024x576.jpg 1024w, /wp-content/uploads/2024/07/005-theming-tokens-768x432.jpg 768w, /wp-content/uploads/2024/07/005-theming-tokens-1536x864.jpg 1536w, /wp-content/uploads/2024/07/005-theming-tokens-2048x1152.jpg 2048w" sizes="auto, (max-width: 2560px) 100vw, 2560px" /></figure>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-a73da5c6 wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--20)">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-c19476fc wp-block-group-is-layout-constrained">
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Result?</h4>
+
+
+
+<p>Having a token architecture resulted in giving enough knobs for designers to tweak the visual look of a brand while ensuring consistency and ease of building for frontend developers.</p>
+</div>
+
+
+
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" decoding="async" width="1654" height="979" src="/wp-content/uploads/2024/07/006-token-architecture-output.jpg" alt="" class="has-border-color wp-image-658" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2024/07/006-token-architecture-output.jpg 1654w, /wp-content/uploads/2024/07/006-token-architecture-output-300x178.jpg 300w, /wp-content/uploads/2024/07/006-token-architecture-output-1024x606.jpg 1024w, /wp-content/uploads/2024/07/006-token-architecture-output-768x455.jpg 768w, /wp-content/uploads/2024/07/006-token-architecture-output-1536x909.jpg 1536w" sizes="auto, (max-width: 1654px) 100vw, 1654px" /></figure>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-92b9201d wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-d272793b wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--40)">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex">
+<figure class="wp-block-image size-full is-resized has-custom-border"><img loading="lazy" decoding="async" width="323" height="354" src="/wp-content/uploads/2024/07/003-component-library.png" alt="" class="wp-image-646" style="border-style:none;border-width:0px;object-fit:contain;width:110px;height:110px" srcset="/wp-content/uploads/2024/07/003-component-library.png 323w, /wp-content/uploads/2024/07/003-component-library-274x300.png 274w" sizes="auto, (max-width: 323px) 100vw, 323px" /></figure>
+
+
+
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Component Library</h4>
+
+
+
+<p>Component library became a shared asset collection between designers and developers. The developed version of the library was hosted on Storybook. In most cases, we made sure that there was parity in component naming and properties between Figma and code.</p>
+</div>
+
+
+
+<figure class="wp-block-image size-full has-custom-border is-style-rounded is-style-rounded--1"><img loading="lazy" decoding="async" width="1920" height="802" src="/wp-content/uploads/2024/07/007-component-library.jpg" alt="" class="has-border-color wp-image-660" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2024/07/007-component-library.jpg 1920w, /wp-content/uploads/2024/07/007-component-library-300x125.jpg 300w, /wp-content/uploads/2024/07/007-component-library-1024x428.jpg 1024w, /wp-content/uploads/2024/07/007-component-library-768x321.jpg 768w, /wp-content/uploads/2024/07/007-component-library-1536x642.jpg 1536w" sizes="auto, (max-width: 1920px) 100vw, 1920px" /></figure>
+</div>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-92b9201d wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-d272793b wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--40)">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex">
+<figure class="wp-block-image size-full is-resized has-custom-border"><img loading="lazy" decoding="async" width="320" height="321" src="/wp-content/uploads/2024/07/003-governance.png" alt="" class="wp-image-647" style="border-style:none;border-width:0px;object-fit:contain;width:110px;height:110px" srcset="/wp-content/uploads/2024/07/003-governance.png 320w, /wp-content/uploads/2024/07/003-governance-300x300.png 300w, /wp-content/uploads/2024/07/003-governance-150x150.png 150w" sizes="auto, (max-width: 320px) 100vw, 320px" /></figure>
+
+
+
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Governance</h4>
+
+
+
+<p>What started off as a pet project quickly became one of the most discussed projects in the org. Designers and developers became excited to leverage the design system due to the promise of time saved and consistency it could bring not just to the UI but also to their workflows. However, just like handing over the best ingredients doesn&#8217;t make one a great cook, we needed to create governance protocols to ensure the audience used the design system as intended and also helped in growing it.</p>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-fc503022 wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
+<h5 class="wp-block-heading" style="font-size:clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.625), 1.5rem);font-style:normal;font-weight:300;letter-spacing:0.35px"><strong>Contribution model</strong></h5>
+
+
+
+<figure class="wp-block-image size-full has-custom-border"><img loading="lazy" decoding="async" width="1513" height="823" src="/wp-content/uploads/2024/07/008-contribution-model.jpg" alt="" class="has-border-color wp-image-663" style="border-color:#adb5bd;border-width:1px;border-radius:16px" srcset="/wp-content/uploads/2024/07/008-contribution-model.jpg 1513w, /wp-content/uploads/2024/07/008-contribution-model-300x163.jpg 300w, /wp-content/uploads/2024/07/008-contribution-model-1024x557.jpg 1024w, /wp-content/uploads/2024/07/008-contribution-model-768x418.jpg 768w" sizes="auto, (max-width: 1513px) 100vw, 1513px" /></figure>
+
+
+
+<p>We felt that a design system is a living and breathing document that only becomes better with active feedback and contribution from the people using it. To achieve that, we created a workflow for fellow designers to contribute to the design system.</p>
+</div>
+
+
+
+<div class="wp-block-group alignwide has-global-padding is-layout-constrained wp-container-core-group-is-layout-fc503022 wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
+<h5 class="wp-block-heading" style="font-size:clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.625), 1.5rem);font-style:normal;font-weight:300;letter-spacing:0.35px"><strong>Other activities</strong></h5>
+
+
+
+<p>Design system is an ongoing project that couldn’t be built in silos. In order to ensure that the work we did was noticed and communicated to people, we did multiple things.</p>
+
+
+
+<figure class="wp-block-image alignwide size-full has-custom-border"><img loading="lazy" decoding="async" width="1728" height="560" src="/wp-content/uploads/2024/07/009-other-activities-governance.png" alt="" class="wp-image-667" style="border-style:none;border-width:0px;border-radius:0px" srcset="/wp-content/uploads/2024/07/009-other-activities-governance.png 1728w, /wp-content/uploads/2024/07/009-other-activities-governance-300x97.png 300w, /wp-content/uploads/2024/07/009-other-activities-governance-1024x332.png 1024w, /wp-content/uploads/2024/07/009-other-activities-governance-768x249.png 768w, /wp-content/uploads/2024/07/009-other-activities-governance-1536x498.png 1536w" sizes="auto, (max-width: 1728px) 100vw, 1728px" /></figure>
+
+
+
+<p><strong>Workshops and presentations</strong> were conducted with the design teams as well as product and development stakeholders to evangelize adoption of design systems.</p>
+
+
+
+<p><strong>Slack channels</strong> were leveraged to communicate design system updates with the team. A dedicated support channel was used for everyone to share feedback and discuss everything design systems</p>
+
+
+
+<p><strong>Video tutorials</strong> on platforms such as Loom acted as a great communication tool to asynchronously share tutorials and walkthroughs.</p>
+
+
+
+<p>Component libraries alone don&#8217;t make up the design system. We worked closely with developers to translate Figma components into interactive artefacts that real users are going to engage with. I headed the roadmap for the design system, built usage as well as documentation for component anatomy and props. Rigorous QA tests were also conducted to ensure there are no gaps between design and code. </p>
+</div>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-c19476fc wp-block-group-is-layout-constrained">
+<h4 class="wp-block-heading" style="font-style:normal;font-weight:300">Conclusion</h4>
+
+
+
+<p>This is just the beginning. In my tenure, I set up processes and built the first edition of the component library. Demonstrating the system as working and delivering value helped it gain more adoption. This continues to be an ongoing exercise, and an iterative one at that. Depending on what brings most value to the system&#8217;s consumers, and eventually the end-users, the system should continue to evolve to meet these needs.</p>
+</div>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>From generalist to specialist</title>
+		<link>/blog/from-generalist-to-specialist/</link>
+		
+		<dc:creator><![CDATA[jaynish.shah22]]></dc:creator>
+		<pubDate>Sun, 30 Jun 2024 23:09:00 +0000</pubDate>
+				<category><![CDATA[Blog]]></category>
+		<category><![CDATA[product design]]></category>
+		<guid isPermaLink="false">/?p=1</guid>
+
+					<description><![CDATA[2 years back, I wrote a newsletter titled ‘Be a generalist’. &#8220;In a world full of specialists, be a generalist. Be the person who can create just about anything, solve just about any problem, or if not, know someone who they can work with to solve the problem. It’s liberating.&#8221; Read the newsletter This still [&#8230;]]]></description>
+										<content:encoded><![CDATA[
+<p></p>
+
+
+
+<p>2 years back, I wrote a newsletter titled ‘Be a generalist’.</p>
+
+
+
+<blockquote class="wp-block-quote is-style-default is-layout-flow wp-block-quote-is-layout-flow">
+<p>&#8220;In a world full of specialists, be a generalist. Be the person who can create just about anything, solve just about any problem, or if not, know someone who they can work with to solve the problem. It’s liberating.&#8221;</p>
+<cite><a href="https://hyperlink.substack.com/p/31-be-a-generalist?r=2wtcs">Read the newsletter</a></cite></blockquote>
+
+
+
+<p>This still holds.</p>
+
+
+
+<figure class="wp-block-image size-large has-custom-border"><img loading="lazy" decoding="async" width="1024" height="768" src="/wp-content/uploads/2024/05/Domus-Academy-1024x768.jpeg" alt="" class="wp-image-587" style="border-style:none;border-width:0px;border-radius:1vh" srcset="/wp-content/uploads/2024/05/Domus-Academy-1024x768.jpeg 1024w, /wp-content/uploads/2024/05/Domus-Academy-300x225.jpeg 300w, /wp-content/uploads/2024/05/Domus-Academy-768x576.jpeg 768w, /wp-content/uploads/2024/05/Domus-Academy.jpeg 1280w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption">I pursued my master&#8217;s degree in interaction design from Domus Academy, Milan.</figcaption></figure>
+
+
+
+<p>It’s been six years since I transitioned from architecture to interaction design. The pivot began with a postgraduate degree in interaction design. The course exposed us to all the possible domains to pursue one’s career. Tinkering with hardware, experimenting with (then) emerging tech such as AR / VR, creative coding etc — we dabbled with them all. After the course, I wanted to work in a space where I could apply these emerging technologies to enhance spatial experiences.</p>
+
+
+
+<p>Easier said than done.</p>
+
+
+
+<h2 class="wp-block-heading" id="diverge">Diverge</h2>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-style:none;border-width:0px;border-radius:1vh">
+<figure class="wp-block-video"><video height="400" style="aspect-ratio: 640 / 400;" width="640" autoplay loop muted src="/wp-content/uploads/2024/05/Animal-Creds.mov" playsinline></video></figure>
+</div>
+
+
+
+<p>I returned to India and joined <a href="https://www.weareanimal.co">Animal</a>, a creative agency based out of India. Being a creative agency, their portfolio comprised visual design, branding, and identity projects. To keep myself relevant to where I was, I did everything it took to move a project forward. Creating illustrations, guidelines, and storyboarding only helped me hone my craft. Whenever website projects came in, it gave me a better edge and helped me approach them holistically. Conventional parts of digital product design took a back seat. I self-taught these with every website project that came my way.</p>
+
+
+
+<figure class="wp-block-image size-large has-custom-border"><img loading="lazy" decoding="async" width="1024" height="666" src="/wp-content/uploads/2023/07/veu-homepage-1024x666.jpeg" alt="" class="wp-image-612" style="border-style:none;border-width:0px;border-radius:1vh" srcset="/wp-content/uploads/2023/07/veu-homepage-1024x666.jpeg 1024w, /wp-content/uploads/2023/07/veu-homepage-300x195.jpeg 300w, /wp-content/uploads/2023/07/veu-homepage-768x499.jpeg 768w, /wp-content/uploads/2023/07/veu-homepage-1536x998.jpeg 1536w, /wp-content/uploads/2023/07/veu-homepage-2048x1331.jpeg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption">Veu was a platform to hire photographers for various occasions.</figcaption></figure>
+
+
+
+<p>We also built a digital product from scratch. Veu was a platform for hiring photographers for various occasions. Building a digital product was uncharted waters for everyone on the team. However, we pushed through. The product didn’t kick off. We lacked a product-market fit. We didn’t iterate enough on our marketing strategy. We shipped slowly. We didn’t have a roadmap.</p>
+
+
+
+<p>However, we tried.</p>
+
+
+
+<p>When imposter syndrome hit, I resorted to learning to code. I’d heard that designers should know to code. I started Command Space, an Instagram page where I posted my experiments with processing, P5js and TouchDesigner.</p>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-style:none;border-width:0px;border-radius:1vh">
+<figure class="wp-block-video"><video height="584" style="aspect-ratio: 1278 / 584;" width="1278" autoplay loop muted src="/wp-content/uploads/2024/06/Command-space-creds-converted.mp4" playsinline></video></figure>
+</div>
+
+
+
+<p>I share this because I believe that had I stuck to my conventional thoughts of what I should’ve been doing just because of my title or role, I wouldn’t have known what else I could be good at. I am glad that I got to diverge and stretch my skills across multiple mediums in the starting years. Exposing myself to various parts of a design process helped me identify the parts I enjoyed the most.</p>
+
+
+
+<p>I knew I wanted to grow further into digital product design. It needed to be a place where my work directly impacts business metrics. A place where we ask deeper product questions and seek answers through intense research.</p>
+
+
+
+<h2 class="wp-block-heading" id="converge">Converge</h2>
+
+
+
+<p>This led me to join&nbsp;<a href="https://www.nykaa.com/">Nykaa</a>, India’s largest lifestyle e-commerce company. Here I worked on research projects that helped us improve the after-purchase experience. The help center redesign was a direct initiative that stemmed from this research.</p>
+
+
+
+<figure class="wp-block-image size-large is-resized has-custom-border"><img loading="lazy" decoding="async" width="1024" height="683" src="/wp-content/uploads/2024/06/nykaa-help-center-1024x683.jpg" alt="" class="wp-image-623" style="border-style:none;border-width:0px;border-radius:1vh;width:720px;height:auto" srcset="/wp-content/uploads/2024/06/nykaa-help-center-1024x683.jpg 1024w, /wp-content/uploads/2024/06/nykaa-help-center-300x200.jpg 300w, /wp-content/uploads/2024/06/nykaa-help-center-768x512.jpg 768w, /wp-content/uploads/2024/06/nykaa-help-center.jpg 1380w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption">Nykaa&#8217;s help center redesign</figcaption></figure>
+
+
+
+<p>Besides the above, the role allowed me to shine in a niche but essential pillar of the product design process  — design systems.</p>
+
+
+
+<p>Design systems are exciting. They’re about building products at scale. They streamline the tedious parts of the design process, thus freeing product designers to do what they do best — solving problems by crafting great experiences. I had the privilege of working on the design system at Nykaa. I maintained UI libraries and built governance models to enable successful contribution and feedback loops so that the design system continues to be living and breathing, shapeshifting as and when the needs of its consumers change.</p>
+
+
+
+<figure class="wp-block-image size-large is-resized has-custom-border"><img loading="lazy" decoding="async" width="1024" height="576" src="/wp-content/uploads/2023/07/nykaa-design-system-1024x576.jpg" alt="" class="wp-image-26" style="border-style:none;border-width:0px;border-radius:1vh;width:720px;height:auto" srcset="/wp-content/uploads/2023/07/nykaa-design-system-1024x576.jpg 1024w, /wp-content/uploads/2023/07/nykaa-design-system-300x169.jpg 300w, /wp-content/uploads/2023/07/nykaa-design-system-768x432.jpg 768w, /wp-content/uploads/2023/07/nykaa-design-system-1536x864.jpg 1536w, /wp-content/uploads/2023/07/nykaa-design-system.jpg 1920w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption">SWATCH is Nykaa&#8217;s multi-brand design system</figcaption></figure>
+
+
+
+<p>Working on the design system at Nykaa was the ‘eureka’ moment. This was when I realized that I needed to dive deeper into this. I enjoy working on things that help others work better. And this drive continues to remain relevant. Today, I am building the design system for TM1 – Ticketmaster’s Enterprise product. It completes my transition from ‘generalist’ to ‘specialist’.</p>
+
+
+
+<h2 class="wp-block-heading">Closing thoughts</h2>
+
+
+
+<p>As I started this article by quoting myself about being a generalist, I want to share why I feel it still holds true. It took a few years of being a generalist to identify what I enjoyed working on the most. Had I not done that, I probably would’ve given up too easily and gotten back to architecture. Having said that, this needn’t be a one-size-fits-all approach to their career. I’d love to know some of your design career trajectories.</p>
+
+
+
+<h2 class="wp-block-heading">Let’s talk</h2>
+
+
+
+<p>I plan to continue working within the design systems domain. There’s a lot to unpack. The space is constantly evolving with new tools and workflows. It’s an infrastructure that any organization will sooner or later need to invest in. I am happy to speak with individuals interested in advancing their careers in design systems or working towards building one at their current company. If you think I can help with this, let’s talk!</p>
+]]></content:encoded>
+					
+		
+		<enclosure url="/wp-content/uploads/2024/05/Animal-Creds.mov" length="4637439" type="video/quicktime" />
+<enclosure url="/wp-content/uploads/2024/06/Command-space-creds-converted.mp4" length="16123042" type="video/mp4" />
+
+			</item>
+	</channel>
+</rss>
