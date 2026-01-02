@@ -1,0 +1,20 @@
+.container {
+  padding: var(--spacing-50) var(--spacing-50);
+}
+
+.content {
+  max-width: var(--wide-size);
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-x-large);
+  margin-bottom: var(--spacing-30);
+}
+
+.caseStudies {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+

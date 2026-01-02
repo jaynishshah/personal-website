@@ -1,0 +1,112 @@
+.container {
+  padding-top: var(--spacing-50);
+}
+
+.featuredImage {
+  margin-bottom: var(--spacing-40);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-contrast-3);
+  border-radius: 16px;
+}
+
+.content {
+  max-width: var(--content-size);
+  margin: 0 auto;
+  padding: 0 var(--spacing-50);
+}
+
+.header {
+  margin-bottom: var(--spacing-40);
+}
+
+.date {
+  font-family: var(--font-family-mv-office);
+  font-size: var(--font-size-small);
+  color: var(--color-contrast-2);
+  display: block;
+  margin-bottom: var(--spacing-10);
+}
+
+.title {
+  font-size: var(--font-size-x-large);
+  margin: 0 0 var(--spacing-10) 0;
+}
+
+.tags {
+  display: flex;
+  gap: var(--spacing-10);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-10);
+}
+
+.tag {
+  font-family: var(--font-family-mv-office);
+  font-size: var(--font-size-small);
+  color: var(--color-contrast-2);
+}
+
+.body {
+  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.208), 1.25rem);
+  line-height: 1.65;
+}
+
+.body :global(h2) {
+  margin-top: var(--spacing-40);
+  margin-bottom: var(--spacing-20);
+}
+
+.body :global(h3) {
+  margin-top: var(--spacing-30);
+  margin-bottom: var(--spacing-10);
+}
+
+.body :global(h4) {
+  margin-top: var(--spacing-20);
+  margin-bottom: var(--spacing-10);
+}
+
+.body :global(p) {
+  margin-bottom: var(--spacing-20);
+}
+
+.body :global(img) {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-contrast-3);
+  border-radius: 16px;
+  margin: var(--spacing-30) 0;
+  max-width: var(--wide-size);
+}
+
+.body :global(p img) {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body :global(figcaption) {
+  margin-top: var(--spacing-10);
+  text-align: center;
+}
+
+.body :global(blockquote) {
+  border-left: 2px solid var(--color-contrast);
+  padding-left: var(--spacing-20);
+  margin: var(--spacing-30) 0;
+  font-style: italic;
+}
+
+.body :global(ul),
+.body :global(ol) {
+  margin: var(--spacing-20) 0;
+  padding-left: var(--spacing-30);
+}
+
+.body :global(li) {
+  margin-bottom: var(--spacing-10);
+}
+

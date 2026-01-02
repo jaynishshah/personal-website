@@ -1,0 +1,75 @@
+.postCard {
+  margin: 0;
+}
+
+.separator {
+  height: 2px;
+  border: none;
+  background-color: var(--color-contrast);
+  margin: var(--spacing-20) 0;
+}
+
+.content {
+  display: flex;
+  gap: var(--spacing-30);
+  padding: var(--spacing-10) 0;
+}
+
+.main {
+  flex: 1;
+}
+
+.title {
+  font-family: var(--font-family-mv-office);
+  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.625), 1.5rem);
+  line-height: 1.1;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.title a {
+  color: var(--color-contrast);
+  text-decoration: none;
+}
+
+.title a:hover {
+  text-decoration: underline;
+}
+
+.excerpt {
+  margin-top: var(--spacing-10);
+  font-size: var(--font-size-medium);
+}
+
+.tags {
+  margin-top: var(--spacing-10);
+  display: flex;
+  gap: var(--spacing-10);
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: var(--font-family-mv-office);
+  font-size: var(--font-size-small);
+  color: var(--color-contrast-2);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 120px;
+}
+
+.date {
+  font-family: var(--font-family-mv-office);
+  font-size: var(--font-size-small);
+  color: var(--color-contrast-2);
+}
+
+@media (max-width: 767px) {
+  .meta {
+    display: none;
+  }
+}
+

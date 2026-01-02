@@ -1,0 +1,352 @@
+/* CSS Variables - Design Tokens */
+:root {
+  /* Colors */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-base: #f8f9fa;
+  --color-base-2: #ffffff;
+  --color-contrast: #121212;
+  --color-contrast-2: #495057;
+  --color-contrast-3: #adb5bd;
+  --color-accent: #cfcabe;
+  --color-accent-2: #c2a990;
+  --color-accent-3: #d8613c;
+  --color-accent-4: #b1c5a4;
+  --color-accent-5: #b5bdbc;
+
+  /* Typography */
+  --font-family-body: "Inter", sans-serif;
+  --font-family-mv-office: "MV Office", sans-serif;
+  --font-family-pt-serif: "PT Serif", serif;
+  --font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+
+  /* Font Sizes */
+  --font-size-small: 0.9rem;
+  --font-size-medium: 1.05rem;
+  --font-size-large: clamp(1.39rem, 1.39rem + ((1vw - 0.2rem) * 0.767), 1.85rem);
+  --font-size-x-large: clamp(1.85rem, 1.85rem + ((1vw - 0.2rem) * 1.083), 2.5rem);
+  --font-size-xx-large: clamp(2.5rem, 2.5rem + ((1vw - 0.2rem) * 1.283), 3.27rem);
+
+  /* Spacing */
+  --spacing-10: 1rem;
+  --spacing-20: min(1.5rem, 2vw);
+  --spacing-30: min(2.5rem, 3vw);
+  --spacing-40: min(4rem, 5vw);
+  --spacing-50: min(6.5rem, 8vw);
+  --spacing-60: min(10.5rem, 13vw);
+  --spacing-70: 3.38rem;
+  --spacing-80: 5.06rem;
+
+  /* Layout */
+  --content-size: 720px;
+  --wide-size: 1280px;
+  --block-gap: 1.2rem;
+
+  /* Shadows */
+  --shadow-natural: 6px 6px 9px rgba(0, 0, 0, 0.2);
+  --shadow-deep: 12px 12px 50px rgba(0, 0, 0, 0.4);
+  --shadow-sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Font Face Definitions */
+@font-face {
+  font-family: "MV Office";
+  src: url("/fonts/MVOffice-Ultralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MV Office";
+  src: url("/fonts/MVOffice-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MV Office";
+  src: url("/fonts/MVOffice-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MV Office";
+  src: url("/fonts/MVOffice-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MV Office";
+  src: url("/fonts/MVOffice-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-contrast);
+  font-family: var(--font-family-pt-serif);
+  font-size: 1.12rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 1.65;
+  margin: 0;
+  padding-left: var(--spacing-50);
+  padding-right: var(--spacing-50);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-contrast);
+  font-family: var(--font-family-mv-office);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.15;
+  margin-block-start: 1.2rem;
+  margin-block-end: 0;
+}
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+  margin-block-start: 0;
+}
+
+h1 {
+  font-size: clamp(1.739rem, 1.739rem + ((1vw - 0.2rem) * 2.085), 2.99rem);
+}
+
+h2 {
+  font-size: clamp(1.492rem, 1.492rem + ((1vw - 0.2rem) * 1.647), 2.48rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 1.25rem + ((1vw - 0.2rem) * 1.25), 2rem);
+}
+
+h4 {
+  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.992), 1.72rem);
+}
+
+h5 {
+  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.525), 1.44rem);
+}
+
+h6 {
+  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.125), 1.2rem);
+}
+
+p {
+  margin-block-start: 1.2rem;
+  margin-block-end: 0;
+}
+
+p:first-child {
+  margin-block-start: 0;
+}
+
+/* Links */
+a:not(.button) {
+  color: var(--color-contrast);
+  text-decoration: underline;
+}
+
+a:not(.button):hover {
+  color: #bb5a3c;
+  text-decoration: none;
+}
+
+p a:not(.button) {
+  color: var(--color-accent-3);
+}
+
+p a:not(.button):hover {
+  color: #a14428;
+}
+
+/* Buttons */
+.button,
+button {
+  background-color: var(--color-contrast);
+  border-radius: 0.33rem;
+  border: 0;
+  color: var(--color-base);
+  cursor: pointer;
+  font-family: var(--font-family-mv-office);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.button:hover,
+button:hover {
+  background-color: var(--color-contrast-2);
+  color: var(--color-base);
+}
+
+.button:focus,
+button:focus {
+  background-color: var(--color-contrast-2);
+  outline: 2px solid var(--color-contrast);
+  outline-offset: 2px;
+}
+
+.button:active,
+button:active {
+  background-color: var(--color-contrast);
+}
+
+.button.outline {
+  background: transparent;
+  border: 2px solid currentColor;
+  color: currentColor;
+  padding: calc(0.6rem - 1px) calc(1rem - 1px);
+}
+
+.button.outline:hover {
+  background-color: var(--color-contrast-3);
+  border-color: var(--color-contrast-3);
+  color: var(--color-base);
+}
+
+/* Layout Utilities */
+.container {
+  max-width: var(--content-size);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-50);
+  padding-right: var(--spacing-50);
+}
+
+.container-wide {
+  max-width: var(--wide-size);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-50);
+  padding-right: var(--spacing-50);
+}
+
+.alignfull {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.alignwide {
+  max-width: var(--wide-size);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.aligncenter {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Navigation */
+nav a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+figure {
+  margin: 0 0 1em;
+}
+
+figcaption {
+  color: var(--color-contrast-2);
+  font-family: var(--font-family-mv-office);
+  font-size: 0.8rem;
+  margin-top: 0.5em;
+}
+
+/* Separator */
+hr {
+  border: none;
+  border-top: 1px solid currentColor;
+  color: var(--color-contrast);
+  margin-block-start: 1.2rem;
+  margin-block-end: 0;
+  width: var(--spacing-60);
+}
+
+/* Focus Styles */
+*:focus {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: var(--color-contrast);
+}
+
+/* Screen Reader Text */
+.screen-reader-text {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+  background-color: #ddd;
+  clip-path: none;
+  color: #444;
+  display: block;
+  font-size: 1em;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+}
+
+/* Responsive Utilities */
+@media (max-width: 767px) {
+  body {
+    padding-left: var(--spacing-20);
+    padding-right: var(--spacing-20);
+  }
+}
+
