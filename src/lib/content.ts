@@ -3,122 +3,175 @@ import path from 'path'
 import matter from 'gray-matter'
 
 const contentDirectory = path.join(process.cwd(), 'src/content')
+const supportedContentExtensions = new Set(['.md', '.mdx'])
 
-export interface BlogPost {
+type ContentFormat = 'md' | 'mdx'
+
+interface BaseContentEntry {
   slug: string
   title: string
   date: string
-  description: string
+  summary: string
   featuredImage?: string
   tags: string[]
+  draft: boolean
+  canonicalUrl?: string
   content: string
+  format: ContentFormat
+  url: string
 }
 
-export interface CaseStudy {
-  slug: string
-  title: string
-  date: string
-  description: string
-  featuredImage?: string
-  tags: string[]
-  content: string
+export interface BlogPost extends BaseContentEntry {
+  type: 'blog'
 }
 
-export function getBlogPosts(): BlogPost[] {
-  const blogDir = path.join(contentDirectory, 'blog')
-  const files = fs.readdirSync(blogDir)
-  
-  const posts = files
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => {
-      const slug = file.replace('.md', '')
-      const filePath = path.join(blogDir, file)
+export interface CaseStudy extends BaseContentEntry {
+  type: 'case-study'
+  company?: string
+  role?: string
+  year?: string
+  status?: string
+}
+
+function readCollectionFiles(collection: 'blog' | 'case-studies') {
+  const directory = path.join(contentDirectory, collection)
+
+  return fs
+    .readdirSync(directory)
+    .filter((file) => supportedContentExtensions.has(path.extname(file)))
+    .map((file) => ({
+      extension: path.extname(file) as `.${ContentFormat}`,
+      filePath: path.join(directory, file),
+      fileName: file,
+    }))
+}
+
+function assertStringField(
+  data: Record<string, unknown>,
+  key: 'title' | 'slug' | 'date' | 'summary',
+  filePath: string
+) {
+  const value = data[key]
+
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    throw new Error(`Missing required frontmatter field "${key}" in ${filePath}`)
+  }
+
+  return value.trim()
+}
+
+function asOptionalString(value: unknown) {
+  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined
+}
+
+function asStringArray(value: unknown) {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+    : []
+}
+
+function ensureValidDate(date: string, filePath: string) {
+  if (Number.isNaN(new Date(date).getTime())) {
+    throw new Error(`Invalid date "${date}" in ${filePath}`)
+  }
+
+  return date
+}
+
+function getPublishedEntries<T extends BaseContentEntry>(entries: T[]) {
+  if (process.env.NODE_ENV === 'production') {
+    return entries.filter((entry) => !entry.draft)
+  }
+
+  return entries
+}
+
+function getBlogPostsInternal(): BlogPost[] {
+  const posts = readCollectionFiles('blog')
+    .map(({ filePath, fileName, extension }) => {
       const fileContents = fs.readFileSync(filePath, 'utf8')
       const { data, content } = matter(fileContents)
-      
+      const title = assertStringField(data, 'title', filePath)
+      const slug = assertStringField(data, 'slug', filePath)
+      const date = ensureValidDate(assertStringField(data, 'date', filePath), filePath)
+      const summary = assertStringField(data, 'summary', filePath)
+      const format = extension.replace('.', '') as ContentFormat
+
+      if (!fileName.startsWith(slug)) {
+        throw new Error(`Frontmatter slug "${slug}" does not match file name ${fileName}`)
+      }
+
       return {
+        type: 'blog' as const,
         slug,
-        title: data.title,
-        date: data.date,
-        description: data.description || '',
-        featuredImage: data.featuredImage,
-        tags: data.tags || [],
+        title,
+        date,
+        summary,
+        featuredImage: asOptionalString(data.featuredImage),
+        tags: asStringArray(data.tags),
+        draft: Boolean(data.draft),
+        canonicalUrl: asOptionalString(data.canonicalUrl),
         content,
+        format,
+        url: `/blog/${slug}`,
       }
     })
-    .sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime()
-    })
-  
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
   return posts
 }
 
-export function getBlogPost(slug: string): BlogPost | null {
-  try {
-    const filePath = path.join(contentDirectory, 'blog', `${slug}.md`)
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { data, content } = matter(fileContents)
-    
-    return {
-      slug,
-      title: data.title,
-      date: data.date,
-      description: data.description || '',
-      featuredImage: data.featuredImage,
-      tags: data.tags || [],
-      content,
-    }
-  } catch {
-    return null
-  }
-}
-
-export function getCaseStudies(): CaseStudy[] {
-  const caseStudiesDir = path.join(contentDirectory, 'case-studies')
-  const files = fs.readdirSync(caseStudiesDir)
-  
-  const caseStudies = files
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => {
-      const slug = file.replace('.md', '')
-      const filePath = path.join(caseStudiesDir, file)
+function getCaseStudiesInternal(): CaseStudy[] {
+  const caseStudies = readCollectionFiles('case-studies')
+    .map(({ filePath, fileName, extension }) => {
       const fileContents = fs.readFileSync(filePath, 'utf8')
       const { data, content } = matter(fileContents)
-      
+      const title = assertStringField(data, 'title', filePath)
+      const slug = assertStringField(data, 'slug', filePath)
+      const date = ensureValidDate(assertStringField(data, 'date', filePath), filePath)
+      const summary = assertStringField(data, 'summary', filePath)
+      const format = extension.replace('.', '') as ContentFormat
+
+      if (!fileName.startsWith(slug)) {
+        throw new Error(`Frontmatter slug "${slug}" does not match file name ${fileName}`)
+      }
+
       return {
+        type: 'case-study' as const,
         slug,
-        title: data.title,
-        date: data.date,
-        description: data.description || '',
-        featuredImage: data.featuredImage,
-        tags: data.tags || [],
+        title,
+        date,
+        summary,
+        featuredImage: asOptionalString(data.featuredImage),
+        tags: asStringArray(data.tags),
+        draft: Boolean(data.draft),
+        canonicalUrl: asOptionalString(data.canonicalUrl),
+        company: asOptionalString(data.company),
+        role: asOptionalString(data.role),
+        year: asOptionalString(data.year),
+        status: asOptionalString(data.status),
         content,
+        format,
+        url: `/case-studies/${slug}`,
       }
     })
-    .sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime()
-    })
-  
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
   return caseStudies
 }
 
-export function getCaseStudy(slug: string): CaseStudy | null {
-  try {
-    const filePath = path.join(contentDirectory, 'case-studies', `${slug}.md`)
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { data, content } = matter(fileContents)
-    
-    return {
-      slug,
-      title: data.title,
-      date: data.date,
-      description: data.description || '',
-      featuredImage: data.featuredImage,
-      tags: data.tags || [],
-      content,
-    }
-  } catch {
-    return null
-  }
+export function getBlogPosts(): BlogPost[] {
+  return getPublishedEntries(getBlogPostsInternal())
 }
 
+export function getBlogPost(slug: string): BlogPost | null {
+  return getPublishedEntries(getBlogPostsInternal()).find((post) => post.slug === slug) ?? null
+}
+
+export function getCaseStudies(): CaseStudy[] {
+  return getPublishedEntries(getCaseStudiesInternal())
+}
+
+export function getCaseStudy(slug: string): CaseStudy | null {
+  return getPublishedEntries(getCaseStudiesInternal()).find((caseStudy) => caseStudy.slug === slug) ?? null
+}

@@ -9,8 +9,8 @@
 .image {
   width: 100%;
   height: auto;
-  border: 1px solid var(--color-contrast-3);
-  border-radius: 16px;
+  border: 1px solid var(--color-rule);
+  border-radius: 2px;
 }
 
 .content {
@@ -24,15 +24,19 @@
 }
 
 .date {
-  font-family: var(--font-family-mv-office);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-small);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
   color: var(--color-contrast-2);
   display: block;
   margin-bottom: var(--spacing-10);
 }
 
 .title {
-  font-size: var(--font-size-x-large);
+  font-size: var(--font-size-xx-large);
+  letter-spacing: -1px;
+  line-height: 1;
   margin: 0 0 var(--spacing-10) 0;
 }
 
@@ -44,22 +48,34 @@
 }
 
 .tag {
-  font-family: var(--font-family-mv-office);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-small);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
   color: var(--color-contrast-2);
 }
 
 .body {
-  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.208), 1.25rem);
-  line-height: 1.65;
+  font-family: var(--font-family-pt-serif);
+  font-size: 0.9375rem;
+  line-height: 1.7;
 }
 
 .body :global(h2) {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-x-large);
+  letter-spacing: -0.7px;
+  line-height: 1.05;
   margin-top: var(--spacing-40);
   margin-bottom: var(--spacing-20);
 }
 
 .body :global(h3) {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-large);
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
   margin-top: var(--spacing-30);
   margin-bottom: var(--spacing-10);
 }
@@ -76,8 +92,8 @@
 .body :global(img) {
   width: 100%;
   height: auto;
-  border: 1px solid var(--color-contrast-3);
-  border-radius: 16px;
+  border: 1px solid var(--color-rule);
+  border-radius: 2px;
   margin: var(--spacing-30) 0;
   max-width: var(--wide-size);
 }
@@ -109,4 +125,3 @@
 .body :global(li) {
   margin-bottom: var(--spacing-10);
 }
-

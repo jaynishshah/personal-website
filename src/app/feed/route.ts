@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
 export async function GET() {
-  redirect('/case-study')
+  redirect('/feed.xml')
 }
 

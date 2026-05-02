@@ -1,29 +1,34 @@
 .postCard {
+  border-top: 1px solid var(--color-rule-soft);
   margin: 0;
 }
 
-.separator {
-  height: 2px;
-  border: none;
-  background-color: var(--color-contrast);
-  margin: var(--spacing-20) 0;
+.postCard:last-child {
+  border-bottom: 1px solid var(--color-rule-soft);
 }
 
 .content {
-  display: flex;
+  align-items: start;
+  display: grid;
   gap: var(--spacing-30);
-  padding: var(--spacing-10) 0;
+  grid-template-columns: 14px minmax(0, 1fr) 110px;
+  padding: 0.8rem 0;
 }
 
-.main {
-  flex: 1;
+.content::before {
+  color: var(--color-accent);
+  content: "+";
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  line-height: 1.35;
 }
 
 .title {
-  font-family: var(--font-family-mv-office);
-  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.625), 1.5rem);
-  line-height: 1.1;
-  letter-spacing: 0;
+  font-family: var(--font-family-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  line-height: 1.25;
   margin: 0;
 }
 
@@ -33,43 +38,71 @@
 }
 
 .title a:hover {
-  text-decoration: underline;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.primaryMeta {
+  color: var(--color-contrast-2);
+  font-family: var(--font-family-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-top: 0.25rem;
+  text-transform: uppercase;
 }
 
 .excerpt {
-  margin-top: var(--spacing-10);
-  font-size: var(--font-size-medium);
+  color: var(--color-contrast-2);
+  font-family: var(--font-family-pt-serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.65;
+  margin-top: 0.35rem;
+  max-width: 760px;
 }
 
 .tags {
-  margin-top: var(--spacing-10);
   display: flex;
-  gap: var(--spacing-10);
   flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: var(--spacing-10);
 }
 
 .tag {
-  font-family: var(--font-family-mv-office);
-  font-size: var(--font-size-small);
   color: var(--color-contrast-2);
+  font-family: var(--font-family-mono);
+  font-size: 0.65rem;
 }
 
 .meta {
   display: flex;
-  align-items: center;
   justify-content: flex-end;
-  min-width: 120px;
 }
 
 .date {
-  font-family: var(--font-family-mv-office);
-  font-size: var(--font-size-small);
   color: var(--color-contrast-2);
+  font-family: var(--font-family-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  text-align: right;
+  text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
+  .content {
+    grid-template-columns: 14px minmax(0, 1fr);
+    gap: 0 var(--spacing-10);
+  }
+
   .meta {
-    display: none;
+    grid-column: 2;
+    justify-content: flex-start;
+    order: 0;
+  }
+
+  .date {
+    text-align: left;
   }
 }
-

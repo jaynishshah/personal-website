@@ -1,18 +1,26 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
+import { buildPageMetadata } from '@/lib/metadata'
 import styles from './page.module.css'
+
+export const metadata: Metadata = buildPageMetadata({
+  title: 'About',
+  summary: 'Background, current work, and context on Jaynish Shah as a design systems practitioner.',
+  path: '/about',
+  image: '/images/site/jaynish-shah.jpg',
+})
 
 export default function AboutPage() {
   return (
     <div className={styles.container}>
-      <div className={styles.spacer} aria-hidden="true" />
-      <h1 className={styles.title}>About me</h1>
-      <div className={styles.spacer} aria-hidden="true" />
+      <p className={styles.eyebrow}>About</p>
+      <h1 className={styles.title}>A product designer working at the intersection of systems, craft, and collaboration.</h1>
       
       <div className={styles.content}>
         <div className={styles.textColumn}>
-          <div className={styles.card}>
+          <div>
             <h3 className={styles.sectionTitle} id="what-i-do">
-              THEN AND NOW
+              Then and now
             </h3>
             <p className={styles.text}>
               I've worked across disciplines, but the common thread has always been systems thinking.
@@ -31,7 +39,7 @@ export default function AboutPage() {
             </p>
 
             <h3 className={styles.sectionTitle} id="whereabouts">
-              WHEREABOUTS
+              Whereabouts
             </h3>
             <p className={styles.text}>
               Born and raised in Mumbai, India, I currently live with my son and wife in a{' '}
@@ -46,7 +54,7 @@ export default function AboutPage() {
             </p>
 
             <h3 className={styles.sectionTitle} id="other-than-work">
-              OTHER THAN WORK
+              Other than work
             </h3>
             <p className={styles.text}>
               I enjoy long walks, exploring museums and galleries, writing, and falling into odd corners of Spotify.
@@ -64,8 +72,6 @@ export default function AboutPage() {
           />
         </div>
       </div>
-      <div className={styles.spacer} aria-hidden="true" />
     </div>
   )
 }
-
