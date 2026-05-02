@@ -1,0 +1,33 @@
+.toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-contrast);
+  cursor: pointer;
+  display: inline-flex;
+  height: 1.5rem;
+  justify-content: center;
+  padding: 0;
+  width: 1.5rem;
+}
+
+.toggle:hover {
+  color: var(--color-accent);
+}
+
+.toggle:focus,
+.toggle:active {
+  background: transparent;
+  outline: 0;
+}
+
+.toggle:focus-visible {
+  color: var(--color-accent);
+}
+
+.icon {
+  display: block;
+  fill: currentColor;
+  height: 1.05rem;
+  width: 1.05rem;
+}

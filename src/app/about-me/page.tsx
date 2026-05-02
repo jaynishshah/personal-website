@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation'
 
-export async function GET() {
+export default function AboutMeRedirectPage() {
   redirect('/about')
 }
-

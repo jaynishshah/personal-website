@@ -6,8 +6,10 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.siteTitle}>
-            <Link href="/">Jaynish Shah</Link>
+          <div className={styles.siteTitleWrapper}>
+            <p className={styles.siteTitle}>
+              <Link href="/">Jaynish Shah</Link>
+            </p>
           </div>
           <div className={styles.socialLinks}>
             <ul className={styles.socialList}>
@@ -65,16 +67,9 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className={styles.footerText}>
-            <p>
-              Typeset in{' '}
-              <a href="https://manvstype.xyz/ManVs-Office" target="_blank" rel="noopener noreferrer">
-                ManVsOffice
-              </a>{' '}
-              &amp;{' '}
-              <a href="https://fonts.google.com/specimen/PT+Serif" target="_blank" rel="noopener noreferrer">
-                PT Serif
-              </a>
+          <div className={styles.footerTextWrapper}>
+            <p className={styles.footerText}>
+              Design systems, product design, and writing. Typeset in Inter and Source Serif 4.
             </p>
           </div>
         </div>
@@ -82,4 +77,3 @@ export default function Footer() {
     </footer>
   )
 }
-

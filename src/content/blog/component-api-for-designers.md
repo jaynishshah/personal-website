@@ -1,7 +1,8 @@
 ---
 title: "Component API : For Designers"
+slug: "component-api-for-designers"
 date: "2025-06-22"
-description: "Building components for the design system is often seen as a visual task—creating variants in Figma and calling it a day. However, it is not just that. What we, as design system practitioners, are really doing is architecting the way our colleagues will use the components to build consistent, scalable UI across products."
+summary: "Building components for the design system is often seen as a visual task, but the real work is in defining the component API that makes products scalable and consistent."
 featuredImage: "/images/blog/component-api-for-designers/cover.jpg"
 tags: ["design system"]
 ---
@@ -106,4 +107,3 @@ A clear component API isn't just for devs. It:
 4. Enables better scalability and maintainability
 
 By understanding and contributing to component APIs, designers can create more robust, flexible design systems that truly serve both design and development teams.
-

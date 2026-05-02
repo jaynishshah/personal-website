@@ -1,5 +1,5 @@
 .container {
-  padding: var(--spacing-50) var(--spacing-50);
+  padding: var(--spacing-40) var(--spacing-40) var(--spacing-50);
 }
 
 .content {
@@ -7,14 +7,44 @@
   margin: 0 auto;
 }
 
+.eyebrow {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
 .title {
-  font-size: var(--font-size-x-large);
-  margin-bottom: var(--spacing-30);
+  font-size: var(--font-size-xx-large);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: var(--spacing-20) 0 0;
+  max-width: 900px;
+}
+
+.summary {
+  color: var(--color-contrast-2);
+  font-family: var(--font-family-pt-serif);
+  font-size: 0.9375rem;
+  font-style: italic;
+  line-height: 1.65;
+  margin-top: var(--spacing-20);
+  max-width: 720px;
 }
 
 .posts {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: block;
+  margin-top: var(--spacing-40);
 }
 
+@media (max-width: 767px) {
+  .container {
+    padding-left: var(--spacing-20);
+    padding-right: var(--spacing-20);
+  }
+}

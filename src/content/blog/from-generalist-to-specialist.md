@@ -1,7 +1,8 @@
 ---
 title: "From generalist to specialist"
+slug: "from-generalist-to-specialist"
 date: "2024-06-30"
-description: "2 years back, I wrote a newsletter titled 'Be a generalist'. This still holds."
+summary: "2 years back, I wrote a newsletter titled 'Be a generalist'. This still holds."
 featuredImage: "/images/blog/from-generalist-to-specialist/cover.jpg"
 tags: ["product design"]
 ---
@@ -24,7 +25,7 @@ Easier said than done.
 
 ## Diverge
 
-![Animal Creds](/images/blog/from-generalist-to-specialist/Animal-Creds.mov)
+![Animal Creds](/videos/blog/from-generalist-to-specialist/Animal-Creds.mov "Animal credits")
 
 I returned to India and joined [Animal](https://www.weareanimal.co), a creative agency based out of India. Being a creative agency, their portfolio comprised visual design, branding, and identity projects. To keep myself relevant to where I was, I did everything it took to move a project forward. Creating illustrations, guidelines, and storyboarding only helped me hone my craft. Whenever website projects came in, it gave me a better edge and helped me approach them holistically. Conventional parts of digital product design took a back seat. I self-taught these with every website project that came my way.
 
@@ -38,7 +39,7 @@ However, we tried.
 
 When imposter syndrome hit, I resorted to learning to code. I'd heard that designers should know to code. I started Command Space, an Instagram page where I posted my experiments with processing, P5js and TouchDesigner.
 
-![Command Space](/images/blog/from-generalist-to-specialist/Command-space-creds.mp4)
+![Command Space](/videos/blog/from-generalist-to-specialist/Command-space-creds.mp4 "Command Space credits")
 
 I share this because I believe that had I stuck to my conventional thoughts of what I should've been doing just because of my title or role, I wouldn't have known what else I could be good at. I am glad that I got to diverge and stretch my skills across multiple mediums in the starting years. Exposing myself to various parts of a design process helped me identify the parts I enjoyed the most.
 
@@ -51,4 +52,3 @@ This led me to join [Nykaa](https://www.nykaa.com/), India's largest lifestyle e
 ![Nykaa Help Center](/images/blog/from-generalist-to-specialist/nykaa-help-center.jpg)
 
 *Nykaa's help center redesign*
-

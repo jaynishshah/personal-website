@@ -1,10 +1,11 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getBlogPosts } from '@/lib/content'
 import Image from 'next/image'
 import { format } from 'date-fns'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import styles from './page.module.css'
+import ArticleRenderer from '@/components/content/ArticleRenderer'
+import pageStyles from '@/components/content/ArticlePage.module.css'
+import { buildPageMetadata } from '@/lib/metadata'
 
 export async function generateStaticParams() {
   const posts = getBlogPosts()
@@ -13,7 +14,26 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = getBlogPost(params.slug)
+
+  if (!post) {
+    return {}
+  }
+
+  return buildPageMetadata({
+    title: post.title,
+    summary: post.summary,
+    path: post.url,
+    image: post.featuredImage,
+    type: 'article',
+    publishedTime: post.date,
+    tags: post.tags,
+    canonicalUrl: post.canonicalUrl,
+  })
+}
+
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = getBlogPost(params.slug)
 
   if (!post) {
@@ -23,40 +43,38 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const formattedDate = format(new Date(post.date), 'MMMM d, yyyy')
 
   return (
-    <article className={styles.container}>
+    <article className={pageStyles.container}>
       {post.featuredImage && (
-        <div className={styles.featuredImage}>
+        <div className={pageStyles.featuredImage}>
           <Image
             src={post.featuredImage}
             alt={post.title}
             width={2400}
             height={1200}
             priority
-            className={styles.image}
+            className={pageStyles.image}
           />
         </div>
       )}
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <time dateTime={post.date} className={styles.date}>
+      <div className={pageStyles.content}>
+        <div className={pageStyles.header}>
+          <time dateTime={post.date} className={pageStyles.date}>
             {formattedDate}
           </time>
-          <h1 className={styles.title}>{post.title}</h1>
+          <h1 className={pageStyles.title}>{post.title}</h1>
+          <p className={pageStyles.summary}>{post.summary}</p>
           {post.tags && post.tags.length > 0 && (
-            <div className={styles.tags}>
+            <div className={pageStyles.tags}>
               {post.tags.map((tag) => (
-                <span key={tag} className={styles.tag}>
+                <span key={tag} className={pageStyles.tag}>
                   #{tag}
                 </span>
               ))}
             </div>
           )}
         </div>
-        <div className={styles.body}>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
-        </div>
+        <ArticleRenderer content={post.content} format={post.format} />
       </div>
     </article>
   )
 }
-

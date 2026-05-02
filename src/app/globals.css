@@ -1,31 +1,35 @@
 /* CSS Variables - Design Tokens */
 :root {
   /* Colors */
-  --color-black: #000000;
-  --color-white: #ffffff;
-  --color-base: #f8f9fa;
-  --color-base-2: #ffffff;
-  --color-contrast: #121212;
-  --color-contrast-2: #495057;
-  --color-contrast-3: #adb5bd;
-  --color-accent: #cfcabe;
-  --color-accent-2: #c2a990;
-  --color-accent-3: #d8613c;
-  --color-accent-4: #b1c5a4;
-  --color-accent-5: #b5bdbc;
+  --color-base: #faf6ec;
+  --color-base-2: #faf6ec;
+  --color-surface: #faf6ec;
+  --color-contrast: #1a1208;
+  --color-contrast-2: #4a3a2c;
+  --color-contrast-3: rgba(26, 18, 8, 0.18);
+  --color-rule: rgba(26, 18, 8, 0.18);
+  --color-rule-soft: rgba(26, 18, 8, 0.1);
+  --color-accent: #2647cc;
+  --color-accent-hover: rgba(38, 71, 204, 0.9);
+  --color-accent-2: #2647cc;
+  --color-accent-3: #2647cc;
+  --color-accent-4: rgba(38, 71, 204, 0.12);
+  --color-accent-5: rgba(38, 71, 204, 0.2);
 
   /* Typography */
-  --font-family-body: "Inter", sans-serif;
-  --font-family-mv-office: "MV Office", sans-serif;
-  --font-family-pt-serif: "PT Serif", serif;
+  --font-family-body: var(--font-family-system-sans);
+  --font-family-display: var(--font-family-system-sans);
+  --font-family-mv-office: var(--font-family-display);
+  --font-family-pt-serif: "Source Serif 4", Georgia, serif;
+  --font-family-mono: "JetBrains Mono", "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
   --font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 
   /* Font Sizes */
-  --font-size-small: 0.9rem;
-  --font-size-medium: 1.05rem;
-  --font-size-large: clamp(1.39rem, 1.39rem + ((1vw - 0.2rem) * 0.767), 1.85rem);
-  --font-size-x-large: clamp(1.85rem, 1.85rem + ((1vw - 0.2rem) * 1.083), 2.5rem);
-  --font-size-xx-large: clamp(2.5rem, 2.5rem + ((1vw - 0.2rem) * 1.283), 3.27rem);
+  --font-size-small: 0.6875rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.125rem;
+  --font-size-x-large: 1.625rem;
+  --font-size-xx-large: 3rem;
 
   /* Spacing */
   --spacing-10: 1rem;
@@ -43,9 +47,66 @@
   --block-gap: 1.2rem;
 
   /* Shadows */
-  --shadow-natural: 6px 6px 9px rgba(0, 0, 0, 0.2);
-  --shadow-deep: 12px 12px 50px rgba(0, 0, 0, 0.4);
-  --shadow-sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);
+  --shadow-natural: none;
+  --shadow-deep: none;
+  --shadow-sharp: none;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-base: #181410;
+    --color-base-2: #181410;
+    --color-surface: #181410;
+    --color-contrast: #efe8d9;
+    --color-contrast-2: #b5ab99;
+    --color-contrast-3: rgba(239, 232, 217, 0.18);
+    --color-rule: rgba(239, 232, 217, 0.18);
+    --color-rule-soft: rgba(239, 232, 217, 0.1);
+    --color-accent: #7b95ee;
+    --color-accent-hover: rgba(123, 149, 238, 0.9);
+    --color-accent-2: #7b95ee;
+    --color-accent-3: #7b95ee;
+    --color-accent-4: rgba(123, 149, 238, 0.14);
+    --color-accent-5: rgba(123, 149, 238, 0.24);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='light'] {
+  --color-base: #faf6ec;
+  --color-base-2: #faf6ec;
+  --color-surface: #faf6ec;
+  --color-contrast: #1a1208;
+  --color-contrast-2: #4a3a2c;
+  --color-contrast-3: rgba(26, 18, 8, 0.18);
+  --color-rule: rgba(26, 18, 8, 0.18);
+  --color-rule-soft: rgba(26, 18, 8, 0.1);
+  --color-accent: #2647cc;
+  --color-accent-hover: rgba(38, 71, 204, 0.9);
+  --color-accent-2: #2647cc;
+  --color-accent-3: #2647cc;
+  --color-accent-4: rgba(38, 71, 204, 0.12);
+  --color-accent-5: rgba(38, 71, 204, 0.2);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --color-base: #181410;
+  --color-base-2: #181410;
+  --color-surface: #181410;
+  --color-contrast: #efe8d9;
+  --color-contrast-2: #b5ab99;
+  --color-contrast-3: rgba(239, 232, 217, 0.18);
+  --color-rule: rgba(239, 232, 217, 0.18);
+  --color-rule-soft: rgba(239, 232, 217, 0.1);
+  --color-accent: #7b95ee;
+  --color-accent-hover: rgba(123, 149, 238, 0.9);
+  --color-accent-2: #7b95ee;
+  --color-accent-3: #7b95ee;
+  --color-accent-4: rgba(123, 149, 238, 0.14);
+  --color-accent-5: rgba(123, 149, 238, 0.24);
+  color-scheme: dark;
 }
 
 /* Font Face Definitions */
@@ -101,26 +162,35 @@ html {
 }
 
 body {
+  --font-family-body: var(--font-inter), var(--font-family-system-sans);
+  --font-family-display: var(--font-inter), var(--font-family-system-sans);
+  --font-family-mv-office: var(--font-family-display);
+  --font-family-pt-serif: "Source Serif 4", Georgia, serif;
   background-color: var(--color-base);
   color: var(--color-contrast);
-  font-family: var(--font-family-pt-serif);
-  font-size: 1.12rem;
+  font-family: var(--font-family-body);
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
-  letter-spacing: 0.2px;
-  line-height: 1.65;
+  letter-spacing: 0;
+  line-height: 1.6;
   margin: 0;
-  padding-left: var(--spacing-50);
-  padding-right: var(--spacing-50);
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-base);
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-contrast);
-  font-family: var(--font-family-mv-office);
+  font-family: var(--font-family-display);
   font-style: normal;
   font-weight: 400;
-  letter-spacing: -0.3px;
+  letter-spacing: 0;
   line-height: 1.15;
   margin-block-start: 1.2rem;
   margin-block-end: 0;
@@ -131,27 +201,34 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 }
 
 h1 {
-  font-size: clamp(1.739rem, 1.739rem + ((1vw - 0.2rem) * 2.085), 2.99rem);
+  font-size: var(--font-size-xx-large);
+  letter-spacing: -1px;
+  line-height: 1;
 }
 
 h2 {
-  font-size: clamp(1.492rem, 1.492rem + ((1vw - 0.2rem) * 1.647), 2.48rem);
+  font-size: var(--font-size-x-large);
+  letter-spacing: -0.7px;
+  line-height: 1.05;
 }
 
 h3 {
-  font-size: clamp(1.25rem, 1.25rem + ((1vw - 0.2rem) * 1.25), 2rem);
+  font-size: var(--font-size-large);
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
 }
 
 h4 {
-  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.992), 1.72rem);
+  font-size: 1.125rem;
 }
 
 h5 {
-  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.525), 1.44rem);
+  font-size: 1rem;
 }
 
 h6 {
-  font-size: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.125), 1.2rem);
+  font-size: 0.9375rem;
 }
 
 p {
@@ -166,49 +243,54 @@ p:first-child {
 /* Links */
 a:not(.button) {
   color: var(--color-contrast);
-  text-decoration: underline;
+  text-decoration: none;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
 }
 
 a:not(.button):hover {
-  color: #bb5a3c;
-  text-decoration: none;
+  color: var(--color-accent);
+  text-decoration: underline;
 }
 
 p a:not(.button) {
-  color: var(--color-accent-3);
+  color: var(--color-accent);
 }
 
 p a:not(.button):hover {
-  color: #a14428;
+  color: var(--color-accent-2);
 }
 
 /* Buttons */
 .button,
 button {
-  background-color: var(--color-contrast);
-  border-radius: 0.33rem;
-  border: 0;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  border: 1px solid var(--color-accent);
   color: var(--color-base);
   cursor: pointer;
-  font-family: var(--font-family-mv-office);
-  font-size: var(--font-size-small);
-  font-weight: 600;
-  padding: 0.6rem 1rem;
+  font-family: var(--font-family-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 10px 18px;
   text-decoration: none;
   display: inline-block;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .button:hover,
 button:hover {
-  background-color: var(--color-contrast-2);
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
   color: var(--color-base);
 }
 
 .button:focus,
 button:focus {
   background-color: var(--color-contrast-2);
-  outline: 2px solid var(--color-contrast);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -219,14 +301,14 @@ button:active {
 
 .button.outline {
   background: transparent;
-  border: 2px solid currentColor;
-  color: currentColor;
-  padding: calc(0.6rem - 1px) calc(1rem - 1px);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 9px 17px;
 }
 
 .button.outline:hover {
-  background-color: var(--color-contrast-3);
-  border-color: var(--color-contrast-3);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
   color: var(--color-base);
 }
 
@@ -274,6 +356,12 @@ nav a {
   font-weight: 500;
 }
 
+@media (max-width: 767px) {
+  :root {
+    --font-size-xx-large: 2.375rem;
+  }
+}
+
 nav a:hover {
   text-decoration: underline;
 }
@@ -291,7 +379,7 @@ figure {
 
 figcaption {
   color: var(--color-contrast-2);
-  font-family: var(--font-family-mv-office);
+  font-family: var(--font-family-mono);
   font-size: 0.8rem;
   margin-top: 0.5em;
 }
@@ -310,7 +398,8 @@ hr {
 *:focus {
   outline-width: 2px;
   outline-style: solid;
-  outline-color: var(--color-contrast);
+  outline-color: var(--color-accent);
+  outline-offset: 2px;
 }
 
 /* Screen Reader Text */
@@ -344,9 +433,5 @@ hr {
 
 /* Responsive Utilities */
 @media (max-width: 767px) {
-  body {
-    padding-left: var(--spacing-20);
-    padding-right: var(--spacing-20);
-  }
+  /* Body padding removed - handled by individual sections */
 }
-
