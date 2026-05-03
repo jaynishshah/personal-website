@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
           <div className={styles.footerTextWrapper}>
             <p className={styles.footerText}>
-              Design systems, product design, and writing. Typeset in Inter and Source Serif 4.
+              Design systems, product design, and writing. Typeset in MV Office and Source Serif 4.
             </p>
           </div>
         </div>

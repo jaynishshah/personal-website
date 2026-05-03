@@ -17,9 +17,9 @@
   --color-accent-5: rgba(38, 71, 204, 0.2);
 
   /* Typography */
-  --font-family-body: var(--font-family-system-sans);
-  --font-family-display: var(--font-family-system-sans);
-  --font-family-mv-office: var(--font-family-display);
+  --font-family-body: "MV Office", var(--font-family-system-sans);
+  --font-family-display: "MV Office", var(--font-family-system-sans);
+  --font-family-mv-office: "MV Office", var(--font-family-system-sans);
   --font-family-pt-serif: "Source Serif 4", Georgia, serif;
   --font-family-mono: "JetBrains Mono", "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
   --font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
@@ -29,7 +29,7 @@
   --font-size-medium: 1rem;
   --font-size-large: 1.125rem;
   --font-size-x-large: 1.625rem;
-  --font-size-xx-large: 3rem;
+  --font-size-xx-large: clamp(3rem, 7vw, 6rem);
 
   /* Spacing */
   --spacing-10: 1rem;
@@ -50,6 +50,8 @@
   --shadow-natural: none;
   --shadow-deep: none;
   --shadow-sharp: none;
+  --motion-fast: 160ms cubic-bezier(0.2, 0, 0, 1);
+  --motion-medium: 260ms cubic-bezier(0.2, 0, 0, 1);
   color-scheme: light;
 }
 
@@ -162,9 +164,9 @@ html {
 }
 
 body {
-  --font-family-body: var(--font-inter), var(--font-family-system-sans);
-  --font-family-display: var(--font-inter), var(--font-family-system-sans);
-  --font-family-mv-office: var(--font-family-display);
+  --font-family-body: "MV Office", var(--font-family-system-sans);
+  --font-family-display: "MV Office", var(--font-family-system-sans);
+  --font-family-mv-office: "MV Office", var(--font-family-system-sans);
   --font-family-pt-serif: "Source Serif 4", Georgia, serif;
   background-color: var(--color-base);
   color: var(--color-contrast);
@@ -202,8 +204,8 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 
 h1 {
   font-size: var(--font-size-xx-large);
-  letter-spacing: -1px;
-  line-height: 1;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
 }
 
 h2 {
@@ -277,7 +279,11 @@ button {
   padding: 10px 18px;
   text-decoration: none;
   display: inline-block;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition:
+    background-color var(--motion-fast),
+    border-color var(--motion-fast),
+    color var(--motion-fast),
+    transform var(--motion-fast);
 }
 
 .button:hover,
@@ -285,6 +291,7 @@ button:hover {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
   color: var(--color-base);
+  transform: translateY(-1px);
 }
 
 .button:focus,
@@ -297,6 +304,7 @@ button:focus {
 .button:active,
 button:active {
   background-color: var(--color-contrast);
+  transform: translateY(0);
 }
 
 .button.outline {
@@ -358,7 +366,7 @@ nav a {
 
 @media (max-width: 767px) {
   :root {
-    --font-size-xx-large: 2.375rem;
+    --font-size-xx-large: clamp(2.7rem, 13vw, 4.4rem);
   }
 }
 
@@ -400,6 +408,17 @@ hr {
   outline-style: solid;
   outline-color: var(--color-accent);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 /* Screen Reader Text */

@@ -4,10 +4,15 @@ slug: "swatch"
 date: "2024-07-17"
 summary: "SWATCH is Nykaa's multi-brand design system, built to bring consistency and efficiency to front-end development across business verticals."
 featuredImage: "/images/case-studies/swatch/000-featured-image-SWATCH.jpg"
+previewImage: "/images/case-studies/swatch/000-featured-image-SWATCH.jpg"
+accentColor: "#D62B7F"
 company: "Nykaa"
 role: "Design Systems"
 year: "2021-2022"
 tags: ["design system"]
+systemLayers: ["Foundations", "Tokens", "Components", "Governance"]
+artifacts: ["Token architecture", "Component library", "Contribution model", "Usage documentation"]
+outcomes: ["Multi-brand theming", "Design-code parity", "Contribution workflow"]
 ---
 
 SWATCH is [Nykaa's](https://www.nykaa.com) multi-brand design system. It's built from ground up to bring consistency and efficiency at scale in front-end development across business verticals. Earlier existing as a style guide, I led the initiative of building it into a thriving design system.

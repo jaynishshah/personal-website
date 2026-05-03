@@ -1,25 +1,25 @@
 .body {
   font-family: var(--font-family-pt-serif);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-style: normal;
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .body :global(h2) {
   font-family: var(--font-family-display);
-  font-size: var(--font-size-x-large);
-  font-weight: 400;
-  letter-spacing: -0.7px;
-  line-height: 1.05;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 300;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
   margin-top: var(--spacing-40);
   margin-bottom: var(--spacing-20);
 }
 
 .body :global(h3) {
   font-family: var(--font-family-display);
-  font-size: var(--font-size-large);
+  font-size: 1.35rem;
   font-weight: 500;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.04em;
   line-height: 1.2;
   margin-top: var(--spacing-30);
   margin-bottom: var(--spacing-10);
@@ -96,27 +96,31 @@
 }
 
 .figure {
-  margin: var(--spacing-30) 0;
+  margin: var(--spacing-40) calc(var(--spacing-30) * -1);
 }
 
 .media {
-  width: 100%;
-  height: auto;
   border: 1px solid var(--color-rule);
-  border-radius: 2px;
   display: block;
+  height: auto;
   max-width: var(--wide-size);
   margin: 0 auto;
+  width: 100%;
 }
 
 .caption {
-  margin-top: var(--spacing-10);
-  text-align: center;
   color: var(--color-contrast-2);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-small);
   letter-spacing: 1.4px;
+  margin-top: var(--spacing-10);
+  text-align: left;
   text-transform: uppercase;
+}
+
+.caption::before {
+  color: var(--color-accent);
+  content: "+ ";
 }
 
 .callout {
@@ -125,6 +129,13 @@
   border-top: 1px solid var(--color-rule);
   border-bottom: 1px solid var(--color-rule-soft);
   background: transparent;
+}
+
+@media (max-width: 900px) {
+  .figure {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .callout[data-tone='warning'] {

@@ -58,17 +58,29 @@
   display: flex;
   justify-content: center;
   opacity: 0.72;
-  transition: opacity 0.2s;
+  transition: color var(--motion-fast), opacity var(--motion-fast), transform var(--motion-fast);
 }
 
 .socialList a:hover {
+  color: var(--color-accent);
   opacity: 1;
+  transform: translateY(-1px);
 }
 
 .socialList svg {
   fill: currentColor;
   height: 20px;
   width: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialList a {
+    transition: none;
+  }
+
+  .socialList a:hover {
+    transform: none;
+  }
 }
 
 .footerText {

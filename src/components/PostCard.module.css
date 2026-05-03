@@ -12,7 +12,8 @@
   display: grid;
   gap: var(--spacing-30);
   grid-template-columns: 14px minmax(0, 1fr) 110px;
-  padding: 0.8rem 0;
+  padding: 1rem 0;
+  transition: padding var(--motion-fast);
 }
 
 .content::before {
@@ -25,9 +26,9 @@
 
 .title {
   font-family: var(--font-family-display);
-  font-size: 0.95rem;
+  font-size: 1.12rem;
   font-weight: 500;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.045em;
   line-height: 1.25;
   margin: 0;
 }
@@ -35,6 +36,7 @@
 .title a {
   color: var(--color-contrast);
   text-decoration: none;
+  transition: color var(--motion-fast);
 }
 
 .title a:hover {
@@ -56,7 +58,6 @@
   color: var(--color-contrast-2);
   font-family: var(--font-family-pt-serif);
   font-size: 0.92rem;
-  font-style: italic;
   line-height: 1.65;
   margin-top: 0.35rem;
   max-width: 760px;
@@ -90,6 +91,16 @@
   text-transform: uppercase;
 }
 
+.postCard:hover .content,
+.postCard:focus-within .content {
+  padding-left: 0.35rem;
+}
+
+.postCard:hover .content::before,
+.postCard:focus-within .content::before {
+  color: var(--color-accent);
+}
+
 @media (max-width: 767px) {
   .content {
     grid-template-columns: 14px minmax(0, 1fr);
@@ -104,5 +115,17 @@
 
   .date {
     text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .title a {
+    transition: none;
+  }
+
+  .postCard:hover .content,
+  .postCard:focus-within .content {
+    padding-left: 0;
   }
 }

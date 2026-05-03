@@ -4,9 +4,10 @@ export default function Newsletter() {
   return (
     <section className={styles.newsletter}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Subscribe to my newsletter</h2>
+        <p className={styles.kicker}>Signal / occasional</p>
+        <h2 className={styles.title}>Notes on systems work, craft, and useful references.</h2>
         <p className={styles.description}>
-          Occasionally I share musings and fresh finds from the internet
+          A quiet mailing list for essays, links, and observations that do not need a full article.
         </p>
         <div className={styles.actions}>
           <a

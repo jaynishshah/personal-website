@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { getBlogPosts } from '@/lib/content'
+import { getBlogPosts, getCaseStudies } from '@/lib/content'
 import PostCard from '@/components/PostCard'
+import CaseStudyCard from '@/components/CaseStudyCard'
 import Newsletter from '@/components/Newsletter'
+import AxisDivider from '@/components/visual/AxisDivider'
 import { buildPageMetadata } from '@/lib/metadata'
 import styles from './page.module.css'
 
@@ -15,20 +17,18 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function HomePage() {
   const recentPosts = getBlogPosts().slice(0, 2)
+  const featuredCaseStudy = getCaseStudies()[0]
 
   return (
     <>
       <section className={styles.hero}>
         <div className={styles.container}>
-          <div className={styles.lockCard}>
-            <span className={styles.corner}>№ 001 · GLA</span>
-            <span className={styles.crosshair} aria-hidden="true" />
-            <p className={styles.eyebrow}>Jaynish Shah / Designer</p>
+          <div className={styles.heroCard}>
             <h1 className={styles.heading}>
               Designing systems that <em>quietly</em> hold everything together.
             </h1>
             <p className={styles.lede}>
-              Jaynish Shah is a product designer specialising in design systems, currently in Glasgow.
+              I shape the foundations, component decisions, and governance loops that help product teams move with more clarity.
             </p>
             <div className={styles.actions}>
               <Link href="/case-studies" className="button">
@@ -39,36 +39,17 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <aside className={styles.summaryPanel} aria-label="Current focus">
-            <h2>Current signal</h2>
-            <div className={styles.summaryRow}>
-              <span>Current</span>
-              <span>Ticketmaster, UK</span>
-            </div>
-            <div className={styles.summaryRow}>
-              <span>Focus</span>
-              <span>Tokens, component quality, governance</span>
-            </div>
-            <div className={styles.summaryRow}>
-              <span>Practice</span>
-              <span>Design systems, product design, design operations</span>
-            </div>
-            <div className={styles.summaryRow}>
-              <span>Base</span>
-              <span>Glasgow, UK</span>
-            </div>
-          </aside>
         </div>
       </section>
 
       <section className={styles.focus}>
         <div className={styles.container}>
-          <h2 className={styles.sectionLabel}>System focus</h2>
+          <AxisDivider label="System focus" index="01" />
           <div className={styles.focusGrid}>
             <div>
               <span>01</span>
               <h3>System foundations</h3>
-              <p>Design tokens, theming, component models, accessibility baselines, and the structure behind scalable UI decisions.</p>
+              <p>Tokens, theming, component anatomy, accessibility baselines, and the decision structure behind reusable UI.</p>
             </div>
             <div>
               <span>02</span>
@@ -84,11 +65,26 @@ export default function HomePage() {
         </div>
       </section>
 
+      {featuredCaseStudy ? (
+        <section className={styles.work}>
+          <div className={styles.container}>
+            <div className={styles.sectionHeader}>
+              <div>
+                <AxisDivider label="Selected work" index="02" />
+                <h2 className={styles.sectionTitle}>Product craft, made systemic.</h2>
+              </div>
+              <p>Case-study previews now surface the artifacts behind the system: layers, decisions, and reusable outcomes.</p>
+            </div>
+            <CaseStudyCard caseStudy={featuredCaseStudy} featured />
+          </div>
+        </section>
+      ) : null}
+
       <section className={styles.about}>
         <div className={styles.container}>
           <div className={styles.columns}>
             <div className={styles.mainColumn}>
-              <h2 className={styles.sectionLabel}>About</h2>
+              <AxisDivider label="About" index="03" />
               <p className={styles.description}>
                 Jaynish's path runs from architecture and spatial design to digital products, where structure, constraints, and craft meet at scale.
               </p>
@@ -131,7 +127,10 @@ export default function HomePage() {
       <section className={styles.blog}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Writing</h2>
+            <div>
+              <AxisDivider label="Writing" index="04" />
+              <h2 className={styles.sectionTitle}>Notes from the system layer.</h2>
+            </div>
             <p>Notes on design systems, component architecture, and product design practice.</p>
           </div>
           <div className={styles.posts}>

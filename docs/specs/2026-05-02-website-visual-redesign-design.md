@@ -6,13 +6,13 @@
 
 ## 1. Intent
 
-Revamp the visual design of jaynishshah.com so it reads as the website of a **design system leader** — minimal, editorial, product-craft, full of finer details. Replace the current "WordPress-mirror" look (PT Serif body, mixed accents, generic warm tones) with a single cohesive visual language: warm editorial paper, an ownable cobalt accent, and a restrained "construction marks" graphic device that recurs across every page.
+Revamp the visual design of jaynishshah.com so it reads as the website of a **design system leader** — minimal, editorial, product-craft, full of finer details. Replace the current "WordPress-mirror" look (PT Serif body, mixed accents, generic warm tones) with a cohesive visual language: warm editorial paper, an ownable cobalt accent, a restrained "construction marks" graphic device, and richer product-craft surfaces for Work.
 
 ## 2. Personality
 
 - **Minimal** — generous space, hairline rules, restrained chromatic accent.
-- **Editorial** — italic serif emphasis, mono labels, paper-feel surface.
-- **Product-craft** — every detail considered: token mapping, symbol-as-bullet, axis dividers.
+- **Editorial** — upright serif prose, rare italic emphasis, mono labels, paper-feel surface.
+- **Product-craft** — every detail considered: token mapping, symbol-as-bullet, axis dividers, artifact-led Work previews.
 - **Slight brutalist edge** — `+` and `§` symbols, monospace metadata, but never oversized or aggressive.
 - **Reflects a design system leader** — the visual hook (construction marks) embodies what design systems are: drafted, measured, intentional.
 
@@ -25,7 +25,7 @@ Revamp the visual design of jaynishshah.com so it reads as the website of a **de
 | `paper` | `#FAF6EC` | `#181410` | Lifted cream / warm inky surface. Both feel like the same paper at different times of day. |
 | `ink` | `#1A1208` | `#EFE8D9` | Warm-black / cream off-white. Never pure black or pure white. |
 | `accent` (cobalt) | `#2647CC` | `#7B95EE` | Saturated true-blue, lifted in dark mode so it stays luminous. |
-| `body` (muted) | `#4A3A2C` | `#B5AB99` | Used for italic body copy, captions, secondary text. |
+| `body` (muted) | `#4A3A2C` | `#B5AB99` | Used for serif prose, captions, secondary text. |
 | `rule` | `rgba(26,18,8,0.18)` | `rgba(239,232,217,0.18)` | Hairline dividers. |
 | `rule-soft` | `rgba(26,18,8,0.10)` | `rgba(239,232,217,0.10)` | Section row separators. |
 
@@ -35,13 +35,11 @@ The mockups used Helvetica + Georgia italic + SF Mono (system stack). For produc
 
 | Role | Family | Fallback | Use |
 |---|---|---|---|
-| Display sans | **Inter** | `Helvetica Neue, sans-serif` | All headlines, names, link text, post titles. Weights 400, 500. Letter-spacing tight (-0.7px on headlines). |
-| Italic serif | **Source Serif 4** *italic* | `Georgia, serif` | Italic emphasis inside headlines, body intro paragraph, captions. Weight 400. |
+| Display sans | **MV Office** | `Helvetica Neue, sans-serif` | All headlines, names, link text, post titles. Weights 300, 400, 500. Tight editorial letter-spacing. |
+| Editorial serif | **Source Serif 4** | `Georgia, serif` | Long-form copy, summaries, and rare italic emphasis. Weight 400. |
 | Mono | **JetBrains Mono** | `SF Mono, monospace` | Section labels (§), metadata, symbol bullets, dimension labels. Weight 400, 500. Letter-spacing 1.4–1.6px, often uppercase. |
 
-The current MV Office (custom OTF) and PT Serif fonts are removed.
-
-> **Decision needed:** Inter / Source Serif / JetBrains Mono are all free and on Google Fonts. If you'd rather use commercial fonts (Söhne, Iowan Old Style, IBM Plex Mono), note that during the implementation step.
+The MV Office custom OTF files are the primary display/UI typeface. Source Serif 4 and JetBrains Mono continue to load from package CSS.
 
 ### 3.3 Visual hook: Restrained Construction Marks
 
@@ -58,7 +56,8 @@ The unifying graphic device across the website. Same family of marks recurs on e
 - Axis dividers separate top-level sections, never sub-blocks within a section.
 - Corner mono badge appears once per page, top-right.
 - No oversized symbols. No graphic appears more than necessary.
-- `accent` color reserved for: italic emphasis inside headlines, all construction marks, all symbol bullets, link arrows. Never used for body copy or large background fills.
+- `accent` color reserved for: global construction marks, all symbol bullets, link arrows, focus states. Never used for body copy or large background fills.
+- Case studies may use a local artifact accent only inside Work previews and case-study detail metadata.
 
 ### 3.4 Layout & spacing
 
@@ -75,12 +74,13 @@ The unifying graphic device across the website. Same family of marks recurs on e
 
 ### 4.1 Files modified
 
-- `src/app/globals.css` — replace color tokens, font-face definitions, base typography, button/link styles.
-- `src/app/layout.tsx` — load new fonts (Google Fonts via `next/font`), add theme provider.
+- `src/app/globals.css` — replace color tokens, font-face definitions, base typography, motion variables, button/link styles.
+- `src/app/layout.tsx` — remove Inter loading and rely on MV Office font faces plus package-loaded Source Serif 4 / JetBrains Mono.
 - `src/app/page.tsx` + `page.module.css` — update homepage hero with construction marks, axis dividers, corner badge.
 - `src/components/Header.tsx` + `Header.module.css` — new typographic style, add theme toggle.
 - `src/components/Footer.tsx` + `Footer.module.css` — restrained construction marks, mono metadata.
-- `src/components/PostCard.tsx` + `PostCard.module.css` — `+` bullet treatment, mono dates.
+- `src/components/PostCard.tsx` + `PostCard.module.css` — `+` bullet treatment, mono dates for writing rows.
+- `src/components/CaseStudyCard.tsx` + `CaseStudyCard.module.css` — richer artifact-led Work previews with local case-study accents.
 - `src/components/Newsletter.tsx` + `Newsletter.module.css` — match new aesthetic.
 - `src/app/about/`, `src/app/blog/`, `src/app/case-studies/`, `src/app/case-study/[slug]/` — apply tokens, ensure construction marks recur on each page header.
 
@@ -95,7 +95,17 @@ The unifying graphic device across the website. Same family of marks recurs on e
 - `src/components/CornerBadge.tsx` — mono `№ 001 · GLA`-style label.
 - `src/components/ThemeToggle.tsx` — light/dark switch in the header.
 
-### 4.4 Risks / gotchas
+### 4.4 Content model additions
+
+Case-study frontmatter supports optional preview metadata:
+
+- `previewImage`
+- `accentColor`
+- `systemLayers`
+- `artifacts`
+- `outcomes`
+
+### 4.5 Risks / gotchas
 
 - Existing blog posts and case studies may have hardcoded styles in their MDX/HTML. Audit during implementation.
 - Header / nav currently uses Radix navigation menu — restyle without changing structure.
@@ -107,8 +117,9 @@ The unifying graphic device across the website. Same family of marks recurs on e
 - [ ] Each page has at most one crosshair, one corner badge, axis dividers between top-level sections.
 - [ ] Light + dark modes both render cleanly, with theme toggle in the header.
 - [ ] Cobalt accent reads clearly in both modes; no color reads as near-black.
-- [ ] Inter / Source Serif italic / JetBrains Mono load via `next/font`. MV Office files deleted.
+- [ ] MV Office / Source Serif 4 / JetBrains Mono render correctly. Inter is no longer the display/UI font.
 - [ ] All `+` bullet, `→` link arrow, `§` section label uses are consistent.
+- [ ] Case-study artifact accents remain scoped to Work previews and case-study detail metadata.
 - [ ] Lighthouse / build runs cleanly. No regressions to existing routes.
 
 ## 6. Out of scope
@@ -116,4 +127,4 @@ The unifying graphic device across the website. Same family of marks recurs on e
 - Content rewrites — copy, blog posts, case studies stay as-is.
 - New pages or features.
 - Newsletter backend changes.
-- Animation beyond simple CSS hover/focus transitions.
+- Motion beyond subtle CSS hover/focus transitions.

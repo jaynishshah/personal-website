@@ -1,6 +1,7 @@
 .header {
   background-color: var(--color-base);
-  padding: 14px 0;
+  border-bottom: 1px solid transparent;
+  padding: 15px 0;
   width: 100%;
 }
 
@@ -28,10 +29,12 @@
   line-height: 1;
   text-decoration: none;
   text-transform: uppercase;
+  transition: color var(--motion-fast), letter-spacing var(--motion-fast);
 }
 
 .wordmark a:hover {
   color: var(--color-accent);
+  letter-spacing: 1.9px;
 }
 
 .right {
@@ -68,13 +71,16 @@
   padding-bottom: 3px;
   border-bottom: 1px solid transparent;
   text-decoration: none;
+  transition: border-color var(--motion-fast), color var(--motion-fast), transform var(--motion-fast);
 }
 
 .navList a:hover {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
   text-decoration: none;
+  transform: translateY(-1px);
 }
+
 
 @media (max-width: 767px) {
   .header {
