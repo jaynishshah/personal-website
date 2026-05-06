@@ -1,7 +1,7 @@
 .header {
   background-color: var(--color-base);
   border-bottom: 1px solid transparent;
-  padding: 15px 0;
+  padding: 15px var(--spacing-40);
   width: 100%;
 }
 
@@ -12,7 +12,7 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--wide-size);
-  padding: 0 var(--spacing-40);
+  padding: 0;
 }
 
 .wordmark {
@@ -84,13 +84,12 @@
 
 @media (max-width: 767px) {
   .header {
-    padding: 16px 0;
+    padding: 16px var(--spacing-20);
   }
 
   .container {
     align-items: flex-start;
     gap: 1rem;
-    padding: 0 var(--spacing-20);
   }
 
   .right {

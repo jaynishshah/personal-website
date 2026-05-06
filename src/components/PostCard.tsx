@@ -30,12 +30,10 @@ export default function PostCard({
   const primaryMeta = type === 'case-study' ? [company, role, year].filter(Boolean).join(' / ') : formattedDate
 
   return (
-    <article className={styles.postCard}>
-      <div className={styles.content}>
+    <article className={styles.postCard} data-type={type}>
+      <Link href={href} className={styles.content}>
         <div className={styles.main}>
-          <h2 className={styles.title}>
-            <Link href={href}>{title}</Link>
-          </h2>
+          <h2 className={styles.title}>{title}</h2>
           {primaryMeta && <p className={styles.primaryMeta}>{primaryMeta}</p>}
           {summary && <p className={styles.excerpt}>{summary}</p>}
           {tags && tags.length > 0 && (
@@ -48,12 +46,14 @@ export default function PostCard({
             </div>
           )}
         </div>
-        <div className={styles.meta}>
-          <time dateTime={date} className={styles.date}>
-            {type === 'case-study' ? 'Case study' : formattedDate}
-          </time>
-        </div>
-      </div>
+        {type === 'case-study' ? (
+          <div className={styles.meta}>
+            <time dateTime={date} className={styles.date}>
+              Case study
+            </time>
+          </div>
+        ) : null}
+      </Link>
     </article>
   )
 }

@@ -7,21 +7,23 @@ import styles from './CaseStudyCard.module.css'
 interface CaseStudyCardProps {
   caseStudy: CaseStudy
   featured?: boolean
+  className?: string
 }
 
 type AccentStyle = CSSProperties & {
   '--case-accent'?: string
 }
 
-export default function CaseStudyCard({ caseStudy, featured = false }: CaseStudyCardProps) {
+export default function CaseStudyCard({ caseStudy, featured = false, className }: CaseStudyCardProps) {
   const image = caseStudy.previewImage ?? caseStudy.featuredImage
   const meta = [caseStudy.company, caseStudy.role, caseStudy.year].filter(Boolean).join(' / ')
+  const classNames = [styles.card, className].filter(Boolean).join(' ')
   const accentStyle: AccentStyle = caseStudy.accentColor
     ? { '--case-accent': caseStudy.accentColor }
     : {}
 
   return (
-    <article className={styles.card} data-featured={featured ? 'true' : undefined} style={accentStyle}>
+    <article className={classNames} data-featured={featured ? 'true' : undefined} style={accentStyle}>
       <Link href={caseStudy.url} className={styles.mediaLink} aria-label={`Read ${caseStudy.title}`}>
         {image ? (
           <Image

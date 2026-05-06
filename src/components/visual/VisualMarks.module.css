@@ -23,7 +23,7 @@
   color: var(--color-accent);
   display: inline-block;
   font-family: var(--font-family-mono);
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 1.5px;
   line-height: 1.2;
@@ -48,9 +48,9 @@
 .crosshair {
   color: var(--color-accent);
   display: block;
-  height: 13px;
+  height: 24px;
   position: relative;
-  width: 13px;
+  width: 24px;
 }
 
 .crosshair::before,
@@ -58,17 +58,20 @@
   background: currentColor;
   content: "";
   left: 50%;
+  opacity: 0.62;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform-origin: center;
 }
 
 .crosshair::before {
   height: 1px;
-  width: 13px;
+  transform: translate(-50%, -50%) scaleY(0.32);
+  width: 24px;
 }
 
 .crosshair::after {
-  height: 13px;
+  height: 24px;
+  transform: translate(-50%, -50%) scaleX(0.32);
   width: 1px;
 }

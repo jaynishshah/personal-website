@@ -25,7 +25,8 @@ export default function HomePage() {
         <div className={styles.container}>
           <div className={styles.heroCard}>
             <h1 className={styles.heading}>
-              Designing systems that <em>quietly</em> hold everything together.
+              I help organisations build <em>scalable design systems.</em><br />
+              Talk tokens to me.
             </h1>
             <p className={styles.lede}>
               I shape the foundations, component decisions, and governance loops that help product teams move with more clarity.
@@ -42,49 +43,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={styles.focus}>
-        <div className={styles.container}>
-          <AxisDivider label="System focus" index="01" />
-          <div className={styles.focusGrid}>
-            <div>
-              <span>01</span>
-              <h3>System foundations</h3>
-              <p>Tokens, theming, component anatomy, accessibility baselines, and the decision structure behind reusable UI.</p>
-            </div>
-            <div>
-              <span>02</span>
-              <h3>Adoption and governance</h3>
-              <p>Contribution models, decision records, documentation, release habits, and the loops that make a system trusted.</p>
-            </div>
-            <div>
-              <span>03</span>
-              <h3>Design and engineering alignment</h3>
-              <p>Helping teams translate design intent into reusable interfaces without losing craft, clarity, or delivery speed.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {featuredCaseStudy ? (
         <section className={styles.work}>
           <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <div>
-                <AxisDivider label="Selected work" index="02" />
-                <h2 className={styles.sectionTitle}>Product craft, made systemic.</h2>
-              </div>
-              <p>Case-study previews now surface the artifacts behind the system: layers, decisions, and reusable outcomes.</p>
-            </div>
-            <CaseStudyCard caseStudy={featuredCaseStudy} featured />
+            <AxisDivider label="Selected work" index="01" />
+            <CaseStudyCard caseStudy={featuredCaseStudy} featured className={styles.workCard} />
           </div>
         </section>
       ) : null}
 
       <section className={styles.about}>
         <div className={styles.container}>
+          <AxisDivider label="About" index="02" />
           <div className={styles.columns}>
             <div className={styles.mainColumn}>
-              <AxisDivider label="About" index="03" />
               <p className={styles.description}>
                 Jaynish's path runs from architecture and spatial design to digital products, where structure, constraints, and craft meet at scale.
               </p>
@@ -126,13 +98,7 @@ export default function HomePage() {
 
       <section className={styles.blog}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <div>
-              <AxisDivider label="Writing" index="04" />
-              <h2 className={styles.sectionTitle}>Notes from the system layer.</h2>
-            </div>
-            <p>Notes on design systems, component architecture, and product design practice.</p>
-          </div>
+          <AxisDivider label="Writing" index="03" />
           <div className={styles.posts}>
             {recentPosts.map((post) => (
               <PostCard
@@ -146,7 +112,6 @@ export default function HomePage() {
             ))}
           </div>
           <div className={styles.viewAll}>
-            <hr className={styles.separator} />
             <Link href="/blog" className={styles.viewAllLink}>
               View all writing
             </Link>
