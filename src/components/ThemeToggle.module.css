@@ -1,18 +1,22 @@
 .toggle {
   align-items: center;
   background: transparent;
-  border: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
   color: var(--color-contrast);
   cursor: pointer;
   display: inline-flex;
-  height: 1.5rem;
+  height: 1.75rem;
   justify-content: center;
   padding: 0;
-  width: 1.5rem;
+  transition: border-color var(--motion-fast), color var(--motion-fast), transform var(--motion-fast);
+  width: 1.75rem;
 }
 
 .toggle:hover {
+  border-color: var(--color-rule);
   color: var(--color-accent);
+  transform: rotate(12deg);
 }
 
 .toggle:focus,
@@ -22,7 +26,10 @@
 }
 
 .toggle:focus-visible {
+  border-color: var(--color-accent);
   color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .icon {
@@ -30,4 +37,14 @@
   fill: currentColor;
   height: 1.05rem;
   width: 1.05rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle {
+    transition: none;
+  }
+
+  .toggle:hover {
+    transform: none;
+  }
 }

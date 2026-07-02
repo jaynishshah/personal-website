@@ -1,6 +1,12 @@
 .footer {
-  background-color: var(--color-base);
-  border-top: 1px solid var(--color-rule);
+  background:
+    radial-gradient(
+      ellipse 68% 120% at 50% 100%,
+      color-mix(in srgb, var(--color-accent) 40%, transparent) 0%,
+      color-mix(in srgb, var(--color-accent) 18%, transparent) 42%,
+      transparent 72%
+    ),
+    var(--color-base);
   color: var(--color-contrast);
   padding: var(--spacing-40) 0;
   width: 100%;
@@ -58,17 +64,29 @@
   display: flex;
   justify-content: center;
   opacity: 0.72;
-  transition: opacity 0.2s;
+  transition: color var(--motion-fast), opacity var(--motion-fast), transform var(--motion-fast);
 }
 
 .socialList a:hover {
+  color: var(--color-accent);
   opacity: 1;
+  transform: translateY(-1px);
 }
 
 .socialList svg {
   fill: currentColor;
   height: 20px;
   width: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialList a {
+    transition: none;
+  }
+
+  .socialList a:hover {
+    transform: none;
+  }
 }
 
 .footerText {

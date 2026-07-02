@@ -7,6 +7,24 @@
   margin: 0 auto;
 }
 
+.header {
+  margin-bottom: var(--spacing-40);
+  min-height: 320px;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  right: 0;
+  top: 0.2rem;
+}
+
+.crosshair {
+  position: absolute;
+  right: 8rem;
+  top: 0.05rem;
+}
+
 .eyebrow {
   color: var(--color-accent);
   font-family: var(--font-family-mono);
@@ -19,19 +37,18 @@
 }
 
 .title {
-  font-size: var(--font-size-xx-large);
-  font-weight: 400;
-  letter-spacing: -1px;
-  line-height: 1;
+  font-size: clamp(3.2rem, 7.4vw, 6.8rem);
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
   margin: var(--spacing-20) 0 0;
-  max-width: 900px;
+  max-width: 980px;
 }
 
 .summary {
   color: var(--color-contrast-2);
   font-family: var(--font-family-pt-serif);
-  font-size: 0.9375rem;
-  font-style: italic;
+  font-size: 1rem;
   line-height: 1.65;
   margin-top: var(--spacing-20);
   max-width: 720px;
@@ -39,12 +56,20 @@
 
 .posts {
   display: block;
-  margin-top: var(--spacing-40);
 }
 
 @media (max-width: 767px) {
   .container {
     padding-left: var(--spacing-20);
     padding-right: var(--spacing-20);
+  }
+
+  .header {
+    min-height: auto;
+  }
+
+  .badge,
+  .crosshair {
+    display: none;
   }
 }

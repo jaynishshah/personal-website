@@ -4,6 +4,8 @@ import { getBlogPost, getBlogPosts } from '@/lib/content'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import ArticleRenderer from '@/components/content/ArticleRenderer'
+import CornerBadge from '@/components/visual/CornerBadge'
+import Crosshair from '@/components/visual/Crosshair'
 import pageStyles from '@/components/content/ArticlePage.module.css'
 import { buildPageMetadata } from '@/lib/metadata'
 
@@ -58,6 +60,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       )}
       <div className={pageStyles.content}>
         <div className={pageStyles.header}>
+          <CornerBadge className={pageStyles.cornerBadge}>№ 004 · NOTE</CornerBadge>
+          <Crosshair className={pageStyles.crosshair} />
           <time dateTime={post.date} className={pageStyles.date}>
             {formattedDate}
           </time>

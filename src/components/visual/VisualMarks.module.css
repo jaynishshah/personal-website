@@ -1,0 +1,77 @@
+.axis {
+  align-items: center;
+  display: flex;
+  margin: 0 0 var(--spacing-20);
+  position: relative;
+  width: 100%;
+}
+
+.axis::before {
+  background:
+    linear-gradient(var(--color-accent), var(--color-accent)) left center / 1px 7px no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) right center / 1px 7px no-repeat,
+    linear-gradient(var(--color-rule), var(--color-rule)) center / 100% 1px no-repeat;
+  content: "";
+  height: 9px;
+  inset: 50% 0 auto;
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.axisLabel {
+  background: var(--color-base);
+  color: var(--color-accent);
+  display: inline-block;
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+  margin-left: 1.25rem;
+  padding: 0 0.55rem;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.cornerBadge {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crosshair {
+  color: var(--color-accent);
+  display: block;
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.crosshair::before,
+.crosshair::after {
+  background: currentColor;
+  content: "";
+  left: 50%;
+  opacity: 0.62;
+  position: absolute;
+  top: 50%;
+  transform-origin: center;
+}
+
+.crosshair::before {
+  height: 1px;
+  transform: translate(-50%, -50%) scaleY(0.32);
+  width: 24px;
+}
+
+.crosshair::after {
+  height: 24px;
+  transform: translate(-50%, -50%) scaleX(0.32);
+  width: 1px;
+}

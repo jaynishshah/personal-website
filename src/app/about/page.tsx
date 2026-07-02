@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import AxisDivider from '@/components/visual/AxisDivider'
+import CornerBadge from '@/components/visual/CornerBadge'
+import Crosshair from '@/components/visual/Crosshair'
 import { buildPageMetadata } from '@/lib/metadata'
 import styles from './page.module.css'
 
@@ -13,15 +16,17 @@ export const metadata: Metadata = buildPageMetadata({
 export default function AboutPage() {
   return (
     <div className={styles.container}>
-      <p className={styles.eyebrow}>About</p>
-      <h1 className={styles.title}>A product designer working at the intersection of systems, craft, and collaboration.</h1>
+      <header className={styles.header}>
+        <CornerBadge className={styles.badge}>№ 005 · ABOUT</CornerBadge>
+        <Crosshair className={styles.crosshair} />
+        <p className={styles.eyebrow}>About</p>
+        <h1 className={styles.title}>A product designer working at the intersection of systems, craft, and collaboration.</h1>
+      </header>
       
       <div className={styles.content}>
         <div className={styles.textColumn}>
           <div>
-            <h3 className={styles.sectionTitle} id="what-i-do">
-              Then and now
-            </h3>
+            <AxisDivider label="Then and now" index="01" />
             <p className={styles.text}>
               I've worked across disciplines, but the common thread has always been systems thinking.
             </p>
@@ -38,9 +43,7 @@ export default function AboutPage() {
               Today, I work full-time on design systems at Ticketmaster, UK.
             </p>
 
-            <h3 className={styles.sectionTitle} id="whereabouts">
-              Whereabouts
-            </h3>
+            <AxisDivider label="Whereabouts" index="02" className={styles.inlineAxis} />
             <p className={styles.text}>
               Born and raised in Mumbai, India, I currently live with my son and wife in a{' '}
               <a
@@ -53,9 +56,7 @@ export default function AboutPage() {
               of Glasgow, UK.
             </p>
 
-            <h3 className={styles.sectionTitle} id="other-than-work">
-              Other than work
-            </h3>
+            <AxisDivider label="Other than work" index="03" className={styles.inlineAxis} />
             <p className={styles.text}>
               I enjoy long walks, exploring museums and galleries, writing, and falling into odd corners of Spotify.
             </p>

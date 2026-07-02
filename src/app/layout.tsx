@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/jetbrains-mono/600.css'
 import '@fontsource/source-serif-4/400.css'
@@ -8,12 +7,6 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME } from '@/lib/site'
-
-const inter = localFont({
-  src: '../wp-content/themes/twentytwentyfour/assets/fonts/inter/Inter-VariableFont_slnt,wght.woff2',
-  display: 'swap',
-  variable: '--font-inter',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl('/')),
@@ -58,7 +51,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className={inter.variable}>
+      <body>
         <Header />
         <main>{children}</main>
         <Footer />

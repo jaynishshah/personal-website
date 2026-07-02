@@ -1,5 +1,59 @@
 .container {
-  padding: var(--spacing-50);
-  text-align: center;
+  margin: 0 auto;
+  max-width: var(--wide-size);
+  min-height: 70vh;
+  padding: var(--spacing-40);
+  position: relative;
 }
 
+.badge {
+  position: absolute;
+  right: var(--spacing-40);
+  top: var(--spacing-40);
+}
+
+.crosshair {
+  position: absolute;
+  right: calc(var(--spacing-40) + 7.1rem);
+  top: calc(var(--spacing-40) - 0.1rem);
+}
+
+.eyebrow {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.container h1 {
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  margin: var(--spacing-20) 0 0;
+}
+
+.container p:not(.eyebrow) {
+  color: var(--color-contrast-2);
+  font-family: var(--font-family-pt-serif);
+  font-size: 1rem;
+  line-height: 1.65;
+  margin: var(--spacing-20) 0 var(--spacing-30);
+  max-width: 560px;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: var(--spacing-20);
+    padding-right: var(--spacing-20);
+  }
+
+  .badge,
+  .crosshair {
+    display: none;
+  }
+}

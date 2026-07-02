@@ -31,6 +31,11 @@ export interface CaseStudy extends BaseContentEntry {
   role?: string
   year?: string
   status?: string
+  previewImage?: string
+  accentColor?: string
+  systemLayers: string[]
+  artifacts: string[]
+  outcomes: string[]
 }
 
 function readCollectionFiles(collection: 'blog' | 'case-studies') {
@@ -150,6 +155,11 @@ function getCaseStudiesInternal(): CaseStudy[] {
         role: asOptionalString(data.role),
         year: asOptionalString(data.year),
         status: asOptionalString(data.status),
+        previewImage: asOptionalString(data.previewImage),
+        accentColor: asOptionalString(data.accentColor),
+        systemLayers: asStringArray(data.systemLayers),
+        artifacts: asStringArray(data.artifacts),
+        outcomes: asStringArray(data.outcomes),
         content,
         format,
         url: `/case-studies/${slug}`,

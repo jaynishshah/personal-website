@@ -3,43 +3,59 @@
   margin: 0;
 }
 
+.postCard:first-child {
+  border-top: 0;
+}
+
 .postCard:last-child {
   border-bottom: 1px solid var(--color-rule-soft);
 }
 
 .content {
   align-items: start;
+  color: inherit;
   display: grid;
   gap: var(--spacing-30);
-  grid-template-columns: 14px minmax(0, 1fr) 110px;
-  padding: 0.8rem 0;
+  grid-template-columns: 24px minmax(0, 1fr) 110px;
+  padding: 1rem 0;
+  text-decoration: none;
+  transition: padding var(--motion-fast);
+}
+
+a.content:hover,
+a.content:focus-visible {
+  color: inherit;
+  text-decoration: none;
+}
+
+.postCard[data-type='blog'] .content {
+  grid-template-columns: 24px minmax(0, 1fr);
 }
 
 .content::before {
   color: var(--color-accent);
   content: "+";
   font-family: var(--font-family-mono);
-  font-size: 0.72rem;
-  line-height: 1.35;
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 0.82;
+  transform: translateY(-1px);
 }
 
 .title {
+  color: var(--color-contrast);
   font-family: var(--font-family-display);
-  font-size: 0.95rem;
+  font-size: 1.12rem;
   font-weight: 500;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.045em;
   line-height: 1.25;
   margin: 0;
+  transition: color var(--motion-fast);
 }
 
-.title a {
-  color: var(--color-contrast);
-  text-decoration: none;
-}
-
-.title a:hover {
+.postCard:hover .title,
+.postCard:focus-within .title {
   color: var(--color-accent);
-  text-decoration: none;
 }
 
 .primaryMeta {
@@ -56,7 +72,6 @@
   color: var(--color-contrast-2);
   font-family: var(--font-family-pt-serif);
   font-size: 0.92rem;
-  font-style: italic;
   line-height: 1.65;
   margin-top: 0.35rem;
   max-width: 760px;
@@ -90,9 +105,19 @@
   text-transform: uppercase;
 }
 
+.postCard:hover .content,
+.postCard:focus-within .content {
+  padding-left: 0.35rem;
+}
+
+.postCard:hover .content::before,
+.postCard:focus-within .content::before {
+  color: var(--color-accent);
+}
+
 @media (max-width: 767px) {
   .content {
-    grid-template-columns: 14px minmax(0, 1fr);
+    grid-template-columns: 24px minmax(0, 1fr);
     gap: 0 var(--spacing-10);
   }
 
@@ -104,5 +129,17 @@
 
   .date {
     text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .title {
+    transition: none;
+  }
+
+  .postCard:hover .content,
+  .postCard:focus-within .content {
+    padding-left: 0;
   }
 }
