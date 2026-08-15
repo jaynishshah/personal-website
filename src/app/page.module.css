@@ -1,180 +1,364 @@
-.hero {
-  padding: var(--spacing-40) var(--spacing-40) var(--spacing-30);
-}
-
-.container {
-  max-width: var(--wide-size);
-  margin: 0 auto;
-}
-
-.hero .container {
-  display: block;
-}
-
-.heroCard {
-  min-height: 590px;
-  position: relative;
-}
-
-.eyebrow,
-.sectionLabel,
-.label {
-  color: var(--color-accent);
-  font-family: var(--font-family-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 1.4px;
-  line-height: 1.2;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-.heading {
-  font-size: clamp(3.6rem, 7.2vw, 7.2rem);
-  font-weight: 300;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-  margin: 0;
-  max-width: 100%;
-}
-
-.heading em {
-  color: var(--color-accent);
-  font-family: var(--font-family-pt-serif);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.025em;
-}
-
-.lede {
-  color: var(--color-contrast-2);
-  font-family: var(--font-family-pt-serif);
-  font-size: 1.02rem;
-  line-height: 1.65;
-  margin: var(--spacing-20) 0 0;
-  max-width: 620px;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: var(--spacing-30);
-}
-
-.work,
-.blog {
-  padding: var(--spacing-30) var(--spacing-40);
-}
-
-.workCard {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.about {
-  padding: var(--spacing-40) var(--spacing-40);
+.home {
+  --home-background: #f7f5ef;
+  --home-foreground: #1c1c1b;
+  --home-muted: #66635c;
+  --home-purple: #3158de;
+  --quote-card-bleed: 7px;
+  --quote-card-padding: 24px;
+  --quote-slot: 1.05em;
+  background: var(--home-background);
+  border: 1px solid #c8c4ba;
+  color: var(--home-foreground);
+  height: 100dvh;
+  overflow: hidden;
   width: 100%;
 }
 
-.columns {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  margin: 0 auto;
-  max-width: var(--wide-size);
+.canvas {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(36px, 8.8vh, 80px) clamp(28px, 4.4vw, 63px);
 }
 
-.mainColumn,
-.sideColumn {
-  border-top: 0;
-  padding-top: 0;
+.intro {
+  max-width: 1291px;
+  position: relative;
+  width: 100%;
 }
 
-.description {
-  color: var(--color-contrast-2);
-  font-family: var(--font-family-pt-serif);
-  font-size: 1rem;
-  line-height: 1.68;
+.heading {
+  color: var(--home-foreground);
+  font-family: var(--font-family-display);
+  font-size: clamp(41px, min(4.15vw, 6.65vh), 60px);
+  font-weight: 400;
+  isolation: isolate;
+  letter-spacing: 0;
+  line-height: 1.05;
   margin: 0;
-  max-width: 760px;
+  position: relative;
 }
 
-.infoBlock {
-  border-bottom: 1px solid var(--color-rule-soft);
-  padding: 0 0 var(--spacing-20);
-}
-
-.spacer {
-  height: var(--spacing-20);
-}
-
-.info {
-  color: var(--color-contrast-2);
-  font-family: var(--font-family-mono);
-  font-size: 0.75rem;
-  line-height: 1.85;
-  margin: var(--spacing-10) 0 0;
-}
-
-.posts {
+.stableTitleLine {
   display: block;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  position: relative;
+  z-index: 4;
 }
 
-.viewAll {
-  margin-top: var(--spacing-20);
+.quoteReel {
+  color: var(--home-purple);
+  display: block;
+  height: var(--quote-slot);
+  position: relative;
+  touch-action: none;
+  width: 100%;
+  z-index: 1;
 }
 
-a.viewAllLink {
+.quoteSurface,
+.quoteViewport {
+  inset: calc(-1 * var(--quote-card-bleed)) calc(-1 * var(--quote-card-padding));
+  position: absolute;
+}
+
+.quoteSurface {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(
+      180deg,
+      rgba(28, 28, 27, 0.72) 0%,
+      rgba(28, 28, 27, 0.48) 54%,
+      rgba(28, 28, 27, 0.64) 100%
+    ) border-box;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 10px rgba(28, 28, 27, 0.055),
+    0 12px 28px rgba(28, 28, 27, 0.12);
+  opacity: 0;
+  transform: scale(0.988);
+  transform-origin: center;
+  transition:
+    opacity 90ms ease-out,
+    transform 115ms cubic-bezier(0.2, 0.82, 0.2, 1);
+  will-change: opacity, transform;
+  z-index: 1;
+}
+
+.quoteViewport {
+  border-radius: 8px;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  overflow: hidden;
+  z-index: 2;
+}
+
+.quoteReel[data-moving='true'] .quoteSurface {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.quoteTrack {
+  inset: var(--quote-card-bleed) var(--quote-card-padding) auto;
+  height: var(--quote-slot);
+  position: absolute;
+  will-change: transform;
+}
+
+.quoteLine {
+  box-sizing: border-box;
+  display: flex;
+  height: var(--quote-slot);
+  left: 0;
+  line-height: 1.05;
+  position: absolute;
+  top: 0;
+  transition: opacity 90ms ease-out;
+  width: 100%;
+}
+
+.quoteLineContent {
+  display: block;
+  transform: scale(var(--picker-text-scale, 1));
+  transform-origin: left top;
+  transition: transform 115ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.quotePrevious,
+.quoteNext {
+  opacity: 0;
+  z-index: 1;
+}
+
+.quotePrevious {
+  transform: translateY(calc(-1 * var(--quote-slot)));
+}
+
+.quoteCurrent {
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 3;
+}
+
+.quoteNext {
+  transform: translateY(var(--quote-slot));
+}
+
+.quoteReel[data-moving='true'] .quotePrevious,
+.quoteReel[data-moving='true'] .quoteNext {
+  opacity: 0.32;
+}
+
+
+.bio {
+  background: var(--home-background);
+  box-shadow: 0 0 0 5px var(--home-background);
+  color: var(--home-foreground);
+  font-family: var(--font-family-pt-serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 24px 0 0;
+  max-width: 760px;
+  position: relative;
+  width: fit-content;
+  z-index: 4;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  max-width: 1291px;
+  width: 100%;
+}
+
+.home .navigationRow {
   align-items: center;
-  color: var(--color-accent);
-  display: inline-flex;
-  font-family: var(--font-family-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  gap: 0.35rem;
-  letter-spacing: 1.4px;
+  border-top: 1px solid var(--home-foreground);
+  color: var(--home-foreground);
+  display: grid;
+  flex: 0 0 101px;
+  grid-template-columns: 160px minmax(24px, 405.5px) 288px minmax(24px, 405.5px) 32px;
+  min-height: 101px;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
-a.viewAllLink::after {
-  content: "›";
-  font-size: 1.05em;
+.navigationLabel {
+  font-family: var(--font-family-display);
+  font-size: 36px;
+  font-weight: 400;
   line-height: 1;
 }
 
-a.viewAllLink:hover,
-a.viewAllLink:focus-visible {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.24em;
+.navigationDescription {
+  color: var(--home-muted);
+  font-family: var(--font-family-pt-serif);
+  font-size: 22px;
+  font-weight: 400;
+  grid-column: 3;
+  line-height: 1;
 }
 
-@media (max-width: 900px) {
-  .columns {
-    grid-template-columns: 1fr;
+.navigationArrow {
+  font-family: Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  grid-column: 5;
+  line-height: 1;
+  transition: transform 120ms ease-out;
+}
+
+.home .navigationRow:hover,
+.home .navigationRow:focus-visible {
+  color: var(--home-purple);
+  text-decoration: none;
+}
+
+.home .navigationRow:hover .navigationDescription,
+.home .navigationRow:focus-visible .navigationDescription {
+  color: var(--home-purple);
+}
+
+.home .navigationRow:hover .navigationArrow,
+.home .navigationRow:focus-visible .navigationArrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 1000px) {
+  .canvas {
+    padding-left: clamp(24px, 5vw, 48px);
+    padding-right: clamp(24px, 5vw, 48px);
   }
 
-  .heroCard {
-    min-height: auto;
+  .bio {
+    max-width: 620px;
+  }
+
+  .home .navigationRow {
+    grid-template-columns: minmax(118px, 0.7fr) minmax(28px, 1fr) minmax(210px, 0.8fr) minmax(28px, 1fr) 32px;
   }
 }
 
-@media (max-width: 767px) {
-  .hero,
-  .work,
-  .about,
-  .blog {
-    padding-left: var(--spacing-20);
-    padding-right: var(--spacing-20);
+@media (max-width: 600px) {
+  .home {
+    --quote-card-bleed: 6px;
+    --quote-card-padding: 8px;
+    --quote-slot: 2.72em;
   }
 
-  .hero {
-    padding-top: var(--spacing-30);
+  .canvas {
+    padding: clamp(20px, 4.5vh, 38px) 20px;
   }
 
   .heading {
-    font-size: clamp(3rem, 17vw, 5rem);
+    font-size: clamp(28px, min(7.7vw, 4.55vh), 30px);
+    line-height: 1.02;
+  }
+
+  .quoteLine {
+    line-height: 1.02;
+  }
+
+  .quoteLineContent {
+    align-self: flex-start;
+    display: -webkit-box;
+    inline-size: 100%;
+    margin-block-start: 0;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: clip;
+    text-wrap: balance;
+    white-space: normal;
+  }
+
+  .bio {
+    box-shadow: 0 0 0 3px var(--home-background);
+    font-size: clamp(16px, 4.3vw, 18px);
+    line-height: 1.34;
+    margin-top: 14px;
+    max-width: 100%;
+  }
+
+  .home .navigationRow {
+    flex-basis: clamp(58px, 9.8vh, 72px);
+    grid-template-columns: minmax(82px, 0.7fr) minmax(128px, 1.35fr) 24px;
+    min-height: clamp(58px, 9.8vh, 72px);
+  }
+
+  .navigationLabel {
+    font-size: clamp(26px, 7.2vw, 30px);
+  }
+
+  .navigationDescription {
+    font-size: clamp(15px, 4vw, 17px);
+    grid-column: 2;
+    line-height: 1.08;
+  }
+
+  .navigationArrow {
+    font-size: 24px;
+    grid-column: 3;
+  }
+}
+
+@media (max-height: 700px) and (max-width: 600px) {
+  .canvas {
+    padding-bottom: 18px;
+    padding-top: 18px;
+  }
+
+  .bio {
+    font-size: 15px;
+    line-height: 1.28;
+    margin-top: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quotePrevious,
+  .quoteNext {
+    opacity: 0 !important;
+  }
+
+  .quoteTrack,
+  .navigationArrow {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .quoteLine {
+    transition: none !important;
+  }
+
+  .quoteLineContent {
+    transition: none !important;
+  }
+
+  .quoteSurface {
+    transform: none;
+    transition: opacity 120ms ease-out !important;
+  }
+
+  .quoteReel[data-moving='true'] .quoteSurface {
+    transform: none;
   }
 }
