@@ -477,3 +477,19 @@ hr {
 @media (max-width: 767px) {
   /* Body padding removed - handled by individual sections */
 }
+
+html.homepage-lock,
+html.homepage-lock body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body:has(.home-viewport) > header,
+body:has(.home-viewport) > footer {
+  display: none;
+}
+
+body:has(.home-viewport) > main {
+  height: 100dvh;
+  overflow: hidden;
+}
