@@ -18,11 +18,12 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: clamp(36px, 8.8vh, 80px) clamp(28px, 4.4vw, 63px);
+  padding: clamp(36px, 8.8vh, 80px) calc(var(--page-gutter) - 1px);
 }
 
 .intro {
-  max-width: 1291px;
+  margin-inline: auto;
+  max-width: var(--wide-size);
   position: relative;
   width: 100%;
 }
@@ -185,8 +186,9 @@
 .navigation {
   display: flex;
   flex-direction: column;
+  margin-inline: auto;
   margin-top: auto;
-  max-width: 1291px;
+  max-width: var(--wide-size);
   width: 100%;
 }
 
@@ -243,11 +245,6 @@
 }
 
 @media (max-width: 1000px) {
-  .canvas {
-    padding-left: clamp(24px, 5vw, 48px);
-    padding-right: clamp(24px, 5vw, 48px);
-  }
-
   .bio {
     max-width: 620px;
   }
@@ -265,7 +262,7 @@
   }
 
   .canvas {
-    padding: clamp(20px, 4.5vh, 38px) 20px;
+    padding: clamp(20px, 4.5vh, 38px) calc(var(--page-gutter) - 1px);
   }
 
   .heading {

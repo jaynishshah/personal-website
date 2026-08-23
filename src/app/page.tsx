@@ -12,11 +12,14 @@ export const metadata: Metadata = buildPageMetadata({
   image: '/images/site/profile.png',
 })
 
-const navigation = [
+const navigation: readonly {
+  href: string
+  label: string
+  description?: string
+}[] = [
   {
     href: '/case-studies',
     label: 'Work',
-    description: 'Systems in practice',
   },
   {
     href: '/blog',
@@ -52,7 +55,9 @@ export default function HomePage() {
           {navigation.map((item) => (
             <Link key={item.href} href={item.href} className={styles.navigationRow}>
               <span className={styles.navigationLabel}>{item.label}</span>
-              <span className={styles.navigationDescription}>{item.description}</span>
+              {item.description ? (
+                <span className={styles.navigationDescription}>{item.description}</span>
+              ) : null}
               <span className={styles.navigationArrow} aria-hidden="true">→</span>
             </Link>
           ))}
