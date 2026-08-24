@@ -37,3 +37,9 @@ next-env.d.ts
 
 # claude agent worktrees
 /.claude/worktrees/
+
+# superpowers brainstorming sessions
+/.superpowers/
+
+# local feature worktrees
+/.worktrees/
