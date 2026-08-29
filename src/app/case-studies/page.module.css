@@ -14,29 +14,8 @@
 }
 
 .header {
-  --work-rule-offset: clamp(28px, 4.5vw, 72px);
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
   padding-bottom: 48px;
-  padding-top: calc(var(--work-rule-offset) + 24px);
-  position: relative;
-}
-
-.header::before {
-  border-top: 1px solid var(--work-foreground);
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: var(--work-rule-offset);
-}
-
-.headingGroup {
-  align-items: baseline;
-  display: flex;
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
-  min-width: 0;
+  padding-top: clamp(3rem, 6vw, 6rem);
 }
 
 .title {
@@ -48,47 +27,6 @@
   line-height: 0.78;
   margin: 0;
   white-space: nowrap;
-}
-
-.subtitle {
-  color: var(--work-muted);
-  font-family: var(--font-family-pt-serif);
-  font-size: clamp(1rem, 1.5vw, 1.375rem);
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0;
-  white-space: nowrap;
-}
-
-.close {
-  align-items: center;
-  background: transparent;
-  color: var(--work-foreground);
-  display: flex;
-  flex: 0 0 48px;
-  height: 48px;
-  isolation: isolate;
-  justify-content: center;
-  position: relative;
-  text-decoration: none;
-  width: 48px;
-}
-
-a.close:hover {
-  color: var(--work-foreground);
-  text-decoration: none;
-}
-
-.closeIcon {
-  font-size: 48px;
-  line-height: 1;
-  position: relative;
-  z-index: 1;
-}
-
-.close:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
 }
 
 .caseStudies {
@@ -111,7 +49,6 @@ a.close:hover {
   text-decoration: none;
 }
 
-.close::after,
 .imageFrame::after {
   border: 1px solid var(--interactive-surface-outline);
   border-radius: var(--interactive-surface-radius);
@@ -122,11 +59,6 @@ a.close:hover {
   pointer-events: none;
   position: absolute;
   transition: opacity var(--interactive-surface-transition);
-}
-
-.close::after {
-  background: var(--interactive-surface-background);
-  z-index: 0;
 }
 
 .imageFrame::after {
@@ -141,7 +73,6 @@ a.close:hover {
   opacity: 1;
 }
 
-.closeIcon,
 .image {
   transform: scale(1);
   transition: transform var(--interactive-surface-transition);
@@ -174,31 +105,26 @@ a.close:hover {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .close:hover::after,
   .imageFrame:hover::after {
     opacity: 1;
   }
 
-  .close:hover .closeIcon,
   .imageFrame:hover .image {
     transform: scale(var(--interactive-surface-content-scale));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .close::after,
   .imageFrame::after {
     transition: opacity var(--interactive-surface-reduced-transition);
   }
 
-  .closeIcon,
   .image {
     transition: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) and (hover: hover) and (pointer: fine) {
-  .close:hover .closeIcon,
   .imageFrame:hover .image {
     transform: none;
   }
@@ -206,18 +132,8 @@ a.close:hover {
 
 @media (max-width: 767px) {
   .header {
-    --work-rule-offset: 24px;
     padding-bottom: 36px;
-  }
-
-  .headingGroup {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
+    padding-top: 3rem;
   }
 
   .caseStudies {

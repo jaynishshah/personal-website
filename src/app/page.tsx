@@ -35,34 +35,41 @@ const navigation: readonly {
 
 export default function HomePage() {
   return (
-    <section className={`${styles.home} home-viewport`} data-testid="home-viewport">
-      <div className={styles.canvas}>
-        <div className={styles.intro}>
-          <h1 className={styles.heading}>
-            <span className={styles.stableTitleLine}>Hi. I’m Jaynish.</span>
-            <span className={styles.stableTitleLine}>
-              I help organisations build design systems that
-            </span>
-            <KineticQuote />
-          </h1>
+    <main>
+      <section className={`${styles.home} home-viewport`} data-testid="home-viewport">
+        <div className={styles.canvas}>
+          <div className={styles.intro}>
+            <h1 className={styles.heading}>
+              <span className={styles.stableTitleLine}>Hi. I’m Jaynish.</span>
+              <span className={styles.stableTitleLine}>
+                I help organisations build design systems that
+              </span>
+              <KineticQuote />
+            </h1>
 
-          <p className={styles.bio}>
-            I’m a lead product designer at Ticketmaster, working on design systems. I’m drawn to ambiguous problems, thoughtful interactions and the initiatives that help the whole system move forward.
-          </p>
+            <p className={styles.bio}>
+              I’m a lead product designer at Ticketmaster, working on design systems. I’m drawn to ambiguous problems, thoughtful interactions and the initiatives that help the whole system move forward.
+            </p>
+          </div>
+
+          <nav className={styles.navigation} aria-label="Primary navigation">
+            {navigation.map((item) => (
+              <Link key={item.href} href={item.href} className={styles.navigationRow}>
+                <span className={styles.navigationLabel}>{item.label}</span>
+                {item.description ? (
+                  <span className={styles.navigationDescription}>{item.description}</span>
+                ) : null}
+                <span
+                  className={`material-symbols-outlined ${styles.navigationArrow}`}
+                  aria-hidden="true"
+                >
+                  arrow_right_alt
+                </span>
+              </Link>
+            ))}
+          </nav>
         </div>
-
-        <nav className={styles.navigation} aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <Link key={item.href} href={item.href} className={styles.navigationRow}>
-              <span className={styles.navigationLabel}>{item.label}</span>
-              {item.description ? (
-                <span className={styles.navigationDescription}>{item.description}</span>
-              ) : null}
-              <span className={styles.navigationArrow} aria-hidden="true">→</span>
-            </Link>
-          ))}
-        </nav>
-      </div>
-    </section>
+      </section>
+    </main>
   )
 }

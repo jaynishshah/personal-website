@@ -220,9 +220,7 @@
 }
 
 .navigationArrow {
-  font-family: Arial, sans-serif;
-  font-size: 32px;
-  font-weight: 400;
+  font-size: 40px;
   grid-column: 5;
   line-height: 1;
   transition: transform 120ms ease-out;
@@ -312,7 +310,7 @@
   }
 
   .navigationArrow {
-    font-size: 24px;
+    font-size: 28px;
     grid-column: 3;
   }
 }

@@ -69,3 +69,52 @@
 - P3: the static Figma frame uses a slightly stronger black stroke and 0.15 shadow opacity. The implementation intentionally softens both during its fade-in, as requested.
 
 final result: passed
+
+---
+
+# Work case-study grid design QA
+
+## Comparison target
+
+- Source visual truth: `/var/folders/n1/63mzpp9s08q10sdly1tp8wdc0000gn/T/codex-clipboard-127f6908-3aff-404b-b32b-96b4c5578bec.png`.
+- Browser-rendered implementation:
+  - `docs/audits/2026-08-23-work-grid/implementation-desktop-final-1440x1000.png`
+  - `docs/audits/2026-08-23-work-grid/implementation-desktop-tile-view-1440x1000.png`
+  - `docs/audits/2026-08-23-work-grid/implementation-mobile-pass1-390x844.png`
+- Full-view comparison evidence: `docs/audits/2026-08-23-work-grid/comparison-full-side-by-side.png`.
+- Focused tile comparison evidence: `docs/audits/2026-08-23-work-grid/comparison-tile-focused-side-by-side.png`.
+- Source pixels: 2926 × 1376. Desktop implementation pixels and CSS viewport: 1440 × 1000 at device scale factor 1. Mobile implementation pixels and CSS viewport: 390 × 844 at device scale factor 1.
+- Density normalization: the source and desktop implementation were independently scaled to fit equal-width comparison cells without cropping. The focused comparison isolates the reference backing treatment and the implemented tile at equal display widths.
+- Compared state: Work route in light mode, first case-study tile at rest. The reference defines the image-backing treatment rather than a complete Work-page composition; the oversized Work title and responsive grid follow the previously approved page direction.
+
+## Findings
+
+- No actionable P0, P1, or P2 differences remain.
+- Fonts and typography: the oversized Work heading remains MV Office Regular. The case-study title uses the same display family at 44px desktop and 28px mobile, with no metadata or summary competing with it. The close control uses the Radix Cross 2 icon at 32px desktop and 26px mobile.
+- Spacing and layout rhythm: the desktop index uses two equal 620px columns inside the existing 1280px centered grid, with a 40px column gap. The image sits inside a 620px backing surface with 40px inset space. Mobile collapses to one 350px column with a 20px image inset. The title sits 14.4px below the backing surface.
+- Colors and visual tokens: the Work route retains the approved cream, black, and blue landing-page palette. The requested subtle image surface computes to `rgba(0, 0, 0, 0.04)` with no border, shadow, gradient, or decorative treatment.
+- Image quality and asset fidelity: the existing 1600 × 900 SWATCH feature image is rendered in its native 16:9 ratio without cropping, distortion, or placeholder art. Next Image supplies responsive image sizes for the two-column and mobile states.
+- Copy and content: the index now contains only the case-study feature image and title “SWATCH.” The prior index label, kicker, company/role/year metadata, summary, system layers, artifacts, and outcomes are absent.
+- Interaction and accessibility: the image and title remain keyboard-accessible links to the case study. The close control is labelled “Close Work,” returns to Home, and has a visible focus outline. The global site header and footer are removed from the Work route's visual and accessibility trees.
+- Responsiveness: desktop computed grid tracks are `620px 620px`; mobile computes one `350px` track. Document width equals viewport width at both 1440px and 390px.
+
+## Comparison history
+
+- P2 residual global layout: the first pass removed the global header but retained the global footer, which reintroduced “Jaynish Shah” and unrelated social/navigation content after the minimal case-study grid. The Work-scoped footer is now hidden. Post-fix evidence: computed header and footer display are both `none`, and the final tile view contains only Work, close, feature image, and title.
+
+## Implementation checklist
+
+- [x] Two-column desktop case-study grid with one-column mobile collapse.
+- [x] Existing feature image inset on a 4% black backing surface.
+- [x] Case-study title directly below the image treatment.
+- [x] Prior card metadata, summary, divider, tags, and reveal content removed.
+- [x] Global site header and footer hidden only on the Work route.
+- [x] Accessible close control returns to Home.
+- [x] Desktop and mobile captures checked with no horizontal overflow.
+- [x] Clean-preview close navigation completed with zero console errors.
+
+## Follow-up polish
+
+- None required for this pass.
+
+final result: passed

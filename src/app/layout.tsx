@@ -5,7 +5,6 @@ import '@fontsource/source-serif-4/400.css'
 import '@fontsource/source-serif-4/400-italic.css'
 import '@material-symbols/font-200/outlined.css'
 import './globals.css'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME } from '@/lib/site'
 
@@ -53,8 +52,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
+        {children}
         <Footer />
       </body>
     </html>

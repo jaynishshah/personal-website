@@ -1,5 +1,5 @@
 ---
-title: "SWATCH"
+title: "Swatch"
 slug: "swatch"
 date: "2024-07-17"
 summary: "SWATCH is Nykaa's multi-brand design system, built to bring consistency and efficiency to front-end development across business verticals."
