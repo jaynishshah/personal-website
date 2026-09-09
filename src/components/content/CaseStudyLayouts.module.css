@@ -1,0 +1,85 @@
+.pictogramRow,
+.sectionLead {
+  margin-inline: auto;
+  max-width: var(--reading-content-max);
+}
+
+.pictogramRow {
+  align-items: start;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 96px minmax(0, 1fr);
+  margin-block: 40px;
+}
+
+.pictogram,
+.sectionIcon {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+.pictogram {
+  width: 72px;
+}
+
+.pictogramCopy h3,
+.sectionLead h3 {
+  --heading-leading: var(--type-h3-leading);
+  --heading-size: var(--type-case-study-row-heading);
+  margin: 0 0 16px;
+}
+
+.pictogramCopy p,
+.sectionLead p {
+  margin-bottom: 20px;
+}
+
+.sectionLead {
+  margin-block: clamp(64px, 6.5vw, 84px) 48px;
+}
+
+:global(h2) + .sectionLead {
+  margin-top: clamp(32px, 3vw, 40px);
+}
+
+.sectionIcon {
+  margin-bottom: 20px;
+  max-width: 112px;
+  width: 112px;
+}
+
+.mediaFigure {
+  margin: 48px 0;
+  width: 100%;
+}
+
+.media {
+  border: 0;
+  border-radius: 4px;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.caption {
+  color: #66635c;
+  font-family: var(--font-family-pt-serif);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 12px auto 0;
+  max-width: var(--reading-content-max);
+  text-transform: none;
+}
+
+@media (max-width: 767px) {
+  .pictogramRow {
+    gap: 24px;
+    grid-template-columns: 1fr;
+  }
+
+  .pictogram {
+    width: 72px;
+  }
+}

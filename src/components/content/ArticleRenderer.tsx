@@ -4,6 +4,11 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import * as runtime from 'react/jsx-runtime'
 import styles from './ArticleBody.module.css'
+import {
+  CaseStudyMedia,
+  CaseStudyPictogramRow,
+  CaseStudySectionLead,
+} from './CaseStudyLayouts'
 
 const VIDEO_EXTENSIONS = /\.(mp4|mov|webm|ogg)$/i
 const IMAGE_EXTENSIONS = /\.(avif|gif|jpe?g|png|svg|webp)$/i
@@ -11,6 +16,7 @@ const IMAGE_EXTENSIONS = /\.(avif|gif|jpe?g|png|svg|webp)$/i
 export interface ArticleRendererProps {
   content: string
   format: 'md' | 'mdx'
+  variant?: 'default' | 'case-study'
 }
 
 function isExternalHref(href: string) {
@@ -90,6 +96,7 @@ function LinkRenderer({
   return (
     <a
       href={resolvedHref}
+      data-ui-action
       {...props}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
@@ -141,6 +148,9 @@ const mdxComponents = {
   Figure,
   Video,
   Callout,
+  CaseStudyMedia,
+  CaseStudyPictogramRow,
+  CaseStudySectionLead,
 }
 
 async function renderMdx(content: string) {
@@ -159,9 +169,13 @@ async function renderMdx(content: string) {
   return <MDXContent components={mdxComponents} />
 }
 
-export default async function ArticleRenderer({ content, format }: ArticleRendererProps) {
+export default async function ArticleRenderer({
+  content,
+  format,
+  variant = 'default',
+}: ArticleRendererProps) {
   return (
-    <div className={styles.body}>
+    <div className={styles.body} data-variant={variant}>
       {format === 'mdx' ? (
         await renderMdx(content)
       ) : (

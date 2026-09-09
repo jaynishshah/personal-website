@@ -54,6 +54,7 @@ export default function AboutPage() {
                     href="https://www.instagram.com/p/CtOn5DFoLPw/?img_index=1"
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-ui-action
                   >
                     lovely leafy neighbourhood
                   </a>{' '}

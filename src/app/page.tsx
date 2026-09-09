@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import KineticQuote from '@/components/home/KineticQuote'
+import WorkNavigationLink from '@/components/home/WorkNavigationLink'
 import { buildPageMetadata } from '@/lib/metadata'
 import styles from './page.module.css'
 
@@ -15,7 +16,6 @@ export const metadata: Metadata = buildPageMetadata({
 const navigation: readonly {
   href: string
   label: string
-  description?: string
 }[] = [
   {
     href: '/case-studies',
@@ -24,12 +24,10 @@ const navigation: readonly {
   {
     href: '/blog',
     label: 'Writing',
-    description: 'Things I’m learning',
   },
   {
     href: '/about',
     label: 'About',
-    description: 'The path behind the work',
   },
 ] as const
 
@@ -40,33 +38,58 @@ export default function HomePage() {
         <div className={styles.canvas}>
           <div className={styles.intro}>
             <h1 className={styles.heading}>
-              <span className={styles.stableTitleLine}>Hi. I’m Jaynish.</span>
-              <span className={styles.stableTitleLine}>
+              <span
+                className={`${styles.stableTitleLine} ${styles.identityTitle}`}
+                data-transition-role="identity"
+              >
+                Hi. I’m Jaynish.
+              </span>
+              <span
+                className={`${styles.stableTitleLine} ${styles.introCopy}`}
+                data-transition-role="intro-copy"
+              >
                 I help organisations build design systems that
               </span>
-              <KineticQuote />
+              <span className={styles.quoteTransitionCopy}>
+                <KineticQuote />
+              </span>
             </h1>
 
-            <p className={styles.bio}>
+            <p className={`${styles.bio} ${styles.introCopy}`}>
               I’m a lead product designer at Ticketmaster, working on design systems. I’m drawn to ambiguous problems, thoughtful interactions and the initiatives that help the whole system move forward.
             </p>
           </div>
 
-          <nav className={styles.navigation} aria-label="Primary navigation">
-            {navigation.map((item) => (
-              <Link key={item.href} href={item.href} className={styles.navigationRow}>
-                <span className={styles.navigationLabel}>{item.label}</span>
-                {item.description ? (
-                  <span className={styles.navigationDescription}>{item.description}</span>
-                ) : null}
-                <span
-                  className={`material-symbols-outlined ${styles.navigationArrow}`}
-                  aria-hidden="true"
+          <nav className={styles.navigation} aria-label="Primary navigation" data-transition-role="navigation">
+            {navigation.map((item) => {
+              const content = (
+                <>
+                  <span className={styles.navigationLabel}>{item.label}</span>
+                  <span
+                    className={`material-symbols-outlined ${styles.navigationArrow}`}
+                    aria-hidden="true"
+                  >
+                    arrow_right_alt
+                  </span>
+                </>
+              )
+
+              return item.href === '/case-studies' ? (
+                <WorkNavigationLink key={item.href} className={styles.navigationRow}>
+                  {content}
+                </WorkNavigationLink>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={styles.navigationRow}
+                  data-ui-action
+                  data-action-variant="row"
                 >
-                  arrow_right_alt
-                </span>
-              </Link>
-            ))}
+                  {content}
+                </Link>
+              )
+            })}
           </nav>
         </div>
       </section>

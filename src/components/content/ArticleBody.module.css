@@ -5,7 +5,43 @@
   line-height: 1.72;
 }
 
-.body :global(h2) {
+.body[data-variant='case-study'] {
+  font-size: var(--type-case-study-body);
+  line-height: 1.55;
+}
+
+.body[data-variant='case-study'] > :global(p),
+.body[data-variant='case-study'] > :global(h2),
+.body[data-variant='case-study'] > :global(h3),
+.body[data-variant='case-study'] > :global(h4),
+.body[data-variant='case-study'] > :global(ul),
+.body[data-variant='case-study'] > :global(ol),
+.body[data-variant='case-study'] > :global(blockquote) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--reading-content-max);
+}
+
+.body[data-variant='case-study'] > :global(h2) {
+  --heading-leading: var(--type-h2-leading);
+  --heading-size: var(--type-case-study-section);
+  margin-top: clamp(96px, 12vw, 168px);
+}
+
+.body[data-variant='case-study'] > :global(h4) {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-top: 48px;
+}
+
+.body[data-variant='case-study']
+  > :global(h4)
+  + :global([data-case-study-layout='media']) {
+  margin-top: 16px;
+}
+
+.body:not([data-variant='case-study']) :global(h2) {
   font-family: var(--font-family-display);
   font-size: clamp(2rem, 4vw, 3.1rem);
   font-weight: 300;
@@ -15,7 +51,7 @@
   margin-bottom: var(--spacing-20);
 }
 
-.body :global(h3) {
+.body:not([data-variant='case-study']) :global(h3) {
   font-family: var(--font-family-display);
   font-size: 1.35rem;
   font-weight: 500;

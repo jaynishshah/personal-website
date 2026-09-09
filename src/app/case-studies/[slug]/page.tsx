@@ -1,19 +1,12 @@
 import type { Metadata } from 'next'
-import type { CSSProperties } from 'react'
 import { notFound } from 'next/navigation'
 import { getCaseStudy, getCaseStudies } from '@/lib/content'
 import Image from 'next/image'
-import { format } from 'date-fns'
-import ArticleRenderer from '@/components/content/ArticleRenderer'
+import Link from 'next/link'
 import Header from '@/components/Header'
-import CornerBadge from '@/components/visual/CornerBadge'
-import Crosshair from '@/components/visual/Crosshair'
+import ArticleRenderer from '@/components/content/ArticleRenderer'
 import pageStyles from '@/components/content/ArticlePage.module.css'
 import { buildPageMetadata } from '@/lib/metadata'
-
-type AccentStyle = CSSProperties & {
-  '--case-accent'?: string
-}
 
 export async function generateStaticParams() {
   const caseStudies = getCaseStudies()
@@ -48,82 +41,44 @@ export default async function CaseStudiesDetailPage({ params }: { params: { slug
     notFound()
   }
 
-  const formattedDate = format(new Date(caseStudy.date), 'MMMM d, yyyy')
-  const accentStyle: AccentStyle = caseStudy.accentColor
-    ? { '--case-accent': caseStudy.accentColor }
-    : {}
-
   return (
     <>
       <Header currentSection="work" currentTitle={caseStudy.title} mutedTitle />
       <main>
-        <article className={pageStyles.container} data-kind="case-study" style={accentStyle}>
-          {caseStudy.featuredImage && (
-            <div className={pageStyles.featuredImage}>
-              <Image
-                src={caseStudy.featuredImage}
-                alt={caseStudy.title}
-                width={2400}
-                height={1200}
-                priority
-                className={pageStyles.image}
-              />
-            </div>
-          )}
-          <div className={pageStyles.content}>
-            <div className={pageStyles.header}>
-              <CornerBadge className={pageStyles.cornerBadge}>№ 003 · CASE</CornerBadge>
-              <Crosshair className={pageStyles.crosshair} />
-              <time dateTime={caseStudy.date} className={pageStyles.date}>
-                {formattedDate}
-              </time>
-              <h1 className={pageStyles.title}>{caseStudy.title}</h1>
-              <p className={pageStyles.summary}>{caseStudy.summary}</p>
-              {(caseStudy.company || caseStudy.role || caseStudy.year || caseStudy.status) && (
-                <div className={pageStyles.metaList}>
-                  {caseStudy.company ? <span className={pageStyles.metaItem}>{caseStudy.company}</span> : null}
-                  {caseStudy.role ? <span className={pageStyles.metaItem}>{caseStudy.role}</span> : null}
-                  {caseStudy.year ? <span className={pageStyles.metaItem}>{caseStudy.year}</span> : null}
-                  {caseStudy.status ? <span className={pageStyles.metaItem}>{caseStudy.status}</span> : null}
-                </div>
-              )}
-              {caseStudy.tags && caseStudy.tags.length > 0 && (
-                <div className={pageStyles.tags}>
-                  {caseStudy.tags.map((tag) => (
-                    <span key={tag} className={pageStyles.tag}>
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-              {(caseStudy.systemLayers.length > 0 || caseStudy.artifacts.length > 0 || caseStudy.outcomes.length > 0) && (
-                <div className={pageStyles.systemBrief} aria-label="Case study system brief">
-                  {caseStudy.systemLayers.length > 0 ? (
-                    <div>
-                      <p className={pageStyles.briefLabel}>Layers</p>
-                      <ul>
-                        {caseStudy.systemLayers.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                  {caseStudy.artifacts.length > 0 ? (
-                    <div>
-                      <p className={pageStyles.briefLabel}>Artifacts</p>
-                      <p>{caseStudy.artifacts.join(' / ')}</p>
-                    </div>
-                  ) : null}
-                  {caseStudy.outcomes.length > 0 ? (
-                    <div>
-                      <p className={pageStyles.briefLabel}>Outcomes</p>
-                      <p>{caseStudy.outcomes.join(' / ')}</p>
-                    </div>
-                  ) : null}
-                </div>
-              )}
-            </div>
-            <ArticleRenderer content={caseStudy.content} format={caseStudy.format} />
+        <article className={`${pageStyles.container} case-study-page`} data-kind="case-study">
+          <div className={pageStyles.shell}>
+        <header className={pageStyles.localHeader}>
+          <span className={pageStyles.eyebrow}>Case study</span>
+          <Link href="/case-studies" className={pageStyles.close} aria-label="Close case study" data-ui-action data-action-variant="icon">
+            <span className={`material-symbols-outlined ${pageStyles.closeIcon}`} aria-hidden="true" data-action-content>
+              close
+            </span>
+          </Link>
+        </header>
+
+        {caseStudy.featuredImage ? (
+          <div className={pageStyles.featuredImage}>
+            <Image
+              src={caseStudy.featuredImage}
+              alt=""
+              width={1600}
+              height={900}
+              priority
+              className={pageStyles.image}
+              sizes="(min-width: 1408px) 1280px, 100vw"
+            />
+          </div>
+        ) : null}
+
+        <div className={pageStyles.intro}>
+          <p className={pageStyles.meta}>
+            {[caseStudy.year, caseStudy.role].filter(Boolean).join(' · ')}
+          </p>
+          <h1 className={pageStyles.title}>{caseStudy.title}</h1>
+          <p className={pageStyles.summary}>{caseStudy.summary}</p>
+        </div>
+
+        <ArticleRenderer content={caseStudy.content} format={caseStudy.format} variant="case-study" />
           </div>
         </article>
       </main>
