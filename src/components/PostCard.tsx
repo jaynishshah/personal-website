@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import styles from './PostCard.module.css'
@@ -28,15 +29,41 @@ export default function PostCard({
   const href = type === 'blog' ? `/blog/${slug}` : `/case-studies/${slug}`
   const formattedDate = format(new Date(date), 'MMM d, yyyy')
   const primaryMeta = type === 'case-study' ? [company, role, year].filter(Boolean).join(' / ') : formattedDate
+  const isBlog = type === 'blog'
 
   return (
     <article className={styles.postCard} data-type={type}>
       <Link href={href} className={styles.content}>
         <div className={styles.main}>
-          <h2 className={styles.title}>{title}</h2>
-          {primaryMeta && <p className={styles.primaryMeta}>{primaryMeta}</p>}
-          {summary && <p className={styles.excerpt}>{summary}</p>}
-          {tags && tags.length > 0 && (
+          <h2 className={styles.title}>
+            <span>{title}</span>
+            {isBlog && (
+              <span className={styles.titleArrow} aria-hidden="true">
+                <span className={styles.titleArrowTrack}>
+                  <span className="material-symbols-outlined">arrow_right_alt</span>
+                  <span className="material-symbols-outlined">arrow_right_alt</span>
+                </span>
+              </span>
+            )}
+          </h2>
+          {isBlog ? (
+            <>
+              {summary && <p className={styles.excerpt}>{summary}</p>}
+              <div className={styles.blogMeta}>
+                <time dateTime={date}>{formattedDate}</time>
+                {tags?.map((tag) => (
+                  <Fragment key={tag}>
+                    <span className={styles.metaSeparator} aria-hidden="true"> • </span>
+                    <span className={styles.tag}>{tag}</span>
+                  </Fragment>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {primaryMeta && <p className={styles.primaryMeta}>{primaryMeta}</p>}
+              {summary && <p className={styles.excerpt}>{summary}</p>}
+              {tags && tags.length > 0 && (
             <div className={styles.tags}>
               {tags.map((tag) => (
                 <span key={tag} className={styles.tag}>
@@ -44,6 +71,8 @@ export default function PostCard({
                 </span>
               ))}
             </div>
+              )}
+            </>
           )}
         </div>
         {type === 'case-study' ? (

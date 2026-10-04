@@ -1,83 +1,59 @@
 .body {
   font-family: var(--font-family-pt-serif);
-  font-size: 1rem;
+  font-size: var(--article-body-size, 1rem);
   font-style: normal;
-  line-height: 1.72;
+  letter-spacing: var(--article-body-tracking, 0);
+  line-height: var(--article-body-leading, 1.72);
 }
 
-.body[data-variant='case-study'] {
-  font-size: var(--type-case-study-body);
-  line-height: 1.55;
-}
-
-.body[data-variant='case-study'] > :global(p),
-.body[data-variant='case-study'] > :global(h2),
-.body[data-variant='case-study'] > :global(h3),
-.body[data-variant='case-study'] > :global(h4),
-.body[data-variant='case-study'] > :global(ul),
-.body[data-variant='case-study'] > :global(ol),
-.body[data-variant='case-study'] > :global(blockquote) {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: var(--reading-content-max);
-}
-
-.body[data-variant='case-study'] > :global(h2) {
-  --heading-leading: var(--type-h2-leading);
-  --heading-size: var(--type-case-study-section);
-  margin-top: clamp(96px, 12vw, 168px);
-}
-
-.body[data-variant='case-study'] > :global(h4) {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
-  font-weight: 400;
-  line-height: 1.15;
-  margin-top: 48px;
-}
-
-.body[data-variant='case-study']
-  > :global(h4)
-  + :global([data-case-study-layout='media']) {
-  margin-top: 16px;
-}
-
-.body:not([data-variant='case-study']) :global(h2) {
+.body :global(h2) {
   font-family: var(--font-family-display);
-  font-size: clamp(2rem, 4vw, 3.1rem);
-  font-weight: 300;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-  margin-top: var(--spacing-40);
-  margin-bottom: var(--spacing-20);
+  font-size: var(--article-h2-size, clamp(2rem, 4vw, 3.1rem));
+  font-weight: var(--article-h2-weight, 300);
+  letter-spacing: var(--article-h2-tracking, -0.055em);
+  line-height: var(--article-h2-leading, 0.98);
+  margin-top: var(--article-h2-top-space, var(--spacing-40));
+  margin-bottom: var(--article-h2-bottom-space, var(--spacing-20));
 }
 
-.body:not([data-variant='case-study']) :global(h3) {
+.body :global(h1) {
   font-family: var(--font-family-display);
-  font-size: 1.35rem;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1.2;
-  margin-top: var(--spacing-30);
-  margin-bottom: var(--spacing-10);
+  font-size: var(--article-h1-size, var(--type-h1));
+  font-weight: var(--article-h1-weight, 400);
+  letter-spacing: var(--article-h1-tracking, 0);
+  line-height: var(--article-h1-leading, var(--type-h1-leading));
+  margin-top: var(--article-h1-top-space, 48px);
+  margin-bottom: var(--article-h1-bottom-space, 20px);
+}
+
+.body :global(h3) {
+  font-family: var(--font-family-display);
+  font-size: var(--article-h3-size, 1.35rem);
+  font-weight: var(--article-h3-weight, 500);
+  letter-spacing: var(--article-h3-tracking, -0.04em);
+  line-height: var(--article-h3-leading, 1.2);
+  margin-top: var(--article-h3-top-space, var(--spacing-30));
+  margin-bottom: var(--article-h3-bottom-space, var(--spacing-10));
 }
 
 .body :global(h4) {
   font-family: var(--font-family-display);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.2px;
-  margin-top: var(--spacing-20);
-  margin-bottom: var(--spacing-10);
+  font-size: var(--article-h4-size, 1rem);
+  font-weight: var(--article-h4-weight, 500);
+  letter-spacing: var(--article-h4-tracking, -0.2px);
+  line-height: var(--article-h4-leading, 1.2);
+  margin-top: var(--article-h4-top-space, var(--spacing-20));
+  margin-bottom: var(--article-h4-bottom-space, var(--spacing-10));
 }
 
 .body :global(p) {
-  margin-bottom: var(--spacing-20);
+  margin-bottom: var(--article-paragraph-space, var(--spacing-20));
 }
 
 .body :global(ul),
 .body :global(ol) {
-  margin: var(--spacing-20) 0;
-  padding-left: var(--spacing-30);
+  margin: var(--article-list-space, var(--spacing-20)) 0;
+  padding-left: var(--article-list-indent, var(--spacing-30));
 }
 
 .body :global(ul) {
@@ -86,7 +62,7 @@
 }
 
 .body :global(li) {
-  margin-bottom: var(--spacing-10);
+  margin-bottom: var(--article-list-item-gap, var(--spacing-10));
 }
 
 .body :global(ul li) {
@@ -107,14 +83,36 @@
 
 .body :global(blockquote) {
   border-left: 2px solid var(--color-accent);
-  padding-left: var(--spacing-20);
-  margin: var(--spacing-30) 0;
+  font-size: var(--article-quote-size, inherit);
+  line-height: var(--article-quote-leading, inherit);
+  letter-spacing: var(--article-quote-tracking, 0);
+  padding-left: var(--article-quote-indent, var(--spacing-20));
+  margin: var(--article-quote-space, var(--spacing-30)) 0;
   font-style: italic;
 }
 
 .body :global(code) {
   font-family: var(--font-family-mono);
-  font-size: 0.9em;
+  font-size: var(--article-code-size, 0.9em);
+}
+
+.body :global(a) { letter-spacing: var(--article-link-tracking, 0); }
+
+.body :global(strong) { font-weight: var(--article-bold-weight, 700); }
+
+.body :global(table) {
+  border-collapse: collapse;
+  font-size: var(--article-table-size, inherit);
+  line-height: var(--article-table-leading, inherit);
+  margin: var(--article-list-space, var(--spacing-20)) 0;
+  width: 100%;
+}
+
+.body :global(th),
+.body :global(td) {
+  border: 1px solid var(--color-rule);
+  padding: var(--article-table-padding, var(--spacing-10));
+  text-align: left;
 }
 
 .body :global(pre) {
@@ -122,12 +120,13 @@
   border: 1px solid var(--color-rule);
   border-radius: 2px;
   overflow-x: auto;
-  padding: var(--spacing-20);
-  margin: var(--spacing-30) 0;
+  padding: var(--article-code-padding, var(--spacing-20));
+  margin: var(--article-code-space, var(--spacing-30)) 0;
 }
 
 .body :global(pre code) {
   display: block;
+  line-height: var(--article-code-leading, normal);
   white-space: pre;
 }
 
@@ -147,9 +146,10 @@
 .caption {
   color: var(--color-contrast-2);
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-small);
-  letter-spacing: 1.4px;
-  margin-top: var(--spacing-10);
+  font-size: var(--article-caption-size, var(--font-size-small));
+  letter-spacing: var(--article-caption-tracking, 1.4px);
+  line-height: var(--article-caption-leading, normal);
+  margin-top: var(--article-caption-top-space, var(--spacing-10));
   text-align: left;
   text-transform: uppercase;
 }
@@ -180,9 +180,9 @@
 
 .calloutTitle {
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-small);
+  font-size: var(--article-callout-size, var(--font-size-small));
   color: var(--color-accent);
-  letter-spacing: 1.4px;
-  margin: 0 0 var(--spacing-10) 0;
+  letter-spacing: var(--article-callout-tracking, 1.4px);
+  margin: 0 0 var(--article-callout-space, var(--spacing-10)) 0;
   text-transform: uppercase;
 }

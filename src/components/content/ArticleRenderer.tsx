@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import * as runtime from 'react/jsx-runtime'
 import styles from './ArticleBody.module.css'
+import { getArticleHeadingId } from '@/lib/articleHeadings'
 import {
   CaseStudyMedia,
   CaseStudyPictogramRow,
@@ -17,6 +18,7 @@ export interface ArticleRendererProps {
   content: string
   format: 'md' | 'mdx'
   variant?: 'default' | 'case-study'
+  className?: string
 }
 
 function isExternalHref(href: string) {
@@ -29,6 +31,28 @@ function isVideoAsset(src?: string) {
 
 function isImageAsset(src?: string) {
   return Boolean(src && IMAGE_EXTENSIONS.test(src))
+}
+
+function getHeadingText(children: ReactNode): string {
+  if (typeof children === 'string') return children
+  if (Array.isArray(children)) return children.map(getHeadingText).join('')
+  return ''
+}
+
+function Heading2({
+  children,
+  node: _node,
+  ...props
+}: ComponentPropsWithoutRef<'h2'> & { node?: unknown }) {
+  return <h2 {...props} id={getArticleHeadingId(getHeadingText(children))}>{children}</h2>
+}
+
+function Heading3({
+  children,
+  node: _node,
+  ...props
+}: ComponentPropsWithoutRef<'h3'> & { node?: unknown }) {
+  return <h3 {...props} id={getArticleHeadingId(getHeadingText(children))}>{children}</h3>
 }
 
 function Figure({
@@ -107,6 +131,8 @@ function LinkRenderer({
 
 const markdownComponents = {
   a: LinkRenderer,
+  h2: Heading2,
+  h3: Heading3,
   img: ({ src, alt, title }: ComponentPropsWithoutRef<'img'>) => {
     const resolvedSrc = src ?? ''
 
@@ -173,9 +199,10 @@ export default async function ArticleRenderer({
   content,
   format,
   variant = 'default',
+  className,
 }: ArticleRendererProps) {
   return (
-    <div className={styles.body} data-variant={variant}>
+    <div className={`${styles.body} ${className ?? ''}`} data-variant={variant}>
       {format === 'mdx' ? (
         await renderMdx(content)
       ) : (

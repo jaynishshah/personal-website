@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import KineticQuote from '@/components/home/KineticQuote'
+import JaynishMascot from '@/components/home/JaynishMascot'
 import WorkNavigationLink from '@/components/home/WorkNavigationLink'
 import { buildPageMetadata } from '@/lib/metadata'
 import styles from './page.module.css'
@@ -37,6 +38,10 @@ export default function HomePage() {
       <section className={`${styles.home} home-viewport`} data-testid="home-viewport">
         <div className={styles.canvas}>
           <div className={styles.intro}>
+            <div className={styles.mascotDock}>
+              <JaynishMascot size={120} className={styles.mascotButton} />
+            </div>
+
             <h1 className={styles.heading}>
               <span
                 className={`${styles.stableTitleLine} ${styles.identityTitle}`}

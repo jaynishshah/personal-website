@@ -3,10 +3,11 @@ import { notFound } from 'next/navigation'
 import { getCaseStudy, getCaseStudies } from '@/lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
-import Header from '@/components/Header'
 import ArticleRenderer from '@/components/content/ArticleRenderer'
+import ArticlePageTemplate from '@/components/content/ArticlePageTemplate'
 import pageStyles from '@/components/content/ArticlePage.module.css'
 import { buildPageMetadata } from '@/lib/metadata'
+import { extractArticleHeadings } from '@/lib/articleHeadings'
 
 export async function generateStaticParams() {
   const caseStudies = getCaseStudies()
@@ -21,7 +22,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!caseStudy) {
     return {}
   }
-
   return buildPageMetadata({
     title: caseStudy.title,
     summary: caseStudy.summary,
@@ -40,23 +40,18 @@ export default async function CaseStudiesDetailPage({ params }: { params: { slug
   if (!caseStudy) {
     notFound()
   }
+  const headings = extractArticleHeadings(caseStudy.content)
 
   return (
-    <>
-      <Header currentSection="work" currentTitle={caseStudy.title} mutedTitle />
-      <main>
-        <article className={`${pageStyles.container} case-study-page`} data-kind="case-study">
-          <div className={pageStyles.shell}>
-        <header className={pageStyles.localHeader}>
-          <span className={pageStyles.eyebrow}>Case study</span>
-          <Link href="/case-studies" className={pageStyles.close} aria-label="Close case study" data-ui-action data-action-variant="icon">
-            <span className={`material-symbols-outlined ${pageStyles.closeIcon}`} aria-hidden="true" data-action-content>
-              close
-            </span>
-          </Link>
-        </header>
-
-        {caseStudy.featuredImage ? (
+    <ArticlePageTemplate
+      activeSection="work"
+      className={`${pageStyles.template} case-study-page`}
+      headings={headings}
+      backControl={<Link href="/case-studies" className={pageStyles.backLink} aria-label="Back to Work">
+        <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+        Back to Work
+      </Link>}
+      featured={caseStudy.featuredImage ? (
           <div className={pageStyles.featuredImage}>
             <Image
               src={caseStudy.featuredImage}
@@ -68,20 +63,16 @@ export default async function CaseStudiesDetailPage({ params }: { params: { slug
               sizes="(min-width: 1408px) 1280px, 100vw"
             />
           </div>
-        ) : null}
+      ) : undefined}
 
-        <div className={pageStyles.intro}>
+      header={<div id="article-overview" className={pageStyles.intro}>
           <p className={pageStyles.meta}>
             {[caseStudy.year, caseStudy.role].filter(Boolean).join(' · ')}
           </p>
           <h1 className={pageStyles.title}>{caseStudy.title}</h1>
           <p className={pageStyles.summary}>{caseStudy.summary}</p>
-        </div>
-
-        <ArticleRenderer content={caseStudy.content} format={caseStudy.format} variant="case-study" />
-          </div>
-        </article>
-      </main>
-    </>
+        </div>}
+      body={<ArticleRenderer content={caseStudy.content} format={caseStudy.format} variant="case-study" />}
+    />
   )
 }

@@ -111,20 +111,32 @@ test('content entrances retain their duration while using a gradual ease-out', a
   )
 })
 
+test('interactive hover surfaces respond on a dedicated quick ease-out token', async () => {
+  const [globalCss, railStyles, contentsStyles] = await Promise.all([
+    readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'ContentsRail.module.css'), 'utf8'),
+  ])
+
+  assert.match(globalCss, /--motion-hover:\s*100ms\s+cubic-bezier\(0\.16,\s*1,\s*0\.3,\s*1\)/)
+  assert.match(railStyles, /transition:\s*opacity\s+var\(--motion-hover\)/)
+  assert.match(contentsStyles, /transition:\s*opacity\s+var\(--motion-hover\)/)
+})
+
 test('Work identity and section links share the text-width close-button hover surface', async () => {
-  const workStyles = await readFile(
-    path.join(process.cwd(), 'src', 'app', 'case-studies', 'page.module.css'),
+  const railStyles = await readFile(
+    path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'),
     'utf8',
   )
 
   assert.match(
-    workStyles,
-    /\.close,\s*\.sectionNavigation a\s*\{[^}]*isolation:\s*isolate[^}]*width:\s*fit-content/,
+    railStyles,
+    /\.identity,\s*\.navigation a\s*\{[^}]*isolation:\s*isolate[^}]*width:\s*fit-content/,
   )
-  assert.match(workStyles, /\.close::after,\s*\.sectionNavigation a::after/)
+  assert.match(railStyles, /\.identity::after,\s*\.navigation a::after/)
   assert.match(
-    workStyles,
-    /@media \(hover: hover\) and \(pointer: fine\)\s*\{[\s\S]*\.close:hover::after,[\s\S]*\.sectionNavigation a:hover::after/,
+    railStyles,
+    /@media \(hover: hover\) and \(pointer: fine\)\s*\{[\s\S]*\.identity:hover::after,[\s\S]*\.navigation a:hover::after/,
   )
 })
 
@@ -149,13 +161,298 @@ test('Work route renders the compact identity rail and case-study contents rail 
 
   assert.equal(response.status, 200)
   assert.match(html, /data-testid="work-layout"/)
-  assert.match(html, /data-testid="work-identity-rail"/)
+  assert.match(html, /data-testid="portfolio-rail"/)
   assert.match(html, /Hi\. I’m Jaynish\./)
   assert.match(html, /<nav[^>]*aria-label="Portfolio sections"/)
   assert.match(html, /data-testid="work-contents-rail"/)
   assert.match(html, />Contents</)
-  assert.match(html, /Repairing design systems at Ticketmaster/)
-  assert.match(html, /Making Design System at Ticketmaster AI-ready/)
+})
+
+test('Work, Writing, and blog articles render the one shared portfolio rail', async () => {
+  const [work, writing, article] = await Promise.all([
+    fetch(`${baseUrl}/case-studies`).then((response) => response.text()),
+    fetch(`${baseUrl}/blog`).then((response) => response.text()),
+    fetch(`${baseUrl}/blog/component-api-for-designers`).then((response) => response.text()),
+  ])
+  const railSource = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.tsx'), 'utf8')
+  const railStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'), 'utf8')
+
+  for (const html of [work, writing, article]) {
+    assert.match(html, /data-testid="portfolio-rail"/)
+    assert.match(html, /Hi\. I’m Jaynish\./)
+  }
+  assert.match(railSource, /activeSection: HeaderSection/)
+  assert.match(railStyles, /margin-top:\s*37px/)
+  assert.match(railStyles, /position:\s*sticky/)
+})
+
+test('Blog posts and case-study details share the reusable scroll-aware contents rail', async () => {
+  const [blog, caseStudy] = await Promise.all([
+    fetch(`${baseUrl}/blog/component-api-for-designers`).then((response) => response.text()),
+    fetch(`${baseUrl}/case-studies/swatch`).then((response) => response.text()),
+  ])
+  const contentsRail = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'ContentsRail.tsx'), 'utf8')
+
+  assert.match(blog, /aria-label="Article contents"/)
+  assert.match(caseStudy, /aria-label="Article contents"/)
+  assert.match(contentsRail, /IntersectionObserver/)
+  assert.match(contentsRail, /activeIndicator/)
+})
+
+test('Blog posts and case-study details render through the shared article-page template', async () => {
+  const [blog, caseStudy] = await Promise.all([
+    fetch(`${baseUrl}/blog/component-api-for-designers`).then((response) => response.text()),
+    fetch(`${baseUrl}/case-studies/swatch`).then((response) => response.text()),
+  ])
+  const template = await readFile(path.join(process.cwd(), 'src', 'components', 'content', 'ArticlePageTemplate.tsx'), 'utf8')
+
+  assert.match(blog, /data-testid="article-page-template"/)
+  assert.match(caseStudy, /data-testid="article-page-template"/)
+  assert.match(caseStudy, /aria-label="Back to Work"/)
+  assert.match(caseStudy, /data-testid="portfolio-rail"/)
+  assert.match(template, /PortfolioRail/)
+  assert.match(template, /ContentsRail/)
+})
+
+test('Case-study Markdown inherits the shared article typography and frame width', async () => {
+  const [templateStyles, bodyStyles, caseLayouts] = await Promise.all([
+    readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'components', 'content', 'ArticleBody.module.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'components', 'content', 'CaseStudyLayouts.module.css'), 'utf8'),
+  ])
+
+  assert.match(templateStyles, /--article-body-size:\s*18px/)
+  assert.match(templateStyles, /--article-h1-size:\s*40px/)
+  assert.match(templateStyles, /--article-h2-size:\s*28px/)
+  assert.match(templateStyles, /--article-h3-size:\s*24px/)
+  assert.doesNotMatch(bodyStyles, /\.body\[data-variant='case-study'\]\s*>\s*:global\(p\)[\s\S]*max-width/)
+  assert.doesNotMatch(bodyStyles, /\.body\[data-variant='case-study'\]\s*>\s*:global\(h4\)\s*\{/)
+  assert.doesNotMatch(caseLayouts, /max-width:\s*var\(--reading-content-max\)/)
+})
+
+test('Shared article shell centers fixed rails around a flexible 720px reading measure', async () => {
+  const [globalCss, caseLayouts] = await Promise.all([
+    readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'components', 'content', 'CaseStudyLayouts.module.css'), 'utf8'),
+  ])
+
+  assert.match(globalCss, /grid-template-columns:\s*199px\s+minmax\(0,\s*1fr\)\s+166px/)
+  assert.match(globalCss, /width:\s*min\(1140px,\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
+  assert.match(globalCss, /\.article-page-template__frame\s*\{[^}]*max-width:\s*720px/)
+  assert.match(globalCss, /\.article-page-template__featured\s*\{[^}]*max-width:\s*720px/)
+  assert.match(globalCss, /\.article-page-template__back-control\s*\{[^}]*position:\s*sticky/)
+  assert.match(globalCss, /\.article-page-template__gradient\s*\{[^}]*height:\s*48px/)
+  assert.match(caseLayouts, /\.pictogramCopy h3\s*\{[^}]*margin:\s*0\s+0\s+8px/)
+})
+
+test('The back-control adds its lower gradient buffer only after it becomes sticky', async () => {
+  const [template, globalCss] = await Promise.all([
+    readFile(path.join(process.cwd(), 'src', 'components', 'content', 'StickyBackControl.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8'),
+  ])
+
+  assert.match(template, /getBoundingClientRect\(\)\.top\s*<=\s*16/)
+  assert.match(template, /data-stuck/)
+  assert.match(globalCss, /\.article-page-template__back-control\[data-stuck='true'\]\s*\{[^}]*padding-bottom:\s*16px/)
+  assert.match(globalCss, /\.article-page-template__gradient\[data-stuck='true'\]\s*\{[^}]*height:\s*72px/)
+})
+
+test('Work contents rail is derived only from published case studies', async () => {
+  const response = await fetch(url)
+  const html = await response.text()
+
+  assert.match(html, /href="\/case-studies\/swatch"[^>]*>Swatch<\/a>/)
+  assert.doesNotMatch(html, /Repairing design systems at Ticketmaster/)
+  assert.doesNotMatch(html, /Making Design System at Ticketmaster AI-ready/)
+})
+
+test('Work section links use the same compact hover target as the identity link', async () => {
+  const railStyles = await readFile(
+    path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'),
+    'utf8',
+  )
+
+  assert.match(railStyles, /\.navigation\s*\{[^}]*gap:\s*16px/)
+  assert.doesNotMatch(railStyles, /padding-block/)
+})
+
+test('Writing uses the Work rail layout and keeps list metadata out of mono typography', async () => {
+  const response = await fetch(`${baseUrl}/blog`)
+  const html = await response.text()
+  const writingStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'blog', 'page.module.css'), 'utf8')
+  const postCardStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'PostCard.module.css'), 'utf8')
+
+  assert.match(html, /class="[^"]*writing-page[^"]*"/)
+  assert.match(html, /aria-label="Close Writing"/)
+  assert.doesNotMatch(html, />Contents</)
+  assert.match(writingStyles, /grid-template-columns:\s*199px\s+minmax\(0,\s*866px\)\s+166px/)
+  assert.doesNotMatch(postCardStyles, /font-family:\s*var\(--font-family-mono\)/)
+})
+
+test('Blog posts use the Writing shell with a Back to Writing control and one shared content width', async () => {
+  const response = await fetch(`${baseUrl}/blog/component-api-for-designers`)
+  const html = await response.text()
+  const postStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'blog', '[slug]', 'page.module.css'), 'utf8')
+
+  assert.match(html, /class="[^"]*blog-post-page[^"]*"/)
+  assert.match(html, /aria-label="Back to Writing"/)
+  assert.match(html, /material-symbols-outlined[^>]*>chevron_left<\/span>\s*Back to Writing/)
+  assert.doesNotMatch(html, /Header_header/)
+  assert.match(postStyles, /grid-template-columns:\s*199px\s+minmax\(0,\s*866px\)\s+166px/)
+  assert.match(postStyles, /\.articleFrame\s*\{[^}]*max-width:\s*866px/)
+  assert.match(postStyles, /\.postTitle\s*\{[^}]*font-family:\s*var\(--font-family-display\)[^}]*font-size:\s*var\(--article-title-size,\s*20px\)/)
+})
+
+test('Blog posts expose linked section hierarchy and the approved Markdown reading scale', async () => {
+  const response = await fetch(`${baseUrl}/blog/component-api-for-designers`)
+  const html = await response.text()
+  const postStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'blog', '[slug]', 'page.module.css'), 'utf8')
+  const contentsStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'ContentsRail.module.css'), 'utf8')
+  const articleBodyStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'content', 'ArticleBody.module.css'), 'utf8')
+
+  assert.match(html, /aria-label="Article contents"/)
+  assert.match(html, /href="#api-property-buckets"[^>]*>API Property Buckets<\/a>/)
+  assert.match(html, /href="#event-handlers"[^>]*>Event Handlers<\/a>/)
+  assert.match(html, /<h2 id="api-property-buckets">API Property Buckets<\/h2>/)
+  assert.match(html, /<h3 id="event-handlers">Event Handlers<\/h3>/)
+  assert.match(html, /<figcaption[^>]*>Designer&#x27;s Role: Identify key trigger points\./)
+  assert.match(contentsStyles, /\.contents a:hover\s*\{[^}]*text-decoration:\s*none/)
+  assert.match(postStyles, /\.articleBody :global\(figure\)\s*\{[^}]*margin:\s*24px\s+0/)
+  assert.match(postStyles, /\.articleFrame\s*\{[^}]*--article-title-size:\s*20px[^}]*--article-subtitle-size:\s*16px[^}]*--article-meta-size:\s*13px/)
+  assert.match(postStyles, /\.articleBody\s*\{[^}]*--article-body-size:\s*18px[^}]*--article-h1-size:\s*40px[^}]*--article-h2-size:\s*28px[^}]*--article-h3-size:\s*24px/)
+  assert.match(postStyles, /\.summary\s*\{[^}]*font-style:\s*italic/)
+  assert.match(postStyles, /--article-h2-top-space:\s*32px[^}]*--article-h2-bottom-space:\s*12px/)
+  assert.match(postStyles, /--article-code-size:\s*14px[^}]*--article-caption-size:\s*14px/)
+  assert.match(articleBodyStyles, /font-size:\s*var\(--article-h2-size,\s*clamp\(2rem,\s*4vw,\s*3\.1rem\)\)/)
+  assert.match(articleBodyStyles, /margin-top:\s*var\(--article-h2-top-space,/)
+})
+
+test('Blog contents use one scroll-aware active surface and the article rails settle into a shared sticky top edge', async () => {
+  const response = await fetch(`${baseUrl}/blog/component-api-for-designers`)
+  const html = await response.text()
+  const postStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'blog', '[slug]', 'page.module.css'), 'utf8')
+  const contentsComponent = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'ContentsRail.tsx'), 'utf8')
+  const contentsStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'ContentsRail.module.css'), 'utf8')
+  const templateStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8')
+  const railStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'), 'utf8')
+
+  assert.match(html, /aria-current="location"/)
+  assert.match(contentsComponent, /IntersectionObserver/)
+  assert.match(contentsComponent, /activeIndicator/)
+  assert.match(railStyles, /\.rail\s*\{[^}]*position:\s*sticky[^}]*top:\s*16px/)
+  assert.match(postStyles, /\.backLink\s*\{[^}]*position:\s*sticky[^}]*top:\s*16px/)
+  assert.match(contentsStyles, /\.contents\s*\{[^}]*top:\s*16px/)
+  assert.match(templateStyles, /\.article-page-template__contents\s*\{[^}]*margin-top:\s*19px/)
+  assert.match(railStyles, /\.navigation\s*\{[^}]*margin-top:\s*37px/)
+  assert.match(contentsStyles, /\.contents p\s*\{[^}]*font-size:\s*20px/)
+  assert.match(templateStyles, /\.article-page-template__featured\s*\{[^}]*margin-top:\s*26px/)
+  assert.match(contentsStyles, /\.activeIndicator\s*\{[^}]*transition:\s*transform\s+220ms\s+cubic-bezier\(\.77,\s*0,\s*\.175,\s*1\)/)
+  assert.match(templateStyles, /\.article-page-template__gradient\s*\{[^}]*linear-gradient/)
+})
+
+test('Blog posts place the feature before their overview and expose it in contents', async () => {
+  const response = await fetch(`${baseUrl}/blog/component-api-for-designers`)
+  const html = await response.text()
+  const postStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'blog', '[slug]', 'page.module.css'), 'utf8')
+
+  assert.match(html, /href="#article-overview"[^>]*>Overview<\/a>/)
+  assert.match(html, /<header id="article-overview" class="[^"]*postHeader[^"]*">/)
+  assert.ok(html.indexOf('page_featuredImage') < html.indexOf('page_postHeader'))
+  assert.match(postStyles, /\.backLink:hover\s*\{[^}]*text-decoration:\s*none\s*!important/)
+})
+
+test('Typography specimen exposes the full Markdown and article-header tuning system', async () => {
+  const response = await fetch(`${baseUrl}/type-specimen`)
+  const html = await response.text()
+
+  assert.equal(response.status, 200)
+  assert.match(html, /Markdown Typography/)
+  assert.match(html, /Body copy/)
+  assert.match(html, /Markdown H1/)
+  assert.match(html, /Heading 2/)
+  assert.match(html, /Heading 3/)
+  assert.match(html, /Heading 4/)
+  assert.match(html, /Links/)
+  assert.match(html, /Bold &amp; italic/)
+  assert.match(html, /Tables/)
+  assert.match(html, /Blockquote/)
+  assert.match(html, /Code block/)
+  assert.match(html, /Callout label/)
+  assert.match(html, /Article header/)
+  assert.match(html, /Article title/)
+  assert.match(html, /Subtitle/)
+  assert.match(html, /Metadata/)
+  assert.match(html, /Copy CSS values/)
+  assert.doesNotMatch(html, /aria-label="Portfolio sections"/)
+})
+
+test('Writing titles match the rail-label type treatment without underlines', async () => {
+  const postCardStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'PostCard.module.css'), 'utf8')
+
+  assert.match(
+    postCardStyles,
+    /\.title\s*\{[^}]*font-family:\s*var\(--font-family-display\)[^}]*font-size:\s*16px[^}]*font-weight:\s*400[^}]*line-height:\s*1[^}]*text-decoration:\s*none/,
+  )
+})
+
+test('Writing cards place the excerpt below a two-arrow handoff title and combine date with plain tags', async () => {
+  const response = await fetch(`${baseUrl}/blog`)
+  const html = await response.text()
+
+  assert.match(html, /Component API : For Designers<\/span><span class="[^"]*titleArrow[^"]*" aria-hidden="true"><span class="[^"]*titleArrowTrack[^"]*"><span class="material-symbols-outlined">arrow_right_alt<\/span><span class="material-symbols-outlined">arrow_right_alt<\/span><\/span><\/span><\/h2><p[^>]*>Building components/)
+  assert.match(html, /<time[^>]*>Jun 22, 2025<\/time><span[^>]*> • <\/span><span[^>]*>design system<\/span>/)
+  assert.doesNotMatch(html, /#design system/)
+})
+
+test('Writing title arrows use an 8px gap and a reduced-motion-safe hover handoff', async () => {
+  const postCardStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'PostCard.module.css'), 'utf8')
+
+  assert.match(postCardStyles, /\.title\s*\{[^}]*gap:\s*8px/)
+  assert.match(postCardStyles, /\.titleArrow\s*\{[^}]*overflow:\s*hidden/)
+  assert.match(postCardStyles, /\.titleArrowTrack > span\s*\{[^}]*font-size:\s*inherit/)
+  assert.match(postCardStyles, /\.titleArrowTrack\s*\{[^}]*transform:\s*translateX\(-50%\)[^}]*transition:\s*transform\s+var\(--motion-fast\)/)
+  assert.match(postCardStyles, /@media \(hover: hover\) and \(pointer: fine\)\s*\{[\s\S]*?\.postCard:hover \.titleArrowTrack[\s\S]*?transform:\s*translateX\(0\)/)
+  assert.match(postCardStyles, /@media \(prefers-reduced-motion: reduce\)\s*\{[\s\S]*?\.postCard:hover \.titleArrowTrack[\s\S]*?transform:\s*translateX\(-50%\)/)
+})
+
+test('Writing uses an optically title-weight arrow and does not render the global footer', async () => {
+  const [layout, writingStyles, postCardStyles] = await Promise.all([
+    readFile(path.join(process.cwd(), 'src', 'app', 'layout.tsx'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'app', 'blog', 'page.module.css'), 'utf8'),
+    readFile(path.join(process.cwd(), 'src', 'components', 'PostCard.module.css'), 'utf8'),
+  ])
+
+  assert.match(layout, /@material-symbols\/font-500\/outlined\.css/)
+  assert.match(postCardStyles, /\.titleArrow\s*\{[^}]*font-size:\s*24px[^}]*font-weight:\s*500/)
+  assert.match(writingStyles, /:global\(body\):has\(\.container\) :global\(footer\)\s*\{[^}]*display:\s*none/)
+})
+
+test('Writing list aligns with its title and uses evenly spaced label-style hover surfaces', async () => {
+  const postCardStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'PostCard.module.css'), 'utf8')
+
+  assert.doesNotMatch(postCardStyles, /content:\s*"\+"/)
+  assert.doesNotMatch(postCardStyles, /border-(top|bottom):/)
+  assert.match(postCardStyles, /\.postCard\[data-type='blog'\] \.content\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)[^}]*padding-block:\s*0/)
+  assert.match(postCardStyles, /\.postCard\[data-type='blog'\] \.content::after\s*\{[^}]*inset:\s*-20px/)
+  assert.match(postCardStyles, /\.postCard\[data-type='blog'\]\s*\+\s*\.postCard\[data-type='blog'\]\s*\{[^}]*margin-top:\s*40px/)
+})
+
+test('Work and Writing rail labels have no underlines', async () => {
+  const railStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'), 'utf8')
+
+  assert.match(railStyles, /\.navigation a\s*\{[^}]*text-decoration:\s*none/)
+})
+
+test('Work and Writing rail labels suppress the global hover underline', async () => {
+  const railStyles = await readFile(path.join(process.cwd(), 'src', 'components', 'navigation', 'PortfolioRail.module.css'), 'utf8')
+
+  assert.match(railStyles, /\.navigation a:hover\s*\{[^}]*text-decoration:\s*none/)
+})
+
+test('Pointer focus does not show the keyboard focus outline', async () => {
+  const globalCss = await readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8')
+
+  assert.match(globalCss, /\*:focus:not\(:focus-visible\)\s*\{[^}]*outline:\s*none/)
 })
 
 test('Home and Work expose independent transition regions for the shared layout handoff', async () => {
@@ -169,6 +466,20 @@ test('Home and Work expose independent transition regions for the shared layout 
   assert.match(homeHtml, /data-transition-role="navigation"/)
   assert.match(workHtml, /data-transition-role="work-content"/)
   assert.match(workHtml, /data-transition-role="contents"/)
+})
+
+test('Home and Work navigation has no route-transition choreography', async () => {
+  const workLink = await readFile(
+    path.join(process.cwd(), 'src', 'components', 'home', 'WorkNavigationLink.tsx'),
+    'utf8',
+  )
+  const homeStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'page.module.css'), 'utf8')
+  const workStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'case-studies', 'page.module.css'), 'utf8')
+
+  assert.doesNotMatch(workLink, /setTimeout/)
+  assert.doesNotMatch(workLink, /pageTransition/)
+  assert.doesNotMatch(homeStyles, /data-page-transition/)
+  assert.doesNotMatch(workStyles, /work-content-enter|contents-enter/)
 })
 
 test('Home retains the scroll-controlled purple quote inside its transition copy', async () => {
@@ -250,7 +561,7 @@ test('Work media uses the Figma card proportion while retaining the shared actio
   )
   assert.match(
     emittedCss,
-    new RegExp(`\\.${closeClass}\\s*\\{[^}]*background:\\s*transparent[^}]*color:\\s*var\\(--work-foreground\\)[^}]*text-decoration:\\s*none`),
+    new RegExp(`\\.${closeClass}\\s*\\{[^}]*color:\\s*var\\(--portfolio-foreground[^}]*text-decoration:\\s*none`),
   )
   assert.match(
     emittedCss,
@@ -328,7 +639,7 @@ test('site exposes reusable display type and action primitives', async () => {
   assert.match(homeHtml, /data-ui-action="true" data-action-variant="row"/)
   assert.match(workHtml, /aria-label="Close Work"[^>]*data-ui-action="true"[^>]*data-action-variant="row"/)
   assert.match(workHtml, /aria-label="View Swatch case study"[^>]*data-ui-action="true"[^>]*data-action-variant="media"/)
-  assert.match(detailHtml, /aria-label="Close case study"[^>]*data-ui-action="true"[^>]*data-action-variant="icon"/)
+  assert.match(detailHtml, /aria-label="Back to Work"/)
   assert.match(homeHtml, /<a(?=[^>]*data-ui-action="true")(?=[^>]*href="\/about")[^>]*>/)
   assert.match(aboutHtml, /<a(?=[^>]*data-ui-action="true")(?=[^>]*href="https:\/\/www\.instagram\.com\/p\/CtOn5DFoLPw\/\?img_index=1")[^>]*>/)
 })
@@ -344,17 +655,16 @@ test('Swatch renders the new local case-study shell without legacy chrome', asyn
   assert.match(html, /class="[^"]*case-study-page[^"]*"/)
   assert.match(
     html,
-    /<a(?=[^>]*href="\/case-studies")(?=[^>]*aria-label="Close case study")[^>]*>/,
+    /<a(?=[^>]*href="\/case-studies")(?=[^>]*aria-label="Back to Work")[^>]*>/,
   )
-  assert.match(html, /Case study/)
+  assert.match(html, /data-testid="portfolio-rail"/)
   assert.match(html, /<h1[^>]*>Swatch<\/h1>/)
   assert.match(html, /2021-2022/)
   assert.match(html, /Design Systems/)
   assert.doesNotMatch(html, /№ 003 · CASE/)
   assert.doesNotMatch(html, /Case study system brief/)
   assert.doesNotMatch(html, /#design system/)
-  assert.match(html, /<header[^>]*data-site-header="true"[^>]*>/)
-  assert.match(html, /Jaynish Shah/)
+  assert.doesNotMatch(html, /<header[^>]*data-site-header="true"[^>]*>/)
   assert.match(css, /body:has\(\.case-study-page\)\s*>\s*footer[^}]*display:\s*none/)
   assert.match(css, /--type-h1:\s*clamp\(3rem,\s*8vw,\s*4\.5rem\)/)
   assert.match(css, /--type-case-study-title:\s*clamp\(2\.25rem,\s*3\.125vw,\s*2\.5rem\)/)
@@ -383,9 +693,6 @@ test('Swatch renders explicit responsive pictogram, section-lead, and media layo
   const featuredImageClass = html.match(
     /<div class="[^"]*featuredImage[^"]*"><img[^>]*class="([^"]*image[^"]*)"/,
   )?.[1]
-  const caseStudyH2Rule = css.match(
-    /\[data-variant='case-study'\]\s*>\s*h2\s*\{([^}]*)\}/,
-  )?.[1]
 
   assert.equal(response.status, 200)
   assert.equal((html.match(/data-case-study-layout="pictogram-row"/g) ?? []).length, 3)
@@ -400,8 +707,7 @@ test('Swatch renders explicit responsive pictogram, section-lead, and media layo
   assert.match(css, /grid-template-columns:\s*96px\s+minmax\(0,\s*1fr\)/)
   assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*grid-template-columns:\s*1fr/)
   assert.match(css, /--type-h3:\s*clamp\(1\.75rem,\s*3vw,\s*2\.4375rem\)/)
-  assert.ok(caseStudyH2Rule)
-  assert.match(caseStudyH2Rule, /--heading-size:\s*var\(--type-case-study-section\)/)
+  assert.doesNotMatch(css, /\[data-variant='case-study'\]\s*>\s*h2/)
   assert.match(css, /--type-case-study-section:\s*clamp\(2rem,\s*3\.1vw,\s*2\.5rem\)/)
   assert.match(css, /--type-h2:\s*clamp\(2\.75rem,\s*5vw,\s*3\.5rem\)/)
   assert.ok(mediaClass)

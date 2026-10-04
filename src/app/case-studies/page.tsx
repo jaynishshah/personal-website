@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import PortfolioRail from '@/components/navigation/PortfolioRail'
 import { getCaseStudies } from '@/lib/content'
 import { buildPageMetadata } from '@/lib/metadata'
 import styles from './page.module.css'
@@ -13,24 +14,10 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function CaseStudiesPage() {
   const caseStudies = getCaseStudies()
-  const contents = [
-    ...caseStudies.map((caseStudy) => caseStudy.title),
-    'Repairing design systems at Ticketmaster',
-    'Making Design System at Ticketmaster AI-ready',
-  ]
 
   return (
     <main className={`${styles.container} work-page`} data-testid="work-layout">
-      <header className={styles.identityRail} data-testid="work-identity-rail">
-        <Link href="/" className={styles.close} aria-label="Close Work" data-ui-action data-action-variant="row">
-          Hi. I’m Jaynish.
-        </Link>
-        <nav className={styles.sectionNavigation} aria-label="Portfolio sections">
-          <Link href="/case-studies" className={styles.activeSection}>Work</Link>
-          <Link href="/blog">Writing</Link>
-          <Link href="/about">About</Link>
-        </nav>
-      </header>
+      <PortfolioRail activeSection="work" />
 
       <section className={styles.content} aria-labelledby="work-title" data-transition-role="work-content">
         <h1 id="work-title" className={styles.title}>Work</h1>
@@ -76,7 +63,9 @@ export default function CaseStudiesPage() {
       <aside className={styles.contentsRail} data-testid="work-contents-rail" data-transition-role="contents" aria-label="Case study contents">
         <p className={styles.contentsTitle}>Contents</p>
         <ol className={styles.contentsList}>
-          {contents.map((item) => <li key={item}>{item}</li>)}
+          {caseStudies.map((caseStudy) => (
+            <li key={caseStudy.slug}><Link href={caseStudy.url}>{caseStudy.title}</Link></li>
+          ))}
         </ol>
       </aside>
     </main>

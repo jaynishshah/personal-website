@@ -2,6 +2,8 @@
   --work-background: #f7f5ef;
   --work-foreground: #1c1c1b;
   --work-accent: #3158de;
+  --portfolio-foreground: var(--work-foreground);
+  --portfolio-accent: var(--work-accent);
   background: var(--work-background);
   color: var(--work-foreground);
   display: grid;
@@ -13,81 +15,7 @@
   width: min(1314px, calc(100% - (2 * var(--page-gutter))));
 }
 
-.identityRail {
-  min-width: 0;
-}
-
-.close {
-  background: transparent;
-  color: var(--work-foreground);
-  display: inline-flex;
-  font-family: var(--font-family-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.05;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.close,
-.sectionNavigation a {
-  isolation: isolate;
-  position: relative;
-  width: fit-content;
-}
-
-.close::after,
-.sectionNavigation a::after {
-  background: var(--interactive-surface-background);
-  border: 1px solid var(--interactive-surface-outline);
-  border-radius: var(--interactive-surface-radius);
-  box-shadow: var(--interactive-surface-shadow);
-  content: "";
-  inset: -8px -10px;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  transition: opacity var(--motion-fast);
-  z-index: -1;
-}
-
-a.close:hover {
-  color: var(--work-foreground);
-  text-decoration: none;
-}
-
-.sectionNavigation {
-  display: grid;
-  gap: 0;
-  margin-top: 29px;
-}
-
-.sectionNavigation a {
-  color: var(--work-foreground);
-  display: inline-flex;
-  font-family: var(--font-family-display);
-  font-size: 16px;
-  justify-self: start;
-  line-height: 1;
-  padding-block: 16px;
-  text-decoration: underline;
-  text-underline-offset: 0.12em;
-}
-
-.sectionNavigation .activeSection {
-  color: var(--work-accent);
-  text-decoration: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .close:hover::after,
-  .sectionNavigation a:hover::after {
-    opacity: 1;
-  }
-}
-
 .content {
-  animation: work-content-enter var(--motion-content-enter) both;
   min-width: 0;
 }
 
@@ -148,7 +76,6 @@ a.close:hover {
 }
 
 .contentsRail {
-  animation: contents-enter var(--motion-content-enter) both;
   min-width: 0;
 }
 
@@ -170,26 +97,9 @@ a.close:hover {
   line-height: 1.2;
 }
 
-@keyframes contents-enter {
-  from {
-    opacity: 0;
-    transform: translate3d(7%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes work-content-enter {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 10px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+.contentsList a {
+  color: inherit;
+  text-decoration: none;
 }
 
 @media (max-width: 900px) {
@@ -209,23 +119,6 @@ a.close:hover {
     padding-top: 26px;
   }
 
-  .identityRail {
-    align-items: flex-start;
-    display: flex;
-    gap: 24px;
-    justify-content: space-between;
-  }
-
-  .sectionNavigation {
-    display: flex;
-    gap: 15px;
-    margin-top: -16px;
-  }
-
-  .sectionNavigation a {
-    font-size: 14px;
-  }
-
   .content {
     margin-top: 56px;
   }
@@ -237,27 +130,5 @@ a.close:hover {
   .contentsRail {
     display: block;
     margin-top: 56px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .close::after,
-  .sectionNavigation a::after {
-    transition: none;
-  }
-
-  .content,
-  .contentsRail {
-    animation-duration: 120ms;
-  }
-
-  @keyframes contents-enter {
-    from { opacity: 0; transform: none; }
-    to { opacity: 1; transform: none; }
-  }
-
-  @keyframes work-content-enter {
-    from { opacity: 0; transform: none; }
-    to { opacity: 1; transform: none; }
   }
 }

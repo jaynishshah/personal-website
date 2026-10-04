@@ -1,7 +1,7 @@
 .pictogramRow,
 .sectionLead {
   margin-inline: auto;
-  max-width: var(--reading-content-max);
+  max-width: none;
 }
 
 .pictogramRow {
@@ -23,7 +23,12 @@
   width: 72px;
 }
 
-.pictogramCopy h3,
+.pictogramCopy h3 {
+  --heading-leading: var(--type-h3-leading);
+  --heading-size: var(--type-case-study-row-heading);
+  margin: 0 0 8px;
+}
+
 .sectionLead h3 {
   --heading-leading: var(--type-h3-leading);
   --heading-size: var(--type-case-study-row-heading);
@@ -69,7 +74,7 @@
   font-style: italic;
   line-height: 1.4;
   margin: 12px auto 0;
-  max-width: var(--reading-content-max);
+  max-width: none;
   text-transform: none;
 }
 

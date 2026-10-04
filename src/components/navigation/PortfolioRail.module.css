@@ -1,0 +1,74 @@
+.rail {
+  align-self: start;
+  min-width: 0;
+  position: sticky;
+  top: 16px;
+  z-index: 2;
+}
+
+.identity,
+.navigation a {
+  isolation: isolate;
+  position: relative;
+  width: fit-content;
+}
+
+.identity {
+  color: var(--portfolio-foreground, #1c1c1b);
+  display: inline-flex;
+  font-family: var(--font-family-display);
+  font-size: 20px;
+  line-height: 1.05;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.identity::after,
+.navigation a::after {
+  background: var(--interactive-surface-background);
+  border: 1px solid var(--interactive-surface-outline);
+  border-radius: var(--interactive-surface-radius);
+  box-shadow: var(--interactive-surface-shadow);
+  content: "";
+  inset: -8px -10px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity var(--motion-hover);
+  z-index: -1;
+}
+
+.navigation {
+  display: grid;
+  gap: 16px;
+  margin-top: 37px;
+}
+
+.navigation a {
+  color: var(--portfolio-foreground, #1c1c1b);
+  font-family: var(--font-family-display);
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.navigation .activeSection { color: var(--portfolio-accent, #3158de); }
+
+.identity:hover,
+.navigation a:hover { text-decoration: none !important; }
+
+@media (hover: hover) and (pointer: fine) {
+  .identity:hover::after,
+  .navigation a:hover::after { opacity: 1; }
+}
+
+@media (max-width: 620px) {
+  .rail { align-items: flex-start; display: flex; gap: 24px; justify-content: space-between; }
+  .navigation { display: flex; gap: 15px; margin-top: 0; }
+  .navigation a { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identity::after,
+  .navigation a::after { transition: none; }
+}

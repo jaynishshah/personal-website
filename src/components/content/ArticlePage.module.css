@@ -54,19 +54,21 @@
 }
 
 .title {
-  font-size: clamp(3.1rem, 7vw, 6.2rem);
-  font-weight: 300;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
-  margin: 0;
+  font-size: var(--article-title-size, 20px);
+  font-weight: 400;
+  letter-spacing: var(--article-title-tracking, 0);
+  line-height: var(--article-title-leading, 1.05);
+  margin: 0 0 var(--article-title-bottom-space, 8px);
 }
 
 .summary {
   color: var(--color-contrast-2);
   font-family: var(--font-family-pt-serif);
-  font-size: 1.05rem;
-  line-height: 1.65;
-  margin-top: var(--spacing-20);
+  font-size: var(--article-subtitle-size, 16px);
+  font-style: italic;
+  letter-spacing: var(--article-subtitle-tracking, 0);
+  line-height: var(--article-subtitle-leading, 1.8);
+  margin-top: var(--article-subtitle-top-space, 8px);
 }
 
 .tags {
@@ -124,7 +126,11 @@
 }
 
 :global(.case-study-page) .meta {
+  font-size: var(--article-meta-size, 13px);
+  letter-spacing: var(--article-meta-tracking, 0);
+  line-height: var(--article-meta-leading, 1.4);
   margin-bottom: 24px;
+  margin-top: var(--article-meta-top-space, 8px);
 }
 
 :global(.case-study-page) .close {
@@ -177,4 +183,33 @@
   font-size: var(--type-case-study-summary);
   line-height: 1.4;
   margin-top: 24px;
+}
+
+.template {
+  --article-page-background: #f7f5ef;
+  --article-page-foreground: #1c1c1b;
+  --portfolio-foreground: #1c1c1b;
+  --portfolio-accent: #3158de;
+}
+
+.backLink {
+  align-items: center;
+  color: #1c1c1b;
+  display: inline-flex;
+  font-family: var(--font-family-display);
+  font-size: 20px;
+  gap: 4px;
+  line-height: 1.05;
+  text-decoration: none;
+}
+
+.backLink :global(.material-symbols-outlined) {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.backLink:hover { text-decoration: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .backLink:hover { color: #1c1c1b; }
 }
