@@ -99,8 +99,8 @@
 }
 
 :global(.case-study-page).container {
-  background: #f7f5ef;
-  color: #1c1c1b;
+  background: var(--color-portfolio-canvas);
+  color: var(--color-portfolio-ink);
   min-height: 100dvh;
   padding: 0 var(--page-gutter) var(--spacing-60);
 }
@@ -121,8 +121,8 @@
 
 :global(.case-study-page) .eyebrow,
 :global(.case-study-page) .meta {
-  color: #66635c;
-  font-family: var(--font-family-pt-serif);
+  color: var(--color-portfolio-muted);
+  font-family: var(--font-family-editorial);
 }
 
 :global(.case-study-page) .meta {
@@ -186,18 +186,18 @@
 }
 
 .template {
-  --article-page-background: #f7f5ef;
-  --article-page-foreground: #1c1c1b;
-  --portfolio-foreground: #1c1c1b;
-  --portfolio-accent: #3158de;
+  --article-page-background: var(--color-portfolio-canvas);
+  --article-page-foreground: var(--color-portfolio-ink);
+  --portfolio-foreground: var(--color-portfolio-ink);
+  --portfolio-accent: var(--color-portfolio-accent);
 }
 
 .backLink {
   align-items: center;
-  color: #1c1c1b;
+  color: var(--color-portfolio-ink);
   display: inline-flex;
   font-family: var(--font-family-display);
-  font-size: 20px;
+  font-size: var(--type-portfolio-label);
   gap: 4px;
   line-height: 1.05;
   text-decoration: none;
@@ -211,5 +211,5 @@
 .backLink:hover { text-decoration: none; }
 
 @media (hover: hover) and (pointer: fine) {
-  .backLink:hover { color: #1c1c1b; }
+  .backLink:hover { color: var(--color-portfolio-ink); }
 }

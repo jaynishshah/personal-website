@@ -155,7 +155,7 @@ test('Work route renders a dedicated image-led case-study index', async () => {
   assert.doesNotMatch(html, /Selected design systems work across foundations, governance, and adoption\./)
 })
 
-test('Work route renders the compact identity rail and case-study contents rail from the homepage transition', async () => {
+test('Work route renders the compact identity rail without a duplicate contents list', async () => {
   const response = await fetch(url)
   const html = await response.text()
 
@@ -164,8 +164,8 @@ test('Work route renders the compact identity rail and case-study contents rail 
   assert.match(html, /data-testid="portfolio-rail"/)
   assert.match(html, /Hi\. I’m Jaynish\./)
   assert.match(html, /<nav[^>]*aria-label="Portfolio sections"/)
-  assert.match(html, /data-testid="work-contents-rail"/)
-  assert.match(html, />Contents</)
+  assert.doesNotMatch(html, /data-testid="work-contents-rail"/)
+  assert.doesNotMatch(html, /aria-label="Case study contents"/)
 })
 
 test('Work, Writing, and blog articles render the one shared portfolio rail', async () => {
@@ -221,25 +221,25 @@ test('Case-study Markdown inherits the shared article typography and frame width
     readFile(path.join(process.cwd(), 'src', 'components', 'content', 'CaseStudyLayouts.module.css'), 'utf8'),
   ])
 
-  assert.match(templateStyles, /--article-body-size:\s*18px/)
-  assert.match(templateStyles, /--article-h1-size:\s*40px/)
-  assert.match(templateStyles, /--article-h2-size:\s*28px/)
-  assert.match(templateStyles, /--article-h3-size:\s*24px/)
+  assert.match(templateStyles, /--article-body-size:\s*var\(--type-article-body\)/)
+  assert.match(templateStyles, /--article-h1-size:\s*var\(--type-article-h1\)/)
+  assert.match(templateStyles, /--article-h2-size:\s*var\(--type-article-h2\)/)
+  assert.match(templateStyles, /--article-h3-size:\s*var\(--type-article-h3\)/)
   assert.doesNotMatch(bodyStyles, /\.body\[data-variant='case-study'\]\s*>\s*:global\(p\)[\s\S]*max-width/)
   assert.doesNotMatch(bodyStyles, /\.body\[data-variant='case-study'\]\s*>\s*:global\(h4\)\s*\{/)
   assert.doesNotMatch(caseLayouts, /max-width:\s*var\(--reading-content-max\)/)
 })
 
-test('Shared article shell centers fixed rails around a flexible 720px reading measure', async () => {
+test('Shared article shell uses the portfolio frame and reading measure tokens', async () => {
   const [globalCss, caseLayouts] = await Promise.all([
     readFile(path.join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8'),
     readFile(path.join(process.cwd(), 'src', 'components', 'content', 'CaseStudyLayouts.module.css'), 'utf8'),
   ])
 
-  assert.match(globalCss, /grid-template-columns:\s*199px\s+minmax\(0,\s*1fr\)\s+166px/)
-  assert.match(globalCss, /width:\s*min\(1140px,\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
-  assert.match(globalCss, /\.article-page-template__frame\s*\{[^}]*max-width:\s*720px/)
-  assert.match(globalCss, /\.article-page-template__featured\s*\{[^}]*max-width:\s*720px/)
+  assert.match(globalCss, /grid-template-columns:\s*var\(--portfolio-rail-width\)\s+minmax\(0,\s*1fr\)\s+var\(--portfolio-aside-width\)/)
+  assert.match(globalCss, /width:\s*min\(var\(--portfolio-frame-max\),\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
+  assert.match(globalCss, /\.article-page-template__frame\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
+  assert.match(globalCss, /\.article-page-template__featured\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
   assert.match(globalCss, /\.article-page-template__back-control\s*\{[^}]*position:\s*sticky/)
   assert.match(globalCss, /\.article-page-template__gradient\s*\{[^}]*height:\s*48px/)
   assert.match(caseLayouts, /\.pictogramCopy h3\s*\{[^}]*margin:\s*0\s+0\s+8px/)
@@ -257,7 +257,7 @@ test('The back-control adds its lower gradient buffer only after it becomes stic
   assert.match(globalCss, /\.article-page-template__gradient\[data-stuck='true'\]\s*\{[^}]*height:\s*72px/)
 })
 
-test('Work contents rail is derived only from published case studies', async () => {
+test('Work list is derived only from published case studies', async () => {
   const response = await fetch(url)
   const html = await response.text()
 
@@ -285,7 +285,9 @@ test('Writing uses the Work rail layout and keeps list metadata out of mono typo
   assert.match(html, /class="[^"]*writing-page[^"]*"/)
   assert.match(html, /aria-label="Close Writing"/)
   assert.doesNotMatch(html, />Contents</)
-  assert.match(writingStyles, /grid-template-columns:\s*199px\s+minmax\(0,\s*866px\)\s+166px/)
+  assert.match(writingStyles, /grid-template-columns:\s*var\(--portfolio-rail-width\)\s+minmax\(0,\s*1fr\)\s+var\(--portfolio-aside-width\)/)
+  assert.match(writingStyles, /width:\s*min\(var\(--portfolio-frame-max\),\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
+  assert.match(writingStyles, /\.content\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
   assert.doesNotMatch(postCardStyles, /font-family:\s*var\(--font-family-mono\)/)
 })
 
@@ -298,8 +300,11 @@ test('Blog posts use the Writing shell with a Back to Writing control and one sh
   assert.match(html, /aria-label="Back to Writing"/)
   assert.match(html, /material-symbols-outlined[^>]*>chevron_left<\/span>\s*Back to Writing/)
   assert.doesNotMatch(html, /Header_header/)
-  assert.match(postStyles, /grid-template-columns:\s*199px\s+minmax\(0,\s*866px\)\s+166px/)
-  assert.match(postStyles, /\.articleFrame\s*\{[^}]*max-width:\s*866px/)
+  assert.match(postStyles, /grid-template-columns:\s*var\(--portfolio-rail-width\)\s+minmax\(0,\s*1fr\)\s+var\(--portfolio-aside-width\)/)
+  assert.match(postStyles, /width:\s*min\(var\(--portfolio-frame-max\),\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
+  assert.match(postStyles, /\.articleFrame\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
+  assert.match(postStyles, /\.featuredImage\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
+  assert.match(postStyles, /\.articleBody\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
   assert.match(postStyles, /\.postTitle\s*\{[^}]*font-family:\s*var\(--font-family-display\)[^}]*font-size:\s*var\(--article-title-size,\s*20px\)/)
 })
 
@@ -318,8 +323,8 @@ test('Blog posts expose linked section hierarchy and the approved Markdown readi
   assert.match(html, /<figcaption[^>]*>Designer&#x27;s Role: Identify key trigger points\./)
   assert.match(contentsStyles, /\.contents a:hover\s*\{[^}]*text-decoration:\s*none/)
   assert.match(postStyles, /\.articleBody :global\(figure\)\s*\{[^}]*margin:\s*24px\s+0/)
-  assert.match(postStyles, /\.articleFrame\s*\{[^}]*--article-title-size:\s*20px[^}]*--article-subtitle-size:\s*16px[^}]*--article-meta-size:\s*13px/)
-  assert.match(postStyles, /\.articleBody\s*\{[^}]*--article-body-size:\s*18px[^}]*--article-h1-size:\s*40px[^}]*--article-h2-size:\s*28px[^}]*--article-h3-size:\s*24px/)
+  assert.match(postStyles, /\.articleFrame\s*\{[^}]*--article-title-size:\s*var\(--type-portfolio-label\)[^}]*--article-subtitle-size:\s*var\(--type-article-subtitle\)[^}]*--article-meta-size:\s*var\(--type-article-meta\)/)
+  assert.match(postStyles, /\.articleBody\s*\{[^}]*--article-body-size:\s*var\(--type-article-body\)[^}]*--article-h1-size:\s*var\(--type-article-h1\)[^}]*--article-h2-size:\s*var\(--type-article-h2\)[^}]*--article-h3-size:\s*var\(--type-article-h3\)/)
   assert.match(postStyles, /\.summary\s*\{[^}]*font-style:\s*italic/)
   assert.match(postStyles, /--article-h2-top-space:\s*32px[^}]*--article-h2-bottom-space:\s*12px/)
   assert.match(postStyles, /--article-code-size:\s*14px[^}]*--article-caption-size:\s*14px/)
@@ -344,7 +349,7 @@ test('Blog contents use one scroll-aware active surface and the article rails se
   assert.match(contentsStyles, /\.contents\s*\{[^}]*top:\s*16px/)
   assert.match(templateStyles, /\.article-page-template__contents\s*\{[^}]*margin-top:\s*19px/)
   assert.match(railStyles, /\.navigation\s*\{[^}]*margin-top:\s*37px/)
-  assert.match(contentsStyles, /\.contents p\s*\{[^}]*font-size:\s*20px/)
+  assert.match(contentsStyles, /\.contents p\s*\{[^}]*font-size:\s*var\(--type-portfolio-label\)/)
   assert.match(templateStyles, /\.article-page-template__featured\s*\{[^}]*margin-top:\s*26px/)
   assert.match(contentsStyles, /\.activeIndicator\s*\{[^}]*transition:\s*transform\s+220ms\s+cubic-bezier\(\.77,\s*0,\s*\.175,\s*1\)/)
   assert.match(templateStyles, /\.article-page-template__gradient\s*\{[^}]*linear-gradient/)
@@ -465,7 +470,7 @@ test('Home and Work expose independent transition regions for the shared layout 
   assert.match(homeHtml, /data-transition-role="intro-copy"/)
   assert.match(homeHtml, /data-transition-role="navigation"/)
   assert.match(workHtml, /data-transition-role="work-content"/)
-  assert.match(workHtml, /data-transition-role="contents"/)
+  assert.doesNotMatch(workHtml, /data-transition-role="contents"/)
 })
 
 test('Home and Work navigation has no route-transition choreography', async () => {
@@ -582,7 +587,7 @@ test('Site serves the outlined Material Symbols font unfilled', async () => {
   assert.match(emittedCss, /font-variation-settings:\s*["']FILL["'] 0/)
 })
 
-test('Home, Work, and case-study detail share the semantic site content rail', async () => {
+test('Home, Work, and case-study detail share the portfolio frame', async () => {
   const [homeResponse, workResponse, detailResponse] = await Promise.all([
     fetch(baseUrl),
     fetch(url),
@@ -599,12 +604,19 @@ test('Home, Work, and case-study detail share the semantic site content rail', a
   assert.equal(detailResponse.status, 200)
 
   for (const css of [homeCss, workCss, detailCss]) {
-    assert.match(css, /--site-content-max:\s*1280px/)
-    assert.match(css, /--reading-content-max:\s*720px/)
+    assert.match(css, /--portfolio-frame-max:\s*1140px/)
+    assert.match(css, /--portfolio-content-max:\s*720px/)
   }
 
-  assert.match(homeCss, /max-width:\s*var\(--site-content-max\)/)
-  assert.match(workCss, /grid-template-columns:\s*199px\s+minmax\(0,\s*866px\)\s+166px/)
+  const homeStyles = await readFile(path.join(process.cwd(), 'src', 'app', 'page.module.css'), 'utf8')
+  assert.match(homeStyles, /\.intro\s*\{[^}]*max-width:\s*var\(--portfolio-frame-max\)/)
+  assert.match(homeStyles, /\.navigation\s*\{[^}]*max-width:\s*var\(--portfolio-frame-max\)/)
+  assert.match(homeStyles, /\.bio\s*\{[^}]*max-width:\s*var\(--portfolio-content-max\)/)
+  assert.match(workCss, /grid-template-columns:\s*var\(--portfolio-rail-width\)\s+minmax\(0,\s*1fr\)\s+var\(--portfolio-aside-width\)/)
+  assert.match(workCss, /max-width:\s*var\(--portfolio-content-max\)/)
+  assert.match(workCss, /width:\s*min\(var\(--portfolio-frame-max\),\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
+  assert.match(detailCss, /width:\s*min\(var\(--portfolio-frame-max\),\s*calc\(100%\s*-\s*\(2\s*\*\s*var\(--page-gutter\)\)\)\)/)
+  assert.match(detailCss, /max-width:\s*var\(--portfolio-content-max\)/)
 })
 
 test('site exposes reusable display type and action primitives', async () => {
@@ -717,7 +729,7 @@ test('Swatch renders explicit responsive pictogram, section-lead, and media layo
     css,
     new RegExp(`\\.${featuredImageClass}\\s*\\{[^}]*border:\\s*0`),
   )
-  assert.match(css, /--case-study-content-max:\s*960px/)
+  assert.match(css, /--case-study-content-max:\s*var\(--portfolio-content-max\)/)
   assert.match(css, /\.case-study-page\s+\.[^{]*shell[^}]*max-width:\s*var\(--case-study-content-max\)/)
   assert.match(caseStudyLayoutStyles, /\.mediaFigure\s*\{[^}]*width:\s*100%/)
 })

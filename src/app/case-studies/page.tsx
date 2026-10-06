@@ -60,14 +60,6 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      <aside className={styles.contentsRail} data-testid="work-contents-rail" data-transition-role="contents" aria-label="Case study contents">
-        <p className={styles.contentsTitle}>Contents</p>
-        <ol className={styles.contentsList}>
-          {caseStudies.map((caseStudy) => (
-            <li key={caseStudy.slug}><Link href={caseStudy.url}>{caseStudy.title}</Link></li>
-          ))}
-        </ol>
-      </aside>
     </main>
   )
 }

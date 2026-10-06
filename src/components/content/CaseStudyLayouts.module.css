@@ -68,8 +68,8 @@
 }
 
 .caption {
-  color: #66635c;
-  font-family: var(--font-family-pt-serif);
+  color: var(--color-portfolio-muted);
+  font-family: var(--font-family-editorial);
   font-size: 1rem;
   font-style: italic;
   line-height: 1.4;

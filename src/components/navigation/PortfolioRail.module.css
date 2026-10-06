@@ -14,10 +14,10 @@
 }
 
 .identity {
-  color: var(--portfolio-foreground, #1c1c1b);
+  color: var(--portfolio-foreground, var(--color-portfolio-ink));
   display: inline-flex;
   font-family: var(--font-family-display);
-  font-size: 20px;
+  font-size: var(--type-portfolio-label);
   line-height: 1.05;
   text-decoration: none;
   white-space: nowrap;
@@ -45,14 +45,14 @@
 }
 
 .navigation a {
-  color: var(--portfolio-foreground, #1c1c1b);
+  color: var(--portfolio-foreground, var(--color-portfolio-ink));
   font-family: var(--font-family-display);
-  font-size: 16px;
+  font-size: var(--type-portfolio-navigation);
   line-height: 1;
   text-decoration: none;
 }
 
-.navigation .activeSection { color: var(--portfolio-accent, #3158de); }
+.navigation .activeSection { color: var(--portfolio-accent, var(--color-portfolio-accent)); }
 
 .identity:hover,
 .navigation a:hover { text-decoration: none !important; }
@@ -65,7 +65,7 @@
 @media (max-width: 620px) {
   .rail { align-items: flex-start; display: flex; gap: 24px; justify-content: space-between; }
   .navigation { display: flex; gap: 15px; margin-top: 0; }
-  .navigation a { font-size: 14px; }
+  .navigation a { font-size: var(--type-portfolio-navigation-compact); }
 }
 
 @media (prefers-reduced-motion: reduce) {
