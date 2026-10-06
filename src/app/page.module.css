@@ -1,15 +1,15 @@
 .home {
-  --home-background: #f7f5ef;
-  --home-foreground: #1c1c1b;
-  --home-muted: #66635c;
-  --home-purple: #3158de;
+  --home-background: var(--color-portfolio-canvas);
+  --home-foreground: var(--color-portfolio-ink);
+  --home-muted: var(--color-portfolio-muted);
+  --home-purple: var(--color-portfolio-accent);
   --quote-card-bleed: 7px;
   --quote-card-padding: 24px;
   --quote-slot: 1.05em;
   --home-navigation-start: calc(100dvh - var(--home-vertical-padding) - 303px);
   --home-vertical-padding: clamp(36px, 8.8vh, 80px);
   background: var(--home-background);
-  border: 1px solid #c8c4ba;
+  border: 1px solid var(--color-portfolio-media-placeholder);
   color: var(--home-foreground);
   height: 100dvh;
   overflow: hidden;
@@ -36,7 +36,7 @@
 
 .intro {
   margin-inline: auto;
-  max-width: var(--site-content-max);
+  max-width: var(--portfolio-frame-max);
   position: relative;
   width: 100%;
 }
@@ -202,7 +202,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin: 24px 0 0;
-  max-width: 716px;
+  max-width: var(--portfolio-content-max);
 }
 
 .navigation {
@@ -210,7 +210,7 @@
   flex-direction: column;
   margin-inline: auto;
   margin-top: auto;
-  max-width: var(--site-content-max);
+  max-width: var(--portfolio-frame-max);
   width: 100%;
 }
 
